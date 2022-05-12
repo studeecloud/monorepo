@@ -1,0 +1,24 @@
+default: &default
+  adapter: postgresql #
+  encoding: unicode #
+  username: labber #
+  password: labber #
+  host: localhost #
+  port: 5432 #
+
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: server_development #<---- name your database
+
+test:
+  <<: *default
+  database: server_test #<---- name your database
+
+
+production:
+  <<: *default
+  database: server_production  #<---- name your database
+  username: server
+  password: <%= ENV['SERVER_DATABASE_PASSWORD'] %>
