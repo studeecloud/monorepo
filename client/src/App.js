@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function App() {
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     axios.get('http://localhost:3000/users')
@@ -19,6 +19,7 @@ function App() {
   return (
     <div className="App">
       <h1>Users</h1>
+      {data.map(user => <li key={user.id}>user {user.id}: {user.email}</li>)}
     </div>
   );
 }
