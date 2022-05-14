@@ -4,7 +4,7 @@ import axios from 'axios';
 import { BigHead } from '@bigheads/core';
 
 function App() {
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     axios
