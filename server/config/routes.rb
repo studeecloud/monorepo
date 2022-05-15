@@ -1,4 +1,3 @@
 Rails.application.routes.draw do
-  get 'users' => 'users#index'
-  resources :users, only: [:index]
+  get 'users', to: 'users#index'
 end

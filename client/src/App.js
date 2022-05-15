@@ -23,18 +23,15 @@ function App() {
       });
   }, []);
 
-  // Testing ability to generate Big Head
-  const Example = () => (
-    <div style={{ width: '4rem' }}>
-      <BigHead />
-    </div>
-  );
-
   const headNum = 5;
   const headArray = [];
 
-  for (let i = 0; i < headNum; i++) {
-    headArray.push(Example());
+  for (let i = 1; i <= headNum; i++) {
+    headArray.push(
+      <div style={{ width: '5rem' }} key={i.toString()}>
+        <BigHead />
+      </div>
+    );
   }
 
   createLocalTracks({
@@ -74,9 +71,8 @@ function App() {
   });
 
   return (
-    <main>
+    <main style={{ margin: '0 0 0 1rem' }}>
       <h1>StudeeCloud App</h1>
-
       <h3>Token: {token}</h3>
 
       <form action="" method="get">
