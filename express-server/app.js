@@ -4,6 +4,9 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
+// database connection
+const db = require('./configs/db.config');
+
 // routes import
 const usersRoutes = require('./routes/users'); 
 
@@ -12,7 +15,6 @@ const app = express();
 // middleware setup
 app.use(morgan(ENVIRONMENT));
 app.use(bodyParser.json());
-
 
 // routes
 app.use('/users', usersRoutes());
