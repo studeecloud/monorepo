@@ -2,6 +2,7 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BigHead } from '@bigheads/core';
+import { connect, createLocalTracks } from 'twilio-video';
 
 function App() {
   const [data, setData] = useState([]);
@@ -18,54 +19,25 @@ function App() {
       });
   }, []);
 
+  // Testing ability to generate Big Head
   const Example = () => (
-    <BigHead
-      accessory="shades"
-      body="chest"
-      circleColor="blue"
-      clothing="tankTop"
-      clothingColor="black"
-      eyebrows="angry"
-      eyes="wink"
-      facialHair="mediumBeard"
-      graphic="vue"
-      hair="short"
-      hairColor="black"
-      hat="none"
-      hatColor="green"
-      lashes="false"
-      lipColor="purple"
-      mask="true"
-      faceMask="true"
-      mouth="open"
-      skinTone="brown"
-    />
+    <div style={{ width: '4rem' }}>
+      <BigHead />
+    </div>
   );
+
+  const headNum = 5;
+  const headArray = [];
+
+  for (let i = 0; i < headNum; i++) {
+    headArray.push(Example());
+  }
 
   return (
     <main>
       <h1>StudeeCloud App</h1>
-      <BigHead
-        accessory="shades"
-        body="chest"
-        circleColor="blue"
-        clothing="tankTop"
-        clothingColor="black"
-        eyebrows="angry"
-        eyes="wink"
-        facialHair="mediumBeard"
-        graphic="react"
-        hair="short"
-        hairColor="black"
-        hat="none"
-        hatColor="green"
-        lashes="false"
-        lipColor="purple"
-        mask="true"
-        faceMask="true"
-        mouth="open"
-        skinTone="brown"
-      />
+
+      {headArray}
     </main>
   );
 }
