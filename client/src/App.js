@@ -104,7 +104,10 @@ function App() {
         <input type="submit" value="Submit" />
       </form>
 
-      <div id="remote-media-div" style={{ border: '2px solid red' }}></div>
+      <div
+        id="remote-media-div"
+        style={{ border: '2px solid red', width: '12rem', height: '9rem' }}
+      ></div>
     </main>
   );
 }
