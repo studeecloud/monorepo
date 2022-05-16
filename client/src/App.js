@@ -40,6 +40,8 @@ function App() {
     );
   }
 
+  let chatRoom = null;
+
   // Create the media tracks that this user will be broadcasting to the Room with the 'audio' and 'video' keys in the object that is sent to createLocalTracks()
   createLocalTracks({
     audio: true,
@@ -52,6 +54,7 @@ function App() {
     }).then(
       (room) => {
         // If we are in here, we successfully joined the room.
+        chatRoom = room;
         console.log(`Successfully joined a Room: ${room}`);
 
         // Attach the RemoteTracks of participants that are already in the room at the time that we join
@@ -102,6 +105,30 @@ function App() {
     );
   });
 
+  const muteAudio = (room) => {
+    room.localParticipant.audioTracks.forEach((publication) => {
+      publication.track.disable();
+    });
+  };
+
+  const muteVideo = (room) => {
+    room.localParticipant.videoTracks.forEach((publication) => {
+      publication.track.disable();
+    });
+  };
+
+  const enableAudio = (room) => {
+    room.localParticipant.audioTracks.forEach((publication) => {
+      publication.track.enable();
+    });
+  };
+
+  const enableVideo = (room) => {
+    room.localParticipant.videoTracks.forEach((publication) => {
+      publication.track.enable();
+    });
+  };
+
   return (
     <main style={{ margin: '0 0 0 1rem' }}>
       <h1>StudeeCloud App</h1>
@@ -114,7 +141,26 @@ function App() {
         id="remote-media-div"
         style={{ border: '2px solid red', width: '12rem', height: '9rem' }}
       ></div>
-      <FontAwesomeIcon icon={solid('video')} />
+
+      <button type="button" name="videoOff" onClick={() => muteVideo(chatRoom)}>
+        <FontAwesomeIcon icon={solid('video-slash')} />
+      </button>
+
+      <button
+        type="button"
+        name="videoOn"
+        onClick={() => enableVideo(chatRoom)}
+      >
+        <FontAwesomeIcon icon={solid('video')} />
+      </button>
+
+      <button type="button" name="micOff" onClick={() => muteAudio(chatRoom)}>
+        <FontAwesomeIcon icon={solid('microphone-slash')} />
+      </button>
+
+      <button type="button" name="micOn" onClick={() => enableAudio(chatRoom)}>
+        <FontAwesomeIcon icon={solid('microphone')} />
+      </button>
     </main>
   );
 }
