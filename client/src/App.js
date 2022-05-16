@@ -3,9 +3,18 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BigHead } from '@bigheads/core';
 import { connect, createLocalTracks } from 'twilio-video';
+import { useTimer } from 'use-timer';
+
 
 function App() {
   const [data, setData] = useState([]);
+  const { time, start, pause, reset, status } = useTimer({
+    timerType: 'DECREMENTAL',
+    initialTime: 3000,
+    onTimeOver: () => {
+      console.log('Time is over');
+    },
+  });
 
   useEffect(() => {
     axios
@@ -36,6 +45,15 @@ function App() {
 
       <button className="btn btn-primary">Swag</button>
       <div>{headArray}</div>
+      <>
+        <div>
+          <button onClick={start}>Start</button>
+          <button onClick={pause}>Pause</button>
+          <button onClick={reset}>Reset</button>
+        </div>
+        <p>Elapsed time: {time}</p>
+        {status === 'RUNNING' && <p>Running...</p>}
+    </>
     </main>
   );
 }
