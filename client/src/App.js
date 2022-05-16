@@ -7,21 +7,20 @@ import { connect, createLocalTracks } from 'twilio-video';
 function App() {
   const queryParams = new URLSearchParams(window.location.search);
   const token = queryParams.get('token');
-  console.log('LOGGING "token":', token);
 
   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get('http://localhost:3000/users')
-      .then((res) => {
-        console.log(res.data);
-        setData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get('http://localhost:3000/users')
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       setData(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
 
   const headNum = 5;
   const headArray = [];
@@ -34,21 +33,45 @@ function App() {
     );
   }
 
+  // Create the media tracks that this user will be broadcasting to the Room with the 'audio' and 'video' keys in the object that is sent to createLocalTracks()
   createLocalTracks({
     audio: true,
     video: { width: 640 },
   }).then((localTracks) => {
+    // Use the unique user token to connect to the given room name with the given local media tracks
     return connect(token, {
       name: 'DailyStandup',
       tracks: localTracks,
     }).then(
       (room) => {
+        // If we are in here, we successfully joined the room.
         console.log(`Successfully joined a Room: ${room}`);
+
+        // Attach the RemoteTracks of participants that are already in the room at the time that we join
+        room.participants.forEach((participant) => {
+          // Iterate over the participant's media tracks, and if they are published, then attach them to the 'remote-media-div'
+          participant.tracks.forEach((publication) => {
+            if (publication.track) {
+              document
+                .getElementById('remote-media-div')
+                .appendChild(publication.track.attach());
+            }
+          });
+
+          participant.on('trackSubscribed', (track) => {
+            document
+              .getElementById('remote-media-div')
+              .appendChild(track.attach());
+          });
+        });
+
+        // The code in here executes when a new participant joins the call
         room.on('participantConnected', (participant) => {
           console.log(`A remote Participant connected: ${participant}`);
 
-          // Attach the Participant's Media to a <div> element
+          // When a participant joins, we iterate over the possible media tracks that they might be broadcasting at the time that they join the Room
           participant.tracks.forEach((publication) => {
+            // If a given media track is being broadcast, we grab it and append it to the 'remote-media-div'
             if (publication.isSubscribed) {
               const track = publication.track;
               document
@@ -57,7 +80,9 @@ function App() {
             }
           });
 
+          // If a participant begins broadcasting a media track that they were not broadcasting when they joined the call, this event is triggered
           participant.on('trackSubscribed', (track) => {
+            // When that happens, we append it to the 'remote-media-div', same as above
             document
               .getElementById('remote-media-div')
               .appendChild(track.attach());
@@ -73,7 +98,6 @@ function App() {
   return (
     <main style={{ margin: '0 0 0 1rem' }}>
       <h1>StudeeCloud App</h1>
-      <h3>Token: {token}</h3>
 
       <form action="" method="get">
         <input type="text" name="token" style={{ border: '1px solid blue' }} />
@@ -81,8 +105,6 @@ function App() {
       </form>
 
       <div id="remote-media-div" style={{ border: '2px solid red' }}></div>
-
-      {headArray}
     </main>
   );
 }
