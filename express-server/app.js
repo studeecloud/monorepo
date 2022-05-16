@@ -17,7 +17,7 @@ app.use(morgan(ENVIRONMENT));
 app.use(bodyParser.json());
 
 // routes
-app.use('/users', usersRoutes());
+app.use('/users', usersRoutes(db));
 
 app.get('/', (req, res) => {
   res.json({greetings: 'hello world'});
