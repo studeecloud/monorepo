@@ -4,6 +4,13 @@ import axios from 'axios';
 import { BigHead } from '@bigheads/core';
 import { connect, createLocalTracks } from 'twilio-video';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  solid,
+  regular,
+  brands,
+} from '@fortawesome/fontawesome-svg-core/import.macro'; // <-- import styles to be used
+
 function App() {
   const queryParams = new URLSearchParams(window.location.search);
   const token = queryParams.get('token');
@@ -98,7 +105,6 @@ function App() {
   return (
     <main style={{ margin: '0 0 0 1rem' }}>
       <h1>StudeeCloud App</h1>
-
       <form action="" method="get">
         <input type="text" name="token" style={{ border: '1px solid blue' }} />
         <input type="submit" value="Submit" />
@@ -108,6 +114,7 @@ function App() {
         id="remote-media-div"
         style={{ border: '2px solid red', width: '12rem', height: '9rem' }}
       ></div>
+      <FontAwesomeIcon icon={solid('video')} />
     </main>
   );
 }
