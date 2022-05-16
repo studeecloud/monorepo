@@ -50,6 +50,7 @@ function App() {
   return (
     <main style={{ margin: '0 0 0 1rem' }}>
       <h1>StudeeCloud App</h1>
+      <h2>a</h2>
       <Timer />
     </main>
   );
