@@ -4,9 +4,11 @@ import { useTimer } from 'use-timer';
 
 
 export default function Timer() {
+  let startTime = 3000;
+
   const { time, start, pause, reset, status } = useTimer({
       timerType: 'DECREMENTAL',
-      initialTime: 60,
+      initialTime: startTime,
       endTime: 0,
       onTimeOver: () => {
         console.log('Time is over');
@@ -14,9 +16,12 @@ export default function Timer() {
     });
 
     // console.log("this is the time ", time)
-    console.log("this is status", status)
+    // console.log("this is status", status)
+    // console.log("this is userTimer", useTimer)
     const min = Math.floor(time/60)
     const sec = (time - min * 60).toString().padStart(2, "0")
+
+
 
     const startPauseButton = () => {
       if(status === "RUNNING"){
@@ -27,13 +32,23 @@ export default function Timer() {
       }
     }
 
+    const toggleTimer = () => {
+      if(startTime === 3000){
+        startTime = 1500
+      } else {
+        startTime = 3000
+      };
+    };
+    console.log("this is start time", startTime);
+
   return(
     <div>
         <div>
           {startPauseButton()}
           <button className="btn btn-primary" onClick={reset}>Reset</button>
+          <button className="btn btn-primary" onClick={toggleTimer}>Toggle</button>
         </div>
-        <p>Elapsed time: {min}:{sec} </p>
+        <h2> {min}:{sec} </h2>
         {status === 'RUNNING' && <p>Running...</p>}
     </div>
   )
