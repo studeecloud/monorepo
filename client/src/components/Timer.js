@@ -3,10 +3,12 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import PlayButton from "./PlayButton";
 import PauseButton from "./PauseButton";
 
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import SettingsContext from "./SettingsContext";
 
 export default function Timer() {
+  const [isPaused, setIsPaused] = useState(false);
+
   const settingsInfo = useContext(SettingsContext);
   return (
     <div>
@@ -20,8 +22,7 @@ export default function Timer() {
         })}
       />
       <div style={{ marginTop: "20px" }}>
-        <PlayButton />
-        <PauseButton />
+        {isPaused ? <PlayButton /> : <PauseButton />}
       </div>
       <div style={{ marginTop: "20px" }}>
         <button

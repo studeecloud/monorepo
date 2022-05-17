@@ -67,10 +67,6 @@ function App() {
     <main style={{ margin: "0 0 0 1rem" }}>
       <h1>StudeeCloud App</h1>
       <PomodoroTimer />
-      <button className="btn btn-primary">Swag</button>
-      <FontAwesomeIcon icon={solid("user-secret")} />
-      <FontAwesomeIcon icon={regular("coffee")} />
-      <div>{headArray}</div>
     </main>
   );
 }
