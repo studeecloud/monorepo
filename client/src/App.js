@@ -4,23 +4,39 @@ import axios from 'axios';
 import { BigHead } from '@bigheads/core';
 import { connect, createLocalTracks } from 'twilio-video';
 // import { useTimer } from 'use-timer';
-import Timer from './components/Timer';
+import TimerTest from './components/TimerTests';
+import PomodoroTimer from './components/PomodoroTimer';
 
 
 
 function App() {
   const [data, setData] = useState([]);
-  // const { time, start, pause, reset, status } = useTimer({
-  //   timerType: 'DECREMENTAL',
-  //   initialTime: 60,
-  //   endTime: 0,
-  //   onTimeOver: () => {
-  //     console.log('Time is over');
-  //   },
-  // });
-  // console.log("this is the time ", time)
-  // const min = Math.floor(time/60)
-  // const sec = (time - min * 60).toString().padStart(2, "0")
+  /// PRATICE CODE: Implementing Timer with useState and useEffect()
+  const [secondsLeft, setSecondsLeft] = useState(25 * 60);
+  const [timer, setTimer] = useState();
+
+  const startTimer = () => {
+    const timer = setInterval(() => {
+      setSecondsLeft((secondsLeft) => secondsLeft - 1);
+      if (secondsLeft === 0) {
+        clearInterval(timer);
+      }
+    }, 1000);
+    setTimer(timer);
+  };
+
+  useEffect(() => {
+    if (secondsLeft === 0) {
+      clearInterval(timer);
+    }
+  }, [secondsLeft, timer]);
+
+  useEffect(() => {
+    return () => clearInterval(timer);
+  }, [timer]);
+
+
+
 
   useEffect(() => {
     axios
@@ -51,7 +67,13 @@ function App() {
     <main style={{ margin: '0 0 0 1rem' }}>
       <h1>StudeeCloud App</h1>
       <h2>a</h2>
-      <Timer />
+      <TimerTest />
+      <div className="App">
+        <h1>Pomodoro Timer</h1>
+        <button onClick={startTimer}>start</button>
+      <div>{secondsLeft} seconds left</div>
+      <PomodoroTimer />
+    </div>
     </main>
   );
 }
