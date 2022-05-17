@@ -9,6 +9,13 @@ import PomodoroTimer from './components/PomodoroTimer';
 
 
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  solid,
+  regular,
+  brands,
+} from '@fortawesome/fontawesome-svg-core/import.macro'; // <-- import styles to be used
+
 function App() {
   const [data, setData] = useState([]);
   /// PRATICE CODE: Implementing Timer with useState and useEffect()
@@ -66,7 +73,11 @@ function App() {
   return (
     <main style={{ margin: '0 0 0 1rem' }}>
       <h1>StudeeCloud App</h1>
-      <PomodoroTimer />
+
+      <button className="btn btn-primary">Swag</button>
+      <FontAwesomeIcon icon={solid('user-secret')} />
+      <FontAwesomeIcon icon={regular('coffee')} />
+      <div>{headArray}</div>
     </main>
   );
 }
