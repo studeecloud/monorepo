@@ -3,7 +3,7 @@ import {CircularProgressbar, buildStyles} from 'react-circular-progressbar'
 
 import PlayButton from './PlayButton'
 import PauseButton from './PauseButton'
-import SettingsButton from './SettingButton'
+import SettingsButton from './Settings'
 
 export default function Timer() {
 

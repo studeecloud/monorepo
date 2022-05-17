@@ -12,9 +12,9 @@
   border-radius: 20px;
 }
 
-.slider.green{
+.slider.break{
   border: 2px solid green;
 }
-.slider.green .thumb{
+.slider.break .thumb{
   background-color: green;
 }
