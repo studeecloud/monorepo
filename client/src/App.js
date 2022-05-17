@@ -118,7 +118,7 @@ function App() {
           });
         });
 
-        // The code in here executes when a new participant joins the call
+        // When a new participant connects, display their published media tracks
         room.on('participantConnected', (participant) => {
           console.log(`A remote Participant connected: ${participant}`);
 
@@ -139,6 +139,21 @@ function App() {
             document
               .getElementById('remote-media-div')
               .appendChild(track.attach());
+          });
+        });
+        // When a participant disconnects, detach their media tracks
+        room.on('participantDisconnected', (participant) => {
+          participant.tracks.forEach((publication) => {
+            console.log('Participant "%s" disconnected', participant.identity);
+            // TODO: Find the correct code for clearing the media track div, or just replace with avatar
+          });
+        });
+
+        room.on('disconnected', (room) => {
+          // Detach local media elements
+          room.localParticipant.tracks.forEach((publication) => {
+            const attachedElements = publication.track.detach();
+            attachedElements.forEach((element) => element.remove());
           });
         });
       },
@@ -227,6 +242,14 @@ function App() {
           onClick={() => enableAudio(chatRoom)}
         >
           <FontAwesomeIcon icon={solid('microphone')} />
+        </button>
+
+        <button
+          type="button"
+          name="disconnect"
+          onClick={() => chatRoom.disconnect()}
+        >
+          <FontAwesomeIcon icon={solid('phone-slash')} />
         </button>
       </div>
     </main>
