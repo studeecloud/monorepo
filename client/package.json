@@ -10,6 +10,7 @@
     "axios": "^0.27.2",
     "daisyui": "^2.15.0",
     "react": "^18.1.0",
+    "react-circular-progressbar": "^2.0.4",
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",
     "twilio-video": "^2.21.1",
