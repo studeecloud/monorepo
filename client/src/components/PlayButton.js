@@ -1,5 +1,5 @@
 export default function PlayButton(){
   return(
-    <button className="btn btn-primary"> Pause </button>
+    <button className="btn btn-primary"> Play </button>
   )
 }

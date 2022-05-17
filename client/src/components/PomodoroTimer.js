@@ -14,16 +14,17 @@ export default function PomodoroTimer() {
   return (
     <main>
       <SettingsContext.Provider value={{
+        showSettings,
+        setShowSettings,
         workMinutes,
         breakMinutes,
         setWorkMinutes,
         setBreakMinutes,
-        showSettings,
-        setShowSettings
       }}>
-        {showSettings ? <Settings /> : <Timer/>}
+        {showSettings ? <Settings /> : <Timer />}
+        {< Settings />}
       </SettingsContext.Provider>
     </main>
-  )
+  );
 }
 

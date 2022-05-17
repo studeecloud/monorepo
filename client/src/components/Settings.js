@@ -6,7 +6,6 @@ import SettingsContext from './SettingsContext';
 
 import BackButton from './BackButton'
 
-
 export default function Settings() {
   
   const settingsInfo = useContext(SettingsContext);
