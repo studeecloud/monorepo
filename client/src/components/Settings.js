@@ -4,6 +4,8 @@ import './slider.css'
 import { useContext } from 'react';
 import SettingsContext from './SettingsContext';
 
+import BackButton from './BackButton'
+
 
 export default function Settings() {
   
@@ -17,9 +19,9 @@ export default function Settings() {
         thumbClassName={'thumb'}
         trackClassName={'track'}
         value={settingsInfo.workMinutes}
-        onChange={newValue => settingsInfo}
-        min={1}
-        max={120}
+        onChange={newValue => settingsInfo.setWorkMinutes(newValue)}
+        min={15}
+        max={60}
       />
       <label>break: {settingsInfo.breakMinutes} </label>
       <ReactSlider
@@ -27,9 +29,14 @@ export default function Settings() {
         thumbClassName={'thumb'}
         trackClassName={'track'}
         value={settingsInfo.breakMinutes}
-        min={1}
-        max={120}
+        onChange={newValue => settingsInfo.setBreakMinutes(newValue)}
+        min={15}
+        max={60}
       />
+      <div style={{textAlign:'center', marginTop:'20px'}}>
+        <BackButton onClick={() => settingsInfo.setShowSettings(false)} />
+      </div>
+
     </div>
   )
 }
