@@ -39,7 +39,9 @@ function App() {
 
   return (
     <main style={{ margin: '0 0 0 1rem' }}>
-      <h1 className="font-display text-5xl text-center">StudeeCloud</h1>
+      <h1 className="font-display text-5xl text-teal text-center">
+        StudeeCloud
+      </h1>
       <h2 className="font-header text-4xl text-center">
         Collaborative
         <br />
@@ -54,7 +56,50 @@ function App() {
       <button className="btn btn-primary font-header text-3xl">SIGN IN</button>
       <FontAwesomeIcon icon={solid('user-secret')} />
       <FontAwesomeIcon icon={regular('coffee')} />
-      <div>{headArray}</div>
+      <div className="flex w-fit border-2 border-black">
+        <div
+          className="bg-dark-gray text-meringue text-center"
+          style={{ width: '8rem', height: '4rem' }}
+        >
+          dark-gray
+        </div>
+        <div
+          className="bg-deep-purple text-meringue text-center"
+          style={{ width: '8rem', height: '4rem' }}
+        >
+          deep-purple
+        </div>
+        <div
+          className="bg-plum text-meringue text-center"
+          style={{ width: '8rem', height: '4rem' }}
+        >
+          plum
+        </div>
+        <div
+          className="bg-teal text-meringue text-center"
+          style={{ width: '8rem', height: '4rem' }}
+        >
+          teal
+        </div>
+        <div
+          className="bg-coral text-center"
+          style={{ width: '8rem', height: '4rem' }}
+        >
+          coral
+        </div>
+        <div
+          className="bg-gold text-center"
+          style={{ width: '8rem', height: '4rem' }}
+        >
+          gold
+        </div>
+        <div
+          className="bg-meringue text-center"
+          style={{ width: '8rem', height: '4rem' }}
+        >
+          meringue
+        </div>
+      </div>
     </main>
   );
 }
