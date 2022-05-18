@@ -19,6 +19,7 @@ import {
 } from '@fortawesome/fontawesome-svg-core/import.macro'; // <-- import styles to be used
 import Panel from './components/Panel';
 import TitlePanel from './components/TitlePanel';
+import VideoPanel from './components/VideoPanel';
 
 function App() {
   // Display a local camera preview
@@ -258,6 +259,8 @@ function App() {
     .map((panel) => {
       if (panel.id === 1)
         return <TitlePanel key={1} onSelect={() => selectPanel(1)} />;
+      else if (panel.id === 2)
+        return <VideoPanel key={2} onSelect={() => selectPanel(2)} />;
       else
         return (
           <Panel
