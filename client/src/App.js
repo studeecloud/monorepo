@@ -1,18 +1,18 @@
-import "./App.css";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { BigHead } from "@bigheads/core";
-import { connect, createLocalTracks } from "twilio-video";
+import './App.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { BigHead } from '@bigheads/core';
+import { connect, createLocalTracks } from 'twilio-video';
 // import { useTimer } from 'use-timer';
-import TimerTest from "./components/TimerTests";
-import PomodoroTimer from "./components/PomodoroTimer";
+import TimerTest from './components/TimerTests';
+import PomodoroTimer from './components/PomodoroTimer';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   solid,
   regular,
   brands,
-} from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
+} from '@fortawesome/fontawesome-svg-core/import.macro'; // <-- import styles to be used
 
 function App() {
   const [data, setData] = useState([]);
@@ -42,7 +42,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/users")
+      .get('http://localhost:3000/users')
       .then((res) => {
         console.log(res.data);
         setData(res.data);
@@ -57,18 +57,13 @@ function App() {
 
   for (let i = 1; i <= headNum; i++) {
     headArray.push(
-      <div style={{ width: "5rem" }} key={i.toString()}>
+      <div style={{ width: '5rem' }} key={i.toString()}>
         <BigHead />
       </div>
     );
   }
 
   return (
-<<<<<<< HEAD
-    <main style={{ margin: "0 0 0 1rem" }}>
-      <h1>StudeeCloud App</h1>
-      <PomodoroTimer />
-=======
     <main style={{ margin: '0 0 0 1rem' }}>
       <h1 className="font-display text-5xl text-teal text-center">
         StudeeCloud
@@ -131,7 +126,7 @@ function App() {
           meringue
         </div>
       </div>
->>>>>>> main
+      <PomodoroTimer />
     </main>
   );
 }
