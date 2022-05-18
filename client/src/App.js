@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BigHead } from '@bigheads/core';
 import { connect, createLocalTracks } from 'twilio-video';
+// import { useTimer } from 'use-timer';
+import TimerTest from './components/TimerTests';
+import PomodoroTimer from './components/PomodoroTimer';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -13,6 +16,29 @@ import {
 
 function App() {
   const [data, setData] = useState([]);
+  /// PRATICE CODE: Implementing Timer with useState and useEffect()
+  const [secondsLeft, setSecondsLeft] = useState(25 * 60);
+  const [timer, setTimer] = useState();
+
+  const startTimer = () => {
+    const timer = setInterval(() => {
+      setSecondsLeft((secondsLeft) => secondsLeft - 1);
+      if (secondsLeft === 0) {
+        clearInterval(timer);
+      }
+    }, 1000);
+    setTimer(timer);
+  };
+
+  useEffect(() => {
+    if (secondsLeft === 0) {
+      clearInterval(timer);
+    }
+  }, [secondsLeft, timer]);
+
+  useEffect(() => {
+    return () => clearInterval(timer);
+  }, [timer]);
 
   useEffect(() => {
     axios
@@ -100,6 +126,7 @@ function App() {
           meringue
         </div>
       </div>
+      <PomodoroTimer />
     </main>
   );
 }
