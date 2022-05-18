@@ -85,7 +85,7 @@ export default function Timer() {
         text={minutes + ':' + seconds}
         styles={buildStyles({
           textColor: '#f54e4e',
-          pathColor: '#f54e4e',
+          pathColor: mode === 'work' ? '#f54e4e' : '#00FF00',
           tailColor: 'rgba(255,255,255,.2)',
         })}
       />
