@@ -3,7 +3,7 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import PlayButton from "./PlayButton";
 import PauseButton from "./PauseButton";
 
-import { useContext, useState, useEffect, useRef } from "react";
+import { useContext, useState, useEffect } from "react";
 import SettingsContext from "./SettingsContext";
 
 export default function Timer() {
@@ -11,31 +11,40 @@ export default function Timer() {
   const [secondsLeft, setSecondsLeft] = useState(0);
   const [mode, setMode] = useState("work");
 
-  const secondsLeftRef = useRef(secondsLeft);
-  const isPausedRef = useRef(isPaused);
+  const settingsInfo = useContext(SettingsContext);
 
-  function switchMode() {
-    const nextMode = mode === "work" ? "break" : "work";
-    setMode(nextMode);
-    setSecondsLeft(
-      nextMode === "work"
-        ? settingsInfo.workMinutes * 60
-        : settingsInfo.breakMinutes * 60
-    );
-  }
+  console.log("this is mode", mode);
+  console.log("this is isPaused", isPaused);
+  console.log("this is secondsLeft", secondsLeft);
+  console.log("this is settingsInfo", settingsInfo);
 
   function tick() {
-    setSecondsLeft(setSecondsLeft - 1);
-  }
-
-  function initTimer() {
-    setSecondsLeft(settingsInfo.workMinutes * 60);
+    setSecondsLeft((prev) => prev - 1);
   }
 
   useEffect(() => {
+    function initTimer() {
+      setSecondsLeft(settingsInfo.workMinutes * 60);
+    }
     initTimer();
+  }, [settingsInfo.workMinutes]);
 
-    setInterval(() => {
+  useEffect(() => {
+    function switchMode() {
+      const nextMode = mode === "work" ? "break" : "work";
+      setMode(nextMode);
+      setSecondsLeft(
+        nextMode === "work"
+          ? settingsInfo.workMinutes * 60
+          : settingsInfo.breakMinutes * 60
+      );
+      // const nextSeconds =
+      //   (nextMode === "work"
+      //     ? settingsInfo.workMinutes
+      //     : settingsInfo.breakMinutes) * 60;
+    }
+
+    const interval = setInterval(() => {
       if (isPaused) {
         return;
       }
@@ -44,10 +53,17 @@ export default function Timer() {
       }
 
       tick();
-    });
-  }, [settingsInfo]);
+    }, 1000);
 
-  const settingsInfo = useContext(SettingsContext);
+    return () => clearInterval(interval);
+  }, [
+    isPaused,
+    secondsLeft,
+    settingsInfo.workMinutes,
+    mode,
+    settingsInfo.breakMinutes,
+  ]);
+
   return (
     <div>
       <CircularProgressbar
@@ -60,15 +76,18 @@ export default function Timer() {
         })}
       />
       <div style={{ marginTop: "20px" }}>
-        {isPaused ? <PlayButton /> : <PauseButton />}
+        {isPaused ? (
+          <PlayButton setPlay={() => setIsPaused(false)} />
+        ) : (
+          <PauseButton setPause={() => setIsPaused(true)} />
+        )}
       </div>
       <div style={{ marginTop: "20px" }}>
         <button
           className="btn btn-primary"
           onClick={() => settingsInfo.setShowSettings(true)}
         >
-          {" "}
-          Settings{" "}
+          Settings
         </button>
       </div>
     </div>

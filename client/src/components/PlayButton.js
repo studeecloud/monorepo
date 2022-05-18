@@ -1,5 +1,8 @@
-export default function PlayButton(){
-  return(
-    <button className="btn btn-primary"> Play </button>
-  )
+export default function PlayButton({setPlay}) {
+  return (
+    <button className="btn btn-primary" onClick={() => setPlay()}>
+      {" "}
+      Play{" "}
+    </button>
+  );
 }
