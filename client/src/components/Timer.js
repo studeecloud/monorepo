@@ -5,6 +5,7 @@ import PauseButton from "./PauseButton";
 
 import { useContext, useState, useEffect } from "react";
 import SettingsContext from "./SettingsContext";
+import { Countdown } from "daisyui";
 
 export default function Timer() {
   const [isPaused, setIsPaused] = useState(false);
@@ -64,11 +65,25 @@ export default function Timer() {
     settingsInfo.breakMinutes,
   ]);
 
+  const totalSeconds =
+    mode === "work"
+      ? settingsInfo.workMinutes * 60
+      : settingsInfo.breakMinutes * 60;
+  const percentage = Math.round((secondsLeft / totalSeconds) * 100);
+
+  const minutes = Math.floor(secondsLeft / 60);
+  let seconds = secondsLeft % 60;
+  if (seconds < 10) seconds = "0" + seconds;
+
   return (
     <div>
+      <span className="countdown font-mono text-2xl">
+        <span style={{ value: { minutes } }}></span>:
+        <span style={{ value: { seconds } }}></span>
+      </span>
       <CircularProgressbar
-        value={60}
-        text={`60%`}
+        value={percentage}
+        text={minutes}
         styles={buildStyles({
           textColor: "#f54e4e",
           pathColor: "#f54e4e",

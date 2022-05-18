@@ -16,7 +16,7 @@ export default function Settings() {
         trackClassName={"track"}
         value={settingsInfo.workMinutes}
         onChange={(newValue) => settingsInfo.setWorkMinutes(newValue)}
-        min={15}
+        min={1}
         max={60}
       />
       <label>break: {settingsInfo.breakMinutes} </label>
@@ -26,7 +26,7 @@ export default function Settings() {
         trackClassName={"track"}
         value={settingsInfo.breakMinutes}
         onChange={(newValue) => settingsInfo.setBreakMinutes(newValue)}
-        min={15}
+        min={1}
         max={60}
       />
       <div style={{ textAlign: "center", marginTop: "20px" }}>
