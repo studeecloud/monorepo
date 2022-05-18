@@ -269,51 +269,6 @@ function App() {
         SIGN IN
       </button>
 
-      {/* COLOR PALETTE FOR DEVELOPMENT */}
-      <div className="flex w-fit border-2 border-black">
-        <div
-          className="bg-dark-gray text-meringue text-center"
-          style={{ width: '8rem', height: '4rem' }}
-        >
-          dark-gray
-        </div>
-        <div
-          className="bg-deep-purple text-meringue text-center"
-          style={{ width: '8rem', height: '4rem' }}
-        >
-          deep-purple
-        </div>
-        <div
-          className="bg-plum text-meringue text-center"
-          style={{ width: '8rem', height: '4rem' }}
-        >
-          plum
-        </div>
-        <div
-          className="bg-teal text-meringue text-center"
-          style={{ width: '8rem', height: '4rem' }}
-        >
-          teal
-        </div>
-        <div
-          className="bg-coral text-center"
-          style={{ width: '8rem', height: '4rem' }}
-        >
-          coral
-        </div>
-        <div
-          className="bg-gold text-center"
-          style={{ width: '8rem', height: '4rem' }}
-        >
-          gold
-        </div>
-        <div
-          className="bg-meringue text-center"
-          style={{ width: '8rem', height: '4rem' }}
-        >
-          meringue
-        </div>
-      </div>
       <PomodoroTimer />
     </main>
   );
