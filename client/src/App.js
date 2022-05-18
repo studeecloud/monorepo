@@ -2,7 +2,6 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BigHead } from '@bigheads/core';
-
 import {
   connect,
   createLocalTracks,
@@ -11,7 +10,6 @@ import {
 // import { useTimer } from 'use-timer';
 import TimerTest from './components/TimerTests';
 import PomodoroTimer from './components/PomodoroTimer';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   solid,
