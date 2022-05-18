@@ -20,9 +20,12 @@
     "classnames": "^2.3.1",
     "daisyui": "^2.15.0",
     "react": "^18.1.0",
+    "react-circular-progressbar": "^2.0.4",
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",
+    "react-slider": "^2.0.1",
     "twilio-video": "^2.21.1",
+    "use-timer": "^2.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -50,6 +53,8 @@
     ]
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.7",
+    "postcss": "^8.4.13",
     "tailwindcss": "^3.0.24"
   }
 }
