@@ -39,9 +39,19 @@ function App() {
 
   return (
     <main style={{ margin: '0 0 0 1rem' }}>
-      <h1>StudeeCloud App</h1>
+      <h1 className="font-display text-5xl text-center">StudeeCloud</h1>
+      <h2 className="font-header text-4xl text-center">
+        Collaborative
+        <br />
+        Study Environment
+      </h2>
 
-      <button className="btn btn-primary">Swag</button>
+      <p className="font-body text-lg">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Class aptent
+        taciti sociosqu ad litora!
+      </p>
+
+      <button className="btn btn-primary font-header text-3xl">SIGN IN</button>
       <FontAwesomeIcon icon={solid('user-secret')} />
       <FontAwesomeIcon icon={regular('coffee')} />
       <div>{headArray}</div>
