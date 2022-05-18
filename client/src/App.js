@@ -18,6 +18,7 @@ import {
   brands,
 } from '@fortawesome/fontawesome-svg-core/import.macro'; // <-- import styles to be used
 import Panel from './components/Panel';
+import TitlePanel from './components/TitlePanel';
 
 function App() {
   // Display a local camera preview
@@ -255,13 +256,16 @@ function App() {
       (panel) => panelState.focused === null || panelState.focused === panel.id
     )
     .map((panel) => {
-      return (
-        <Panel
-          key={panel.id}
-          {...panel}
-          onSelect={() => selectPanel(panel.id)}
-        />
-      );
+      if (panel.id === 1)
+        return <TitlePanel key={1} onSelect={() => selectPanel(1)} />;
+      else
+        return (
+          <Panel
+            key={panel.id}
+            {...panel}
+            onSelect={() => selectPanel(panel.id)}
+          />
+        );
     });
 
   return <main className={dashboardClasses}>{panels}</main>;
@@ -272,14 +276,6 @@ export default App;
 // CODE TO BE MERGED INTO PANELS
 // return (
 //   <main style={{ margin: '0 0 0 1rem' }}>
-//     <h1 className="font-display text-5xl text-teal text-center">
-//       StudeeCloud
-//     </h1>
-//     <h2 className="font-header text-4xl text-center">
-//       Collaborative
-//       <br />
-//       Study Environment
-//     </h2>
 //     <p className="font-body text-lg">
 //       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Class aptent
 //       taciti sociosqu ad litora!
