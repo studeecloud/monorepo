@@ -64,9 +64,74 @@ function App() {
   }
 
   return (
+<<<<<<< HEAD
     <main style={{ margin: "0 0 0 1rem" }}>
       <h1>StudeeCloud App</h1>
       <PomodoroTimer />
+=======
+    <main style={{ margin: '0 0 0 1rem' }}>
+      <h1 className="font-display text-5xl text-teal text-center">
+        StudeeCloud
+      </h1>
+      <h2 className="font-header text-4xl text-center">
+        Collaborative
+        <br />
+        Study Environment
+      </h2>
+
+      <p className="font-body text-lg">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Class aptent
+        taciti sociosqu ad litora!
+      </p>
+
+      <button className="btn btn-primary font-header text-3xl">SIGN IN</button>
+      <FontAwesomeIcon icon={solid('user-secret')} />
+      <FontAwesomeIcon icon={regular('coffee')} />
+      <div className="flex w-fit border-2 border-black">
+        <div
+          className="bg-dark-gray text-meringue text-center"
+          style={{ width: '8rem', height: '4rem' }}
+        >
+          dark-gray
+        </div>
+        <div
+          className="bg-deep-purple text-meringue text-center"
+          style={{ width: '8rem', height: '4rem' }}
+        >
+          deep-purple
+        </div>
+        <div
+          className="bg-plum text-meringue text-center"
+          style={{ width: '8rem', height: '4rem' }}
+        >
+          plum
+        </div>
+        <div
+          className="bg-teal text-meringue text-center"
+          style={{ width: '8rem', height: '4rem' }}
+        >
+          teal
+        </div>
+        <div
+          className="bg-coral text-center"
+          style={{ width: '8rem', height: '4rem' }}
+        >
+          coral
+        </div>
+        <div
+          className="bg-gold text-center"
+          style={{ width: '8rem', height: '4rem' }}
+        >
+          gold
+        </div>
+        <div
+          className="bg-meringue text-center"
+          style={{ width: '8rem', height: '4rem' }}
+        >
+          meringue
+        </div>
+      </div>
+>>>>>>> main
     </main>
   );
 }
