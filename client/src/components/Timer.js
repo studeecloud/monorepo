@@ -1,22 +1,22 @@
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 
-import PlayButton from "./PlayButton";
-import PauseButton from "./PauseButton";
+import PlayButton from './PlayButton';
+import PauseButton from './PauseButton';
 
-import { useContext, useState, useEffect } from "react";
-import SettingsContext from "./SettingsContext";
+import { useContext, useState, useEffect } from 'react';
+import SettingsContext from './SettingsContext';
 
 export default function Timer() {
   const [isPaused, setIsPaused] = useState(false);
   const [secondsLeft, setSecondsLeft] = useState(0);
-  const [mode, setMode] = useState("work");
+  const [mode, setMode] = useState('work');
 
   const settingsInfo = useContext(SettingsContext);
 
-  console.log("this is mode", mode);
-  console.log("this is isPaused", isPaused);
-  console.log("this is secondsLeft", secondsLeft);
-  console.log("this is settingsInfo", settingsInfo);
+  console.log('this is mode', mode);
+  console.log('this is isPaused', isPaused);
+  console.log('this is secondsLeft', secondsLeft);
+  console.log('this is settingsInfo', settingsInfo);
 
   function tick() {
     setSecondsLeft((prev) => prev - 1);
@@ -31,10 +31,10 @@ export default function Timer() {
 
   useEffect(() => {
     function switchMode() {
-      const nextMode = mode === "work" ? "break" : "work";
+      const nextMode = mode === 'work' ? 'break' : 'work';
       setMode(nextMode);
       setSecondsLeft(
-        nextMode === "work"
+        nextMode === 'work'
           ? settingsInfo.workMinutes * 60
           : settingsInfo.breakMinutes * 60
       );
@@ -65,14 +65,14 @@ export default function Timer() {
   ]);
 
   const totalSeconds =
-    mode === "work"
+    mode === 'work'
       ? settingsInfo.workMinutes * 60
       : settingsInfo.breakMinutes * 60;
   const percentage = Math.round((secondsLeft / totalSeconds) * 100);
 
   const minutes = Math.floor(secondsLeft / 60);
   let seconds = secondsLeft % 60;
-  if (seconds < 10) seconds = "0" + seconds;
+  if (seconds < 10) seconds = '0' + seconds;
 
   return (
     <div>
@@ -82,21 +82,21 @@ export default function Timer() {
       </span>
       <CircularProgressbar
         value={percentage}
-        text={minutes}
+        text={minutes + ':' + seconds}
         styles={buildStyles({
-          textColor: "#f54e4e",
-          pathColor: "#f54e4e",
-          tailColor: "rgba(255,255,255,.2)",
+          textColor: '#f54e4e',
+          pathColor: '#f54e4e',
+          tailColor: 'rgba(255,255,255,.2)',
         })}
       />
-      <div style={{ marginTop: "20px" }}>
+      <div style={{ marginTop: '20px' }}>
         {isPaused ? (
           <PlayButton setPlay={() => setIsPaused(false)} />
         ) : (
           <PauseButton setPause={() => setIsPaused(true)} />
         )}
       </div>
-      <div style={{ marginTop: "20px" }}>
+      <div style={{ marginTop: '20px' }}>
         <button
           className="btn btn-primary"
           onClick={() => settingsInfo.setShowSettings(true)}
