@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { BigHead } from '@bigheads/core';
 
 export default function VideoPanel({ onSelect }) {
   // EXPECTED PROPS:
   // onSelect:Function
+
+  // TODO -- Update this so the Big Heads aren't regenerated on each click to this panel
 
   return (
     <section
@@ -10,19 +13,25 @@ export default function VideoPanel({ onSelect }) {
       style={{ border: '1px solid black' }}
       onClick={onSelect}
     >
-      <h1 className="font-display text-4xl text-black text-center">Squad</h1>
+      <h1 className="font-display mb-2 text-4xl text-black text-center">
+        Squad
+      </h1>
 
       <div className="grid grid-rows-2 grid-cols-2 gap-3">
-        <div className="border-2 border-teal" style={{ height: '10rem' }}>
+        <div className="border-2 border-coral flex flex-col items-center">
+          <BigHead className="w-1/3 mb-3" />
           KEHAN
         </div>
-        <div className="border-2 border-teal" style={{ height: '10rem' }}>
+        <div className="border-2 border-coral flex flex-col items-center">
+          <BigHead className="w-1/3 mb-3" />
           LISA
         </div>
-        <div className="border-2 border-teal" style={{ height: '10rem' }}>
+        <div className="border-2 border-coral flex flex-col items-center">
+          <BigHead className="w-1/3 mb-3" />
           GONZO
         </div>
-        <div className="border-2 border-teal" style={{ height: '10rem' }}>
+        <div className="border-2 border-coral flex flex-col items-center">
+          <BigHead className="w-1/3 mb-3" />
           JAKE
         </div>
       </div>
