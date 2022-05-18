@@ -5,7 +5,6 @@ import PauseButton from "./PauseButton";
 
 import { useContext, useState, useEffect } from "react";
 import SettingsContext from "./SettingsContext";
-import { Countdown } from "daisyui";
 
 export default function Timer() {
   const [isPaused, setIsPaused] = useState(false);
