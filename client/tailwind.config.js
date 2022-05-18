@@ -16,6 +16,6 @@ module.exports = {
       header: ['Bungee Hairline', 'cursive'],
       body: ['Nunito', 'sans-serif'],
     },
-    plugins: [require('daisyui')],
+    plugins: [require('@tailwindcss/typography'), require('daisyui')],
   },
 };
