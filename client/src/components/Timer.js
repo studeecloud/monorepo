@@ -13,10 +13,10 @@ export default function Timer() {
 
   const settingsInfo = useContext(SettingsContext);
 
-  console.log('this is mode', mode);
-  console.log('this is isPaused', isPaused);
-  console.log('this is secondsLeft', secondsLeft);
-  console.log('this is settingsInfo', settingsInfo);
+  // console.log('this is mode', mode);
+  // console.log('this is isPaused', isPaused);
+  // console.log('this is secondsLeft', secondsLeft);
+  // console.log('this is settingsInfo', settingsInfo);
 
   function tick() {
     setSecondsLeft((prev) => prev - 1);
