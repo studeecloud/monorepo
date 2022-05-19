@@ -19,9 +19,14 @@ import {
 
 function App() {
   // Display a local camera preview
+
   createLocalVideoTrack().then((track) => {
     const localMediaContainer = document.getElementById('local-media-div');
-    localMediaContainer.appendChild(track.attach());
+    localMediaContainer.replaceChild(
+      track.attach(),
+      localMediaContainer.firstChild
+    );
+    // localMediaContainer.appendChild(track.attach());
   });
 
   const queryParams = new URLSearchParams(window.location.search);
@@ -112,9 +117,12 @@ function App() {
           });
           // Display any new media tracks that are subscribed by participants in the room
           participant.on('trackSubscribed', (track) => {
-            document
-              .getElementById('remote-media-div')
-              .appendChild(track.attach());
+            const remoteMediaContainer =
+              document.getElementById('remote-media-div');
+            remoteMediaContainer.replaceChild(
+              track.attach(),
+              remoteMediaContainer.firstChild
+            );
           });
         });
 
@@ -127,18 +135,24 @@ function App() {
             // If a given media track is being broadcast, we grab it and append it to the 'remote-media-div'
             if (publication.isSubscribed) {
               const track = publication.track;
-              document
-                .getElementById('remote-media-div')
-                .appendChild(track.attach());
+              const remoteMediaContainer =
+                document.getElementById('remote-media-div');
+              remoteMediaContainer.replaceChild(
+                track.attach(),
+                remoteMediaContainer.firstChild
+              );
             }
           });
 
           // If a participant begins broadcasting a media track that they were not broadcasting when they joined the call, this event is triggered
           participant.on('trackSubscribed', (track) => {
             // When that happens, we append it to the 'remote-media-div', same as above
-            document
-              .getElementById('remote-media-div')
-              .appendChild(track.attach());
+            const remoteMediaContainer =
+              document.getElementById('remote-media-div');
+            remoteMediaContainer.replaceChild(
+              track.attach(),
+              remoteMediaContainer.firstChild
+            );
           });
         });
         // When a participant disconnects, detach their media tracks
@@ -214,8 +228,17 @@ function App() {
           border: '2px solid red',
           width: '12rem',
           height: '9rem',
+          overflow: 'hidden',
         }}
-      ></div>
+      >
+        <div
+          className="flex flex-col items-center bg-coral"
+          style={{ width: '12rem', height: '9rem' }}
+        >
+          <BigHead className="" style={{ width: '50%' }} />
+          Jeff
+        </div>
+      </div>
 
       <div
         id="local-media-div"
@@ -224,8 +247,11 @@ function App() {
           border: '2px solid green',
           width: '6rem',
           height: '4.5rem',
+          overflow: 'hidden',
         }}
-      ></div>
+      >
+        <div className="bg-teal" style={{ width: '6rem', height: '4.5rem' }} />
+      </div>
 
       <div>
         <button
