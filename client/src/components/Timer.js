@@ -16,11 +16,6 @@ export default function Timer() {
   // FIXME: Refactor using just props (see values being passed through Provide component in PomodoroTimer file)
   const settingsInfo = useContext(SettingsContext);
 
-  // console.log('this is mode', mode);
-  // console.log('this is isPaused', isPaused);
-  // console.log('this is secondsLeft', secondsLeft);
-  // console.log('this is settingsInfo', settingsInfo);
-
   // Initializes timer with "work" mode first
   // FIXME: All settingsInfo will be replaced props
   useEffect(() => {
@@ -81,7 +76,7 @@ export default function Timer() {
 
   // Helper function to calcuate perfentage of time left
   // REVIEW: Helper function is used in CircularProgressBar Componenet.
-  // Not MVP nod does it necessarily follow our them. Also, DaisyUI has progress bar components
+  // Not MVP nor does it necessarily follow our theme. Also, DaisyUI has progress bar components
   const percentage = Math.round((secondsLeft / totalSeconds) * 100);
 
   return (

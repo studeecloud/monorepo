@@ -2,6 +2,57 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## APIs
+
+### Twilio Video API
+
+Create a Room via CLI:
+
+```bash
+curl -XPOST 'https://video.twilio.com/v1/Rooms' -u '{API SID}:{API Secret}' -d 'UniqueName=DailyStandup'
+```
+
+Example of Room object:
+
+```json
+{
+  "unique_name": "DailyStandup",
+  "date_updated": "2022-05-15T17:26:32Z",
+  "media_region": "us1",
+  "max_participant_duration": 14400,
+  "duration": null,
+  "video_codecs": ["VP8", "H264"],
+  "large_room": false,
+  "enable_turn": true,
+  "empty_room_timeout": 5,
+  "sid": "RM4cc18aa4a604d878f7f1fb5b5e2f2327",
+  "type": "group",
+  "status_callback_method": "POST",
+  "status": "in-progress",
+  "audio_only": false,
+  "unused_room_timeout": 5,
+  "max_participants": 50,
+  "max_concurrent_published_tracks": 170,
+  "url": "https://video.twilio.com/v1/Rooms/RM4cc18aa4a604d878f7f1fb5b5e2f2327",
+  "record_participants_on_connect": false,
+  "account_sid": "AC715697874243866d7b71c7fc02a56f3d",
+  "end_time": null,
+  "date_created": "2022-05-15T17:26:32Z",
+  "status_callback": null,
+  "links": {
+    "recordings": "https://video.twilio.com/v1/Rooms/RM4cc18aa4a604d878f7f1fb5b5e2f2327/Recordings",
+    "participants": "https://video.twilio.com/v1/Rooms/RM4cc18aa4a604d878f7f1fb5b5e2f2327/Participants",
+    "recording_rules": "https://video.twilio.com/v1/Rooms/RM4cc18aa4a604d878f7f1fb5b5e2f2327/RecordingRules"
+  }
+}
+```
+
+Generate unique user token, where <identity> is a string identifying the user:
+
+```bash
+twilio token:video --identity=<identity>
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
