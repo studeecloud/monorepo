@@ -5,34 +5,29 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import PlayButton from './PlayButton';
 import PauseButton from './PauseButton';
 
-import { useContext, useState, useEffect } from 'react';
-import SettingsContext from './SettingsContext'; //FIXME: useContext component to be removed
+import { useState, useEffect } from 'react';
 
-export default function Timer() {
+export default function Timer(props) {
+  const { setShowSettings, workMinutes, breakMinutes } = props;
+
   const [isPaused, setIsPaused] = useState(false); //Used by pause & play buttons on timer
   const [mode, setMode] = useState('work'); // "Work" and "Play" alternate once timer reaches 0
   const [secondsLeft, setSecondsLeft] = useState(0); //Each mode has independent secondsLeft state
 
-  // FIXME: Refactor using just props (see values being passed through Provide component in PomodoroTimer file)
-  const settingsInfo = useContext(SettingsContext);
-
   // Initializes timer with "work" mode first
-  // FIXME: All settingsInfo will be replaced props
   useEffect(() => {
     function initTimer() {
-      setSecondsLeft(settingsInfo.workMinutes * 60);
+      setSecondsLeft(workMinutes * 60);
     }
     initTimer();
-  }, [settingsInfo.workMinutes]);
+  }, [workMinutes]);
 
   useEffect(() => {
     function switchMode() {
       const nextMode = mode === 'work' ? 'break' : 'work';
       setMode(nextMode);
       setSecondsLeft(
-        nextMode === 'work'
-          ? settingsInfo.workMinutes * 60
-          : settingsInfo.breakMinutes * 60
+        nextMode === 'work' ? workMinutes * 60 : breakMinutes * 60
       );
     }
 
@@ -55,19 +50,10 @@ export default function Timer() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [
-    isPaused,
-    secondsLeft,
-    settingsInfo.workMinutes,
-    mode,
-    settingsInfo.breakMinutes,
-  ]);
+  }, [isPaused, secondsLeft, workMinutes, mode, breakMinutes]);
 
   // Helper functions to calcuate time left in Min:Sec format
-  const totalSeconds =
-    mode === 'work'
-      ? settingsInfo.workMinutes * 60
-      : settingsInfo.breakMinutes * 60;
+  const totalSeconds = mode === 'work' ? workMinutes * 60 : breakMinutes * 60;
 
   const minutes = Math.floor(secondsLeft / 60);
   let seconds = secondsLeft % 60;
@@ -104,7 +90,7 @@ export default function Timer() {
       <div style={{ marginTop: '20px' }}>
         <button
           className="btn btn-primary"
-          onClick={() => settingsInfo.setShowSettings(true)}
+          onClick={() => setShowSettings(true)}
         >
           Settings
         </button>
