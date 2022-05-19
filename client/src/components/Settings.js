@@ -2,6 +2,8 @@ import ReactSlider from 'react-slider';
 import './slider.css';
 
 export default function Settings(props) {
+  // setShowSettings is booelan
+  // workMinutes & setWorkMinutes and breakMinutes & setBreakMinutes are numbers
   const {
     setShowSettings,
     workMinutes,

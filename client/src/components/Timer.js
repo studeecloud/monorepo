@@ -8,6 +8,8 @@ import PauseButton from './PauseButton';
 import { useState, useEffect } from 'react';
 
 export default function Timer(props) {
+  // setShowSettings is booelan
+  // workMinutes and breakMinutes are both numbers
   const { setShowSettings, workMinutes, breakMinutes } = props;
 
   const [isPaused, setIsPaused] = useState(false); //Used by pause & play buttons on timer
