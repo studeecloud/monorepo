@@ -227,7 +227,7 @@ function App() {
         }}
       ></div>
 
-      <div>
+      <div className="flex ml-6 justify-around w-48">
         <button
           type="button"
           name="videoOff"
