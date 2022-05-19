@@ -253,7 +253,7 @@ function App() {
         <div className="bg-teal" style={{ width: '6rem', height: '4.5rem' }} />
       </div>
 
-      <div>
+      <div className="flex ml-6 justify-around w-48">
         <button
           type="button"
           name="videoOff"
