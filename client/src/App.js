@@ -291,7 +291,7 @@ function App() {
         </button>
       </div>
 
-      <button className="btn btn-primary border-2 border-teal font-header text-3xl">
+      <button className="btn btn-primary border-2 border-teal font-header text-3xl my-2.5">
         SIGN IN
       </button>
 
