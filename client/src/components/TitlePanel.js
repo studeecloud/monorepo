@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PomodoroTimer from './PomodoroTimer';
 
 export default function TitlePanel({ onSelect }) {
   // EXPECTED PROPS:
@@ -18,6 +19,13 @@ export default function TitlePanel({ onSelect }) {
         <br />
         Study Environment
       </h2>
+      <div className="w-1/6">
+        <PomodoroTimer />
+      </div>
+      <form action="" method="get">
+        <input type="text" name="token" style={{ border: '1px solid blue' }} />
+        <input type="submit" value="Submit" />
+      </form>
     </section>
   );
 }

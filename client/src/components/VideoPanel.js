@@ -19,8 +19,14 @@ export default function VideoPanel({ onSelect }) {
 
       <div className="grid grid-rows-2 grid-cols-2 gap-3">
         <div className="border-2 border-coral flex flex-col items-center">
-          <BigHead className="w-1/3 mb-3" />
-          KEHAN
+          <div
+            id="remote-media-div"
+            style={{
+              display: 'inline-block',
+              width: '100%',
+              height: '100%',
+            }}
+          ></div>
         </div>
         <div className="border-2 border-coral flex flex-col items-center">
           <BigHead className="w-1/3 mb-3" />
