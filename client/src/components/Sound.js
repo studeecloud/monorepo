@@ -6,6 +6,8 @@ export default function Sound() {
     src: ['https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'],
     html5: true,
     preload: true,
+    loop: true,
+    volume: 1,
   });
 
   return (
