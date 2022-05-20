@@ -1,5 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
+import classnames from 'classnames';
 import axios from 'axios';
 import { BigHead } from '@bigheads/core';
 import {
@@ -17,6 +18,9 @@ import {
   regular,
   brands,
 } from '@fortawesome/fontawesome-svg-core/import.macro'; // <-- import styles to be used
+import Panel from './components/Panel';
+import TitlePanel from './components/TitlePanel';
+import VideoPanel from './components/VideoPanel';
 
 function App() {
   // Display a local camera preview
@@ -27,11 +31,36 @@ function App() {
       track.attach(),
       localMediaContainer.firstChild
     );
-    // localMediaContainer.appendChild(track.attach());
   });
 
   const queryParams = new URLSearchParams(window.location.search);
   const token = queryParams.get('token');
+
+  const [data, setData] = useState([]);
+  const [panelState, setPanelState] = useState({ focused: null });
+  /// PRATICE CODE: Implementing Timer with useState and useEffect()
+  const [secondsLeft, setSecondsLeft] = useState(25 * 60);
+  const [timer, setTimer] = useState();
+
+  const startTimer = () => {
+    const timer = setInterval(() => {
+      setSecondsLeft((secondsLeft) => secondsLeft - 1);
+      if (secondsLeft === 0) {
+        clearInterval(timer);
+      }
+    }, 1000);
+    setTimer(timer);
+  };
+
+  useEffect(() => {
+    if (secondsLeft === 0) {
+      clearInterval(timer);
+    }
+  }, [secondsLeft, timer]);
+
+  useEffect(() => {
+    return () => clearInterval(timer);
+  }, [timer]);
 
   // useEffect(() => {
   //   axios
@@ -44,6 +73,12 @@ function App() {
   //       console.log(err);
   //     });
   // }, []);
+
+  const selectPanel = (id) => {
+    setPanelState((prev) => ({
+      focused: prev.focused ? null : id,
+    }));
+  };
 
   const headNum = 5;
   const headArray = [];
@@ -133,7 +168,7 @@ function App() {
 
           // When a participant joins, we iterate over the possible media tracks that they might be broadcasting at the time that they join the Room
           participant.tracks.forEach((publication) => {
-            // If a given media track is being broadcast, we grab it and append it to the 'remote-media-div'
+            // If a given media track is being broadcast, we grab it and use it to replace the existing child of 'remote-media-div'
             if (publication.isSubscribed) {
               const track = publication.track;
               const remoteMediaContainer =
@@ -147,7 +182,7 @@ function App() {
 
           // If a participant begins broadcasting a media track that they were not broadcasting when they joined the call, this event is triggered
           participant.on('trackSubscribed', (track) => {
-            // When that happens, we append it to the 'remote-media-div', same as above
+            // When that happens, we use it to replace the existing child of 'remote-media-div'
             const remoteMediaContainer =
               document.getElementById('remote-media-div');
             remoteMediaContainer.replaceChild(
@@ -178,124 +213,100 @@ function App() {
     );
   });
 
-  const muteAudio = (room) => {
-    room.localParticipant.audioTracks.forEach((publication) => {
-      publication.track.disable();
+  // Test data for panels
+  const panelData = [
+    {
+      id: 1,
+      title: 'Pomodoro',
+      bodyText: '07:23',
+    },
+    {
+      id: 2,
+      title: 'Videos',
+      bodyText: 'VIDEOFEED',
+    },
+    {
+      id: 3,
+      title: 'Chat',
+      bodyText: 'BLAHBLAH',
+    },
+    {
+      id: 4,
+      title: 'Soundboard',
+      bodyText: 'BOOP BEEP SOUNDSOUND',
+    },
+  ];
+
+  const dashboardClasses = classnames('dashboard', {
+    'dashboard--focused': panelState.focused,
+  });
+
+  // Take the array of panel data and make an array of panel elements
+  const panels = panelData
+    .filter(
+      (panel) => panelState.focused === null || panelState.focused === panel.id
+    )
+    .map((panel) => {
+      if (panel.id === 1)
+        return <TitlePanel key={1} onSelect={() => selectPanel(1)} />;
+      else if (panel.id === 2)
+        return (
+          <VideoPanel
+            key={2}
+            chatRoom={chatRoom}
+            onSelect={() => selectPanel(2)}
+          />
+        );
+      else
+        return (
+          <Panel
+            key={panel.id}
+            {...panel}
+            onSelect={() => selectPanel(panel.id)}
+          />
+        );
     });
-  };
 
-  const muteVideo = (room) => {
-    room.localParticipant.videoTracks.forEach((publication) => {
-      publication.track.disable();
-    });
-  };
-
-  const enableAudio = (room) => {
-    room.localParticipant.audioTracks.forEach((publication) => {
-      publication.track.enable();
-    });
-  };
-
-  const enableVideo = (room) => {
-    room.localParticipant.videoTracks.forEach((publication) => {
-      publication.track.enable();
-    });
-  };
-
-  return (
-    <main style={{ margin: '0 0 0 1rem' }}>
-      <h1 className="font-display text-5xl text-teal text-center">
-        StudeeCloud
-      </h1>
-      <h2 className="font-header text-4xl text-center">
-        Collaborative
-        <br />
-        Study Environment
-      </h2>
-      <p className="font-body text-lg">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Class aptent
-        taciti sociosqu ad litora!
-      </p>
-
-      <form action="" method="get">
-        <input type="text" name="token" style={{ border: '1px solid blue' }} />
-        <input type="submit" value="Submit" />
-      </form>
-
-      <div
-        id="remote-media-div"
-        style={{
-          display: 'inline-block',
-          border: '2px solid red',
-          width: '12rem',
-          height: '9rem',
-          overflow: 'hidden',
-        }}
-      >
-        <div
-          className="flex flex-col items-center bg-coral"
-          style={{ width: '12rem', height: '9rem' }}
-        >
-          <BigHead className="" style={{ width: '50%' }} />
-          Jeff
-        </div>
-      </div>
-
-      <div
-        id="local-media-div"
-        style={{
-          display: 'inline-block',
-          border: '2px solid green',
-          width: '6rem',
-          height: '4.5rem',
-          overflow: 'hidden',
-        }}
-      >
-        <div className="bg-teal" style={{ width: '6rem', height: '4.5rem' }} />
-      </div>
-
-      <div className="flex ml-6 justify-around w-48">
-        <button
-          type="button"
-          name="videoOff"
-          onClick={() => muteVideo(chatRoom)}
-        >
-          <FontAwesomeIcon icon={solid('video-slash')} />
-        </button>
-
-        <button
-          type="button"
-          name="videoOn"
-          onClick={() => enableVideo(chatRoom)}
-        >
-          <FontAwesomeIcon icon={solid('video')} />
-        </button>
-
-        <button type="button" name="micOff" onClick={() => muteAudio(chatRoom)}>
-          <FontAwesomeIcon icon={solid('microphone-slash')} />
-        </button>
-
-        <button
-          type="button"
-          name="micOn"
-          onClick={() => enableAudio(chatRoom)}
-        >
-          <FontAwesomeIcon icon={solid('microphone')} />
-        </button>
-
-        <button
-          type="button"
-          name="disconnect"
-          onClick={() => chatRoom.disconnect()}
-        >
-          <FontAwesomeIcon icon={solid('phone-slash')} />
-        </button>
-      </div>
-
-      <Login />
-      <PomodoroTimer />
-    </main>
-  );
+  return <main className={dashboardClasses}>{panels}</main>;
 }
 
 export default App;
+
+// CODE TO BE MERGED INTO PANELS
+// return (
+//   <main style={{ margin: '0 0 0 1rem' }}>
+//     <p className="font-body text-lg">
+//       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Class aptent
+//       taciti sociosqu ad litora!
+//     </p>
+
+//     <form action="" method="get">
+//       <input type="text" name="token" style={{ border: '1px solid blue' }} />
+//       <input type="submit" value="Submit" />
+//     </form>
+
+//     <div
+//       id="remote-media-div"
+//       style={{
+//         display: 'inline-block',
+//         border: '2px solid red',
+//         width: '12rem',
+//         height: '9rem',
+//       }}
+//     ></div>
+
+//     <div
+//       id="local-media-div"
+//       style={{
+//         display: 'inline-block',
+//         border: '2px solid green',
+//         width: '6rem',
+//         height: '4.5rem',
+//       }}
+//     ></div>
+
+//     <button className="btn btn-primary border-2 border-teal font-header text-3xl">
+//       SIGN IN
+//     </button>
+//   </main>
+// );
