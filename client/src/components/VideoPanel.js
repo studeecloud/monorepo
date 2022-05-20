@@ -37,8 +37,15 @@ export default function VideoPanel({ onSelect, chatRoom }) {
     <section
       className="dashboard__panel bg-meringue"
       style={{ border: '1px solid black' }}
-      onClick={onSelect}
+    // onClick={onSelect}
     >
+      <button
+        type='button'
+        className="flex mx-6"
+        onClick={onSelect}
+      >
+        <FontAwesomeIcon icon={solid('expand')} className="h-7" />
+      </button>
       <h1 className="font-display mb-2 text-4xl text-black text-center">
         Squad
       </h1>
