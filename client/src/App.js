@@ -10,6 +10,7 @@ import {
 // import { useTimer } from 'use-timer';
 import TimerTest from './components/TimerTests';
 import PomodoroTimer from './components/PomodoroTimer';
+import Login from './pages/Login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   solid,
@@ -291,10 +292,7 @@ function App() {
         </button>
       </div>
 
-      <button className="btn btn-primary border-2 border-teal font-header text-3xl my-2.5">
-        SIGN IN
-      </button>
-
+      <Login />
       <PomodoroTimer />
     </main>
   );
