@@ -25,7 +25,10 @@ function App() {
   // Display a local camera preview
   createLocalVideoTrack().then((track) => {
     const localMediaContainer = document.getElementById('local-media-div');
-    localMediaContainer.appendChild(track.attach());
+    localMediaContainer.replaceChild(
+      track.attach(),
+      localMediaContainer.firstChild
+    );
   });
 
   const queryParams = new URLSearchParams(window.location.search);
@@ -148,9 +151,12 @@ function App() {
           });
           // Display any new media tracks that are subscribed by participants in the room
           participant.on('trackSubscribed', (track) => {
-            document
-              .getElementById('remote-media-div')
-              .appendChild(track.attach());
+            const remoteMediaContainer =
+              document.getElementById('remote-media-div');
+            remoteMediaContainer.replaceChild(
+              track.attach(),
+              remoteMediaContainer.firstChild
+            );
           });
         });
 
@@ -160,21 +166,27 @@ function App() {
 
           // When a participant joins, we iterate over the possible media tracks that they might be broadcasting at the time that they join the Room
           participant.tracks.forEach((publication) => {
-            // If a given media track is being broadcast, we grab it and append it to the 'remote-media-div'
+            // If a given media track is being broadcast, we grab it and use it to replace the existing child of 'remote-media-div'
             if (publication.isSubscribed) {
               const track = publication.track;
-              document
-                .getElementById('remote-media-div')
-                .appendChild(track.attach());
+              const remoteMediaContainer =
+                document.getElementById('remote-media-div');
+              remoteMediaContainer.replaceChild(
+                track.attach(),
+                remoteMediaContainer.firstChild
+              );
             }
           });
 
           // If a participant begins broadcasting a media track that they were not broadcasting when they joined the call, this event is triggered
           participant.on('trackSubscribed', (track) => {
-            // When that happens, we append it to the 'remote-media-div', same as above
-            document
-              .getElementById('remote-media-div')
-              .appendChild(track.attach());
+            // When that happens, we use it to replace the existing child of 'remote-media-div'
+            const remoteMediaContainer =
+              document.getElementById('remote-media-div');
+            remoteMediaContainer.replaceChild(
+              track.attach(),
+              remoteMediaContainer.firstChild
+            );
           });
         });
         // When a participant disconnects, detach their media tracks
@@ -198,30 +210,6 @@ function App() {
       }
     );
   });
-
-  const muteAudio = (room) => {
-    room.localParticipant.audioTracks.forEach((publication) => {
-      publication.track.disable();
-    });
-  };
-
-  const muteVideo = (room) => {
-    room.localParticipant.videoTracks.forEach((publication) => {
-      publication.track.disable();
-    });
-  };
-
-  const enableAudio = (room) => {
-    room.localParticipant.audioTracks.forEach((publication) => {
-      publication.track.enable();
-    });
-  };
-
-  const enableVideo = (room) => {
-    room.localParticipant.videoTracks.forEach((publication) => {
-      publication.track.enable();
-    });
-  };
 
   // Test data for panels
   const panelData = [
@@ -260,7 +248,13 @@ function App() {
       if (panel.id === 1)
         return <TitlePanel key={1} onSelect={() => selectPanel(1)} />;
       else if (panel.id === 2)
-        return <VideoPanel key={2} onSelect={() => selectPanel(2)} />;
+        return (
+          <VideoPanel
+            key={2}
+            chatRoom={chatRoom}
+            onSelect={() => selectPanel(2)}
+          />
+        );
       else
         return (
           <Panel
@@ -308,44 +302,6 @@ export default App;
 //         height: '4.5rem',
 //       }}
 //     ></div>
-
-//     <div>
-//       <button
-//         type="button"
-//         name="videoOff"
-//         onClick={() => muteVideo(chatRoom)}
-//       >
-//         <FontAwesomeIcon icon={solid('video-slash')} />
-//       </button>
-
-//       <button
-//         type="button"
-//         name="videoOn"
-//         onClick={() => enableVideo(chatRoom)}
-//       >
-//         <FontAwesomeIcon icon={solid('video')} />
-//       </button>
-
-//       <button type="button" name="micOff" onClick={() => muteAudio(chatRoom)}>
-//         <FontAwesomeIcon icon={solid('microphone-slash')} />
-//       </button>
-
-//       <button
-//         type="button"
-//         name="micOn"
-//         onClick={() => enableAudio(chatRoom)}
-//       >
-//         <FontAwesomeIcon icon={solid('microphone')} />
-//       </button>
-
-//       <button
-//         type="button"
-//         name="disconnect"
-//         onClick={() => chatRoom.disconnect()}
-//       >
-//         <FontAwesomeIcon icon={solid('phone-slash')} />
-//       </button>
-//     </div>
 
 //     <button className="btn btn-primary border-2 border-teal font-header text-3xl">
 //       SIGN IN
