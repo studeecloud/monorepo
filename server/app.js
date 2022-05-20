@@ -1,5 +1,5 @@
 require('dotenv').config();
-const {ENVIRONMENT, PORT} = process.env;
+const { ENVIRONMENT, PORT } = process.env;
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
@@ -9,7 +9,8 @@ const bodyParser = require('body-parser');
 const db = require('./configs/db.config');
 
 // routes import
-const usersRoutes = require('./routes/users'); 
+const usersRoutes = require('./routes/users');
+const videoRoutes = require('./routes/video');
 
 const app = express();
 
@@ -20,9 +21,10 @@ app.use(bodyParser.json());
 
 // routes
 app.use('/users', usersRoutes(db));
+app.use('/video', videoRoutes());
 
 app.get('/', (req, res) => {
-  res.json({greetings: 'hello world'});
+  res.json({ greetings: 'hello world' });
 });
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
