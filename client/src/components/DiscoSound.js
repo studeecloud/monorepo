@@ -3,7 +3,7 @@ import { Howl } from 'howler';
 
 export default function DiscoSound() {
   const sound = new Howl({
-    src: ['/soundLibrary/JaydaG.mps'],
+    src: ['http://localhost:8080/sounds/JaydaG.mp3'],
     html5: true,
     preload: true,
     loop: true,
