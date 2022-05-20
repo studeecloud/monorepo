@@ -10,6 +10,7 @@ import {
 // import { useTimer } from 'use-timer';
 import TimerTest from './components/TimerTests';
 import PomodoroTimer from './components/PomodoroTimer';
+import Sound from './components/Sound';
 import Login from './pages/Login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -294,6 +295,7 @@ function App() {
 
       <Login />
       <PomodoroTimer />
+      <Sound />
     </main>
   );
 }
