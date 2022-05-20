@@ -267,10 +267,6 @@ function App() {
       </div>
 
       <Login />
-      {/* <button className="btn btn-primary border-2 border-teal font-header text-3xl">
-        SIGN IN
-      </button> */}
-
       <PomodoroTimer />
     </main>
   );
