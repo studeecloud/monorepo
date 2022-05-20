@@ -1,21 +1,17 @@
 import React from 'react';
-import { Howl } from 'howler';
+import { Howl, Howler } from 'howler';
 
 export default function Sound() {
-  const soundSource =
-    'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
-
-  const callMySound = (src) => {
-    const sound = new Howl({
-      src,
-      html5: true,
-    });
-    sound.play();
-  };
+  const sound = new Howl({
+    src: ['https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'],
+    html5: true,
+    preload: true,
+  });
 
   return (
     <div>
-      <div onClick={() => callMySound(soundSource)}> Sound</div>
+      <div onClick={() => sound.play()}> Play Sound</div>
+      <div onClick={() => sound.pause()}> Pause Sound</div>
     </div>
   );
 }
