@@ -1,24 +1,46 @@
-import { useState } from 'react';
+import { useState, Fragment } from 'react';
 
-export default function Login() {
+export default function Login(props) {
   const [auth, setAuth] = useState(false);
   const [user, setUser] = useState(null);
 
   // Perform login process
   const login = () => {
     setAuth(true);
-    const id = Math.floor(Math.random() * 3);
-    console.log(id);
+    let id = Math.floor(Math.random() * 3 + 1);
+    if (id === 1) {
+      setUser('Lisa');
+    }
+    else if (id === 2) {
+      setUser('Gonzo');
+    }
+    else if (id === 3) {
+      setUser('Kehan');
+    }
   }
 
-  login('test@gmail.com', '1234');
+  // Perform logout process
+  const logout = () => {
+    setAuth(false);
+    setUser(null);
+  }
 
   return (
-    <button
-      className="btn btn-primary border-2 border-teal font-header text-3xl"
-      onClick={() => login()}
-    >
-      SIGN IN
-    </button>
+    <>
+      {!auth &&
+        <button
+          className="btn btn-primary border-2 border-teal font-header text-3xl"
+          onClick={() => login()}
+        >
+          SIGN IN
+        </button>
+      }
+      {auth && <button
+        className="btn btn-primary border-2 border-teal font-header text-3xl"
+        onClick={() => logout()}
+      >
+        LOGOUT {user}
+      </button>}
+    </>
   )
 }
