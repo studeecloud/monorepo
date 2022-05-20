@@ -29,7 +29,7 @@ export default function Login(props) {
     <>
       {!auth &&
         <button
-          className="btn btn-primary border-2 border-teal font-header text-3xl"
+          className="btn btn-primary border-2 border-teal font-header text-3xl my-2.5"
           onClick={() => login()}
         >
           SIGN IN
@@ -37,7 +37,7 @@ export default function Login(props) {
       }
       {auth &&
         <button
-        className="btn btn-primary border-2 border-teal font-header text-3xl"
+          className="btn btn-primary border-2 border-teal font-header text-3xl my-2.5"
         onClick={() => logout()}
         >
         LOGOUT {user}
