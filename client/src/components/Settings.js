@@ -1,38 +1,43 @@
-import ReactSlider from "react-slider";
-import "./slider.css";
+import ReactSlider from 'react-slider';
+import './slider.css';
 
-import { useContext } from "react";
-import SettingsContext from "./SettingsContext";
-
-export default function Settings() {
-  const settingsInfo = useContext(SettingsContext);
+export default function Settings(props) {
+  // setShowSettings is booelan
+  // workMinutes & setWorkMinutes and breakMinutes & setBreakMinutes are numbers
+  const {
+    setShowSettings,
+    workMinutes,
+    setWorkMinutes,
+    breakMinutes,
+    setBreakMinutes,
+  } = props;
 
   return (
-    <div style={{ textAlign: "left" }}>
-      <label>work: {settingsInfo.workMinutes} </label>
+    <div style={{ textAlign: 'left' }}>
+      <label>work: {workMinutes} </label>
       <ReactSlider
-        className={"slider"}
-        thumbClassName={"thumb"}
-        trackClassName={"track"}
-        value={settingsInfo.workMinutes}
-        onChange={(newValue) => settingsInfo.setWorkMinutes(newValue)}
+        className={'slider'}
+        thumbClassName={'thumb'}
+        trackClassName={'track'}
+        value={workMinutes}
+        onChange={(newValue) => setWorkMinutes(newValue)}
         min={1}
         max={60}
       />
-      <label>break: {settingsInfo.breakMinutes} </label>
+      <label>break: {breakMinutes} </label>
       <ReactSlider
-        className={"slider break"}
-        thumbClassName={"thumb"}
-        trackClassName={"track"}
-        value={settingsInfo.breakMinutes}
-        onChange={(newValue) => settingsInfo.setBreakMinutes(newValue)}
+        className={'slider break'}
+        thumbClassName={'thumb'}
+        trackClassName={'track'}
+        value={breakMinutes}
+        onChange={(newValue) => setBreakMinutes(newValue)}
         min={1}
         max={60}
       />
-      <div style={{ textAlign: "center", marginTop: "20px" }}>
+      <div style={{ textAlign: 'center', marginTop: '20px' }}>
         <button
           className="btn btn-primary"
-          onClick={() => settingsInfo.setShowSettings(false)}
+          onClick={() => setShowSettings(false)}
         >
           Back
         </button>

@@ -11,6 +11,7 @@ import {
 // import { useTimer } from 'use-timer';
 import TimerTest from './components/TimerTests';
 import PomodoroTimer from './components/PomodoroTimer';
+import Login from './pages/Login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   solid,
@@ -23,6 +24,7 @@ import VideoPanel from './components/VideoPanel';
 
 function App() {
   // Display a local camera preview
+
   createLocalVideoTrack().then((track) => {
     const localMediaContainer = document.getElementById('local-media-div');
     localMediaContainer.replaceChild(

@@ -1,44 +1,45 @@
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 
+//FIXME: Componenents have only a single onClick callback that changes isPaused state.
+// Can be removed added direclty to this document
 import PlayButton from './PlayButton';
 import PauseButton from './PauseButton';
 
-import { useContext, useState, useEffect } from 'react';
-import SettingsContext from './SettingsContext';
+import { useState, useEffect } from 'react';
 
-export default function Timer() {
-  const [isPaused, setIsPaused] = useState(false);
-  const [secondsLeft, setSecondsLeft] = useState(0);
-  const [mode, setMode] = useState('work');
+export default function Timer(props) {
+  // setShowSettings is booelan
+  // workMinutes and breakMinutes are both numbers
+  const { setShowSettings, workMinutes, breakMinutes } = props;
 
-  const settingsInfo = useContext(SettingsContext);
+  const [isPaused, setIsPaused] = useState(false); //Used by pause & play buttons on timer
+  const [mode, setMode] = useState('work'); // "Work" and "Play" alternate once timer reaches 0
+  const [secondsLeft, setSecondsLeft] = useState(0); //Each mode has independent secondsLeft state
 
-  function tick() {
-    setSecondsLeft((prev) => prev - 1);
-  }
-
+  // Initializes timer with "work" mode first
   useEffect(() => {
     function initTimer() {
-      setSecondsLeft(settingsInfo.workMinutes * 60);
+      setSecondsLeft(workMinutes * 60);
     }
     initTimer();
-  }, [settingsInfo.workMinutes]);
+  }, [workMinutes]);
 
   useEffect(() => {
     function switchMode() {
       const nextMode = mode === 'work' ? 'break' : 'work';
       setMode(nextMode);
       setSecondsLeft(
-        nextMode === 'work'
-          ? settingsInfo.workMinutes * 60
-          : settingsInfo.breakMinutes * 60
+        nextMode === 'work' ? workMinutes * 60 : breakMinutes * 60
       );
-      // const nextSeconds =
-      //   (nextMode === "work"
-      //     ? settingsInfo.workMinutes
-      //     : settingsInfo.breakMinutes) * 60;
     }
 
+    // Decrement timer helper function
+    function tick() {
+      setSecondsLeft((prev) => prev - 1);
+    }
+
+    //Main function controlling timer countdown for both mode
+    //TODO: Rename as potential timerCountDown?
     const interval = setInterval(() => {
       if (isPaused) {
         return;
@@ -51,23 +52,20 @@ export default function Timer() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [
-    isPaused,
-    secondsLeft,
-    settingsInfo.workMinutes,
-    mode,
-    settingsInfo.breakMinutes,
-  ]);
+  }, [isPaused, secondsLeft, workMinutes, mode, breakMinutes]);
 
-  const totalSeconds =
-    mode === 'work'
-      ? settingsInfo.workMinutes * 60
-      : settingsInfo.breakMinutes * 60;
-  const percentage = Math.round((secondsLeft / totalSeconds) * 100);
+  // Helper functions to calcuate time left in Min:Sec format
+  const totalSeconds = mode === 'work' ? workMinutes * 60 : breakMinutes * 60;
 
   const minutes = Math.floor(secondsLeft / 60);
   let seconds = secondsLeft % 60;
+  // Conditional needed to display leading 0
   if (seconds < 10) seconds = '0' + seconds;
+
+  // Helper function to calcuate perfentage of time left
+  // REVIEW: Helper function is used in CircularProgressBar Componenet.
+  // Not MVP nor does it necessarily follow our theme. Also, DaisyUI has progress bar components
+  const percentage = Math.round((secondsLeft / totalSeconds) * 100);
 
   return (
     <div>
@@ -94,7 +92,7 @@ export default function Timer() {
       <div style={{ marginTop: '20px' }}>
         <button
           className="btn btn-primary"
-          onClick={() => settingsInfo.setShowSettings(true)}
+          onClick={() => setShowSettings(true)}
         >
           Settings
         </button>
