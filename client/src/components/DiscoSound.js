@@ -40,6 +40,7 @@ export default function DiscoSound() {
       <button
         type="button"
         className="border-2 border-dark-gray p-2 rounded w-48 my-2.5 m-1"
+
         onClick={() => {
           sound.pause();
           console.log('testing if pause button work');

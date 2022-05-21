@@ -1,37 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BigHead } from '@bigheads/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
-export default function VideoPanel({ onSelect, chatRoom }) {
-  // EXPECTED PROPS:
-  // onSelect:Function
-
+export default function VideoPanel({
+  onSelect,
+  chatRoom,
+  muteVideo,
+  muteAudio,
+  enableVideo,
+  enableAudio,
+}) {
   // TODO -- Update this so the Big Heads aren't regenerated on each click to this panel
-
-  const muteAudio = (room) => {
-    room.localParticipant.audioTracks.forEach((publication) => {
-      publication.track.disable();
-    });
-  };
-
-  const muteVideo = (room) => {
-    room.localParticipant.videoTracks.forEach((publication) => {
-      publication.track.disable();
-    });
-  };
-
-  const enableAudio = (room) => {
-    room.localParticipant.audioTracks.forEach((publication) => {
-      publication.track.enable();
-    });
-  };
-
-  const enableVideo = (room) => {
-    room.localParticipant.videoTracks.forEach((publication) => {
-      publication.track.enable();
-    });
-  };
 
   return (
     <section
@@ -47,13 +27,40 @@ export default function VideoPanel({ onSelect, chatRoom }) {
       </h1>
 
       <div className="grid grid-rows-2 grid-cols-2 gap-3">
-        <div
-          id="local-media-div"
-          className="w-48 border-2 border-dark-gray mx-auto"
-        >
-          <div className="flex flex-col items-center">
-            <BigHead className="w-1/2 mb-3" />
-            GONZO
+        <div className="w-48 mx-auto flex flex-col items-center border-2 border-dark-gray">
+          <div id="local-media-div">
+            <div className="flex flex-col items-center">
+              <BigHead className="w-1/2 mb-3" />
+              YOU
+            </div>
+          </div>
+          <div
+            id="callControlPanel"
+            className="w-48 mt-2 mb-1 flex justify-around"
+          >
+            <button type="button" name="videoOff" onClick={muteVideo}>
+              <FontAwesomeIcon icon={solid('video-slash')} />
+            </button>
+
+            <button type="button" name="videoOn" onClick={enableVideo}>
+              <FontAwesomeIcon icon={solid('video')} />
+            </button>
+
+            <button type="button" name="micOff" onClick={muteAudio}>
+              <FontAwesomeIcon icon={solid('microphone-slash')} />
+            </button>
+
+            <button type="button" name="micOn" onClick={enableAudio}>
+              <FontAwesomeIcon icon={solid('microphone')} />
+            </button>
+
+            {/* <button
+              type="button"
+              name="disconnect"
+              onClick={() => chatRoom.disconnect()}
+            >
+              <FontAwesomeIcon icon={solid('phone-slash')} />
+            </button> */}
           </div>
         </div>
 
@@ -81,43 +88,6 @@ export default function VideoPanel({ onSelect, chatRoom }) {
           </div>
         </div>
       </div>
-      {/* <div>
-        <button
-          type="button"
-          name="videoOff"
-          onClick={() => muteVideo(chatRoom)}
-        >
-          <FontAwesomeIcon icon={solid('video-slash')} />
-        </button>
-
-        <button
-          type="button"
-          name="videoOn"
-          onClick={() => enableVideo(chatRoom)}
-        >
-          <FontAwesomeIcon icon={solid('video')} />
-        </button>
-
-        <button type="button" name="micOff" onClick={() => muteAudio(chatRoom)}>
-          <FontAwesomeIcon icon={solid('microphone-slash')} />
-        </button>
-
-        <button
-          type="button"
-          name="micOn"
-          onClick={() => enableAudio(chatRoom)}
-        >
-          <FontAwesomeIcon icon={solid('microphone')} />
-        </button>
-
-        <button
-          type="button"
-          name="disconnect"
-          onClick={() => chatRoom.disconnect()}
-        >
-          <FontAwesomeIcon icon={solid('phone-slash')} />
-        </button>
-      </div> */}
     </section>
   );
 }

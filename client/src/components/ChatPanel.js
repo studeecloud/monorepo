@@ -1,4 +1,5 @@
-import { Fragment } from "react";
+import { useState, useEffect, Fragment } from "react";
+import axios from 'axios';
 import MessageForm from "./MessageForm";
 import MessageList from "./MessageList";
 import { BigHead } from '@bigheads/core';
@@ -6,6 +7,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 export default function ChatPanel({ onSelect }) {
+  const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+    getMessages();
+  }, []);
+
+  const getMessages = () => {
+    axios.get('http://localhost:8080/messages')
+      .then((res) => {
+        console.log(res.data);
+        setMessages(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <section
       className="dashboard__panel bg-meringue"
@@ -20,8 +38,8 @@ export default function ChatPanel({ onSelect }) {
       </button>
       <h1 className="font-display text-4xl text-black text-center">Chat</h1>
       <article className='flex flex-col items-center'>
-        <MessageList />
-        <MessageForm />
+        <MessageList messages={messages} />
+        <MessageForm getMessages={getMessages} />
       </article>
     </section>
 
