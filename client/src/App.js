@@ -11,6 +11,7 @@ import {
 // import { useTimer } from 'use-timer';
 import TimerTest from './components/TimerTests';
 import PomodoroTimer from './components/PomodoroTimer';
+
 import Login from './pages/Login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -22,6 +23,12 @@ import Panel from './components/Panel';
 import TitlePanel from './components/TitlePanel';
 import VideoPanel from './components/VideoPanel';
 import ChatPanel from './components/ChatPanel';
+import SoundPanel from './components/SoundPanel';
+
+//Sounds
+import Ghibli from './components/Ghibli';
+import DiscoSound from './components/DiscoSound';
+import Rain from './components/Rain';
 
 function App() {
   // Display a local camera preview
@@ -43,29 +50,6 @@ function App() {
 
   const [data, setData] = useState([]);
   const [panelState, setPanelState] = useState({ focused: null });
-  /// PRATICE CODE: Implementing Timer with useState and useEffect()
-  const [secondsLeft, setSecondsLeft] = useState(25 * 60);
-  const [timer, setTimer] = useState();
-
-  const startTimer = () => {
-    const timer = setInterval(() => {
-      setSecondsLeft((secondsLeft) => secondsLeft - 1);
-      if (secondsLeft === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
-    setTimer(timer);
-  };
-
-  useEffect(() => {
-    if (secondsLeft === 0) {
-      clearInterval(timer);
-    }
-  }, [secondsLeft, timer]);
-
-  useEffect(() => {
-    return () => clearInterval(timer);
-  }, [timer]);
 
   const selectPanel = (id) => {
     setPanelState((prev) => ({
@@ -294,6 +278,8 @@ function App() {
         );
       else if (panel.id === 3)
         return <ChatPanel key={3} onSelect={() => selectPanel(3)} />;
+      else if (panel.id === 4)
+        return <SoundPanel key={4} onSelect={() => selectPanel(4)} />;
       else
         return (
           <Panel

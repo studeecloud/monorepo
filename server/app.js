@@ -20,6 +20,11 @@ app.use(cors());
 app.use(morgan(ENVIRONMENT));
 app.use(bodyParser.json());
 
+//Sound Library -> format is /sounds/[filename.mp3]
+app.use('/sounds', express.static(__dirname + '/sounds'));
+
+console.log(__dirname);
+
 // routes
 app.use('/users', usersRoutes(db));
 app.use('/video', videoRoutes());
