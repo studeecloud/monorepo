@@ -28,7 +28,8 @@ export default function DiscoSound() {
   return (
     <div>
       <button
-        className="btn btn-primary border-2 border-teal font-header text-3xl"
+        type="button"
+        className="border-2 border-dark-gray p-2 rounded w-48 my-2.5"
         onClick={() => {
           sound.play();
           console.log('testing if play button work');
@@ -47,7 +48,8 @@ export default function DiscoSound() {
         }}
       />
       <button
-        className="btn btn-primary border-2 border-teal font-header text-3xl"
+        type="button"
+        className="border-2 border-dark-gray p-2 rounded w-48 my-2.5"
         onClick={() => {
           sound.pause();
           console.log('testing if pause button work');

@@ -9,7 +9,7 @@ import {
 export default function TitlePanel({ onSelect }) {
   return (
     <section
-      className="dashboard__panel bg-gold"
+      className="dashboard__panel bg-meringue"
       style={{ border: '1px solid black' }}
     >
       <button type="button" className="flex mx-6" onClick={onSelect}>
