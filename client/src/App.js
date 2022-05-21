@@ -34,7 +34,9 @@ function App() {
   });
 
   const queryParams = new URLSearchParams(window.location.search);
-  const token = queryParams.get('token');
+
+  const userName = queryParams.get('username');
+  const roomName = queryParams.get('room');
 
   const [data, setData] = useState([]);
   const [panelState, setPanelState] = useState({ focused: null });
@@ -91,127 +93,136 @@ function App() {
     );
   }
 
+  let token = null;
   let chatRoom = null;
-  // Create the media tracks that this user will be broadcasting to the Room with the 'audio' and 'video' keys in the object that is sent to createLocalTracks()
-  createLocalTracks({
-    audio: true,
-    video: { width: 640 },
-  }).then((localTracks) => {
-    // Use the unique user token to connect to the given room name with the given local media tracks
-    return connect(token, {
-      name: 'DailyStandup',
-      tracks: localTracks,
-    }).then(
-      (room) => {
-        // If we are in here, we successfully joined the room.
-
-        // If we receive an event indicating a track was disabled, execute the code inside
-        function handleTrackDisabled(track) {
-          track.on('disabled', () => {
-            console.log('Track disabled:');
-            console.log(track);
+  axios
+    .get(`http://localhost:8080/video/token/${userName}/${roomName}`)
+    .then((res) => {
+      token = res.data;
+      createLocalTracks({
+        audio: true,
+        video: { width: 640 },
+      })
+        .then((localTracks) => {
+          // Use the unique user token to connect to the given room name with the given local media tracks
+          return connect(token, {
+            tracks: localTracks,
           });
-        }
-        // If we receive an event indicating a track was enabled, execute the code inside
-        function handleTrackEnabled(track) {
-          track.on('enabled', () => {
-            console.log('Track enabled:');
-            console.log(track);
-          });
-        }
+        })
+        .then(
+          (room) => {
+            // If we are in here, we successfully joined the room.
 
-        // Grab the room object so we can use it outside of this function
-        chatRoom = room;
-        console.log(`Successfully joined a Room: ${room}`);
-
-        room.participants.forEach((participant) => {
-          participant.tracks.forEach((publication) => {
-            // Display the media tracks of participants that are already in the room
-            if (publication.track) {
-              document
-                .getElementById('remote-media-div')
-                .appendChild(publication.track.attach());
+            // If we receive an event indicating a track was disabled, execute the code inside
+            function handleTrackDisabled(track) {
+              track.on('disabled', () => {
+                console.log('Track disabled:');
+                console.log(track);
+              });
             }
-            // Attach the listeners to every subscribed media track
-            if (publication.isSubscribed) {
-              handleTrackEnabled(publication.track);
-              handleTrackDisabled(publication.track);
+            // If we receive an event indicating a track was enabled, execute the code inside
+            function handleTrackEnabled(track) {
+              track.on('enabled', () => {
+                console.log('Track enabled:');
+                console.log(track);
+              });
             }
-            // When a new media track is subscribed, attach the listeners to it
-            publication.on('subscribed', handleTrackDisabled);
-            publication.on('subscribed', handleTrackEnabled);
 
-            publication.on('unsubscribed', () => {
-              console.log('Publication unsubscribed:');
-              console.log(publication);
+            // Grab the room object so we can use it outside of this function
+            chatRoom = room;
+            console.log(`Successfully joined a Room: ${room}`);
+
+            room.participants.forEach((participant) => {
+              participant.tracks.forEach((publication) => {
+                // Display the media tracks of participants that are already in the room
+                if (publication.track) {
+                  document
+                    .getElementById('remote-media-div')
+                    .appendChild(publication.track.attach());
+                }
+                // Attach the listeners to every subscribed media track
+                if (publication.isSubscribed) {
+                  handleTrackEnabled(publication.track);
+                  handleTrackDisabled(publication.track);
+                }
+                // When a new media track is subscribed, attach the listeners to it
+                publication.on('subscribed', handleTrackDisabled);
+                publication.on('subscribed', handleTrackEnabled);
+
+                publication.on('unsubscribed', () => {
+                  console.log('Publication unsubscribed:');
+                  console.log(publication);
+                });
+
+                publication.on('subscribed', () => {
+                  console.log('Publication subscribed:');
+                  console.log(publication);
+                });
+              });
+              // Display any new media tracks that are subscribed by participants in the room
+              participant.on('trackSubscribed', (track) => {
+                const remoteMediaContainer =
+                  document.getElementById('remote-media-div');
+                remoteMediaContainer.replaceChild(
+                  track.attach(),
+                  remoteMediaContainer.firstChild
+                );
+              });
             });
 
-            publication.on('subscribed', () => {
-              console.log('Publication subscribed:');
-              console.log(publication);
+            // When a new participant connects, display their published media tracks
+            room.on('participantConnected', (participant) => {
+              console.log(`A remote Participant connected: ${participant}`);
+
+              // When a participant joins, we iterate over the possible media tracks that they might be broadcasting at the time that they join the Room
+              participant.tracks.forEach((publication) => {
+                // If a given media track is being broadcast, we grab it and use it to replace the existing child of 'remote-media-div'
+                if (publication.isSubscribed) {
+                  const track = publication.track;
+                  const remoteMediaContainer =
+                    document.getElementById('remote-media-div');
+                  remoteMediaContainer.replaceChild(
+                    track.attach(),
+                    remoteMediaContainer.firstChild
+                  );
+                }
+              });
+
+              // If a participant begins broadcasting a media track that they were not broadcasting when they joined the call, this event is triggered
+              participant.on('trackSubscribed', (track) => {
+                // When that happens, we use it to replace the existing child of 'remote-media-div'
+                const remoteMediaContainer =
+                  document.getElementById('remote-media-div');
+                remoteMediaContainer.replaceChild(
+                  track.attach(),
+                  remoteMediaContainer.firstChild
+                );
+              });
             });
-          });
-          // Display any new media tracks that are subscribed by participants in the room
-          participant.on('trackSubscribed', (track) => {
-            const remoteMediaContainer =
-              document.getElementById('remote-media-div');
-            remoteMediaContainer.replaceChild(
-              track.attach(),
-              remoteMediaContainer.firstChild
-            );
-          });
-        });
+            // When a participant disconnects, detach their media tracks
+            room.on('participantDisconnected', (participant) => {
+              participant.tracks.forEach((publication) => {
+                console.log(
+                  'Participant "%s" disconnected',
+                  participant.identity
+                );
+                // TODO: Find the correct code for clearing the media track div, or just replace with avatar
+              });
+            });
 
-        // When a new participant connects, display their published media tracks
-        room.on('participantConnected', (participant) => {
-          console.log(`A remote Participant connected: ${participant}`);
-
-          // When a participant joins, we iterate over the possible media tracks that they might be broadcasting at the time that they join the Room
-          participant.tracks.forEach((publication) => {
-            // If a given media track is being broadcast, we grab it and use it to replace the existing child of 'remote-media-div'
-            if (publication.isSubscribed) {
-              const track = publication.track;
-              const remoteMediaContainer =
-                document.getElementById('remote-media-div');
-              remoteMediaContainer.replaceChild(
-                track.attach(),
-                remoteMediaContainer.firstChild
-              );
-            }
-          });
-
-          // If a participant begins broadcasting a media track that they were not broadcasting when they joined the call, this event is triggered
-          participant.on('trackSubscribed', (track) => {
-            // When that happens, we use it to replace the existing child of 'remote-media-div'
-            const remoteMediaContainer =
-              document.getElementById('remote-media-div');
-            remoteMediaContainer.replaceChild(
-              track.attach(),
-              remoteMediaContainer.firstChild
-            );
-          });
-        });
-        // When a participant disconnects, detach their media tracks
-        room.on('participantDisconnected', (participant) => {
-          participant.tracks.forEach((publication) => {
-            console.log('Participant "%s" disconnected', participant.identity);
-            // TODO: Find the correct code for clearing the media track div, or just replace with avatar
-          });
-        });
-
-        room.on('disconnected', (room) => {
-          // Detach local media elements
-          room.localParticipant.tracks.forEach((publication) => {
-            const attachedElements = publication.track.detach();
-            attachedElements.forEach((element) => element.remove());
-          });
-        });
-      },
-      (error) => {
-        console.error(`Unable to connect to Room: ${error.message}`);
-      }
-    );
-  });
+            room.on('disconnected', (room) => {
+              // Detach local media elements
+              room.localParticipant.tracks.forEach((publication) => {
+                const attachedElements = publication.track.detach();
+                attachedElements.forEach((element) => element.remove());
+              });
+            });
+          },
+          (error) => {
+            console.error(`Unable to connect to Room: ${error.message}`);
+          }
+        );
+    });
 
   // Test data for panels
   const panelData = [
