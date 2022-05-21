@@ -7,13 +7,13 @@ export default function Message(props) {
   }
 
   return (
-    <article className="flex h-30 my-2.5" style={{ border: '1px solid coral', width: 500 }}>
+    <article className="flex border-2 rounded p-2 bg-gold h-30 my-2.5" style={{ width: 500 }}>
       <header>
         {/* <BigHead className="h-20 w-20" /> */}
         <h2 className="m-1 font-body"><strong>{message.user}</strong></h2>
       </header>
 
-      <p className='m-auto font-body deep-purple'>{message.body}</p>
+      <p className='m-auto font-body'>{message.body}</p>
     </article>
   );
 };
