@@ -2,15 +2,15 @@ import { useState } from 'react';
 import { Howl, Howler } from 'howler';
 import ReactSlider from 'react-slider';
 
-export default function DiscoSound() {
+export default function Ghibli() {
   const [volume, setVolume] = useState(1);
 
-  const decimalVolume = volume / 100.0; //volume property of Howl objects has rnage from 0-1
+  const decimalVolume = volume / 100.0;
+  console.log('Test decimale Volume', decimalVolume);
 
   const volumeCheck = () => console.log('testing to see if onVolume Works');
-
   const sound = new Howl({
-    src: ['http://localhost:8080/sounds/FunkDiscoSoul.mp3'],
+    src: ['http://localhost:8080/sounds/Ghibli.mp3'],
     html5: true,
     preload: true,
     loop: true,
@@ -18,7 +18,9 @@ export default function DiscoSound() {
     onvolume: volumeCheck,
   });
 
-  Howler.volume(decimalVolume);
+  sound.volume(decimalVolume);
+  // console.log('testing if volume state changes', volume);
+  // console.log('testing to check sound volume', sound.volume);
 
   return (
     <div>
@@ -29,7 +31,7 @@ export default function DiscoSound() {
           console.log('testing if play button work');
         }}
       >
-        Play Disco
+        Play Ghibli
       </button>
       <ReactSlider
         className={'slider'}
@@ -37,7 +39,8 @@ export default function DiscoSound() {
         trackClassName={'track'}
         min={0}
         max={100}
-        onChange={(value) => {
+        onChange={(value, index) => {
+          Howler.volume(value);
           setVolume(value);
         }}
       />
@@ -48,7 +51,7 @@ export default function DiscoSound() {
           console.log('testing if pause button work');
         }}
       >
-        Pause Disco
+        Pause Ghibli
       </button>
     </div>
   );

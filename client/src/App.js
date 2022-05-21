@@ -20,7 +20,7 @@ import {
 } from '@fortawesome/fontawesome-svg-core/import.macro'; // <-- import styles to be used
 
 //Sounds
-import FunkDiscoSoul from './components/FunkDiscoSoul';
+import Ghibli from './components/Ghibli';
 import DiscoSound from './components/DiscoSound';
 import Rain from './components/Rain';
 
@@ -300,9 +300,7 @@ function App() {
 
       <Login />
       <PomodoroTimer />
-      <FunkDiscoSoul />
       <DiscoSound />
-      <Rain />
     </main>
   );
 }
