@@ -39,6 +39,8 @@ function App() {
   const userName = queryParams.get('username');
   const roomName = queryParams.get('room');
 
+  // const [chatRoom, setChatRoom] = useState(null);
+
   const [data, setData] = useState([]);
   const [panelState, setPanelState] = useState({ focused: null });
   /// PRATICE CODE: Implementing Timer with useState and useEffect()
@@ -118,7 +120,12 @@ function App() {
             }
 
             // Grab the room object so we can use it outside of this function
-            chatRoom = room;
+
+            if (chatRoom === null) {
+              chatRoom = room;
+              // setChatRoom(room);
+            }
+
             console.log(`Successfully joined a Room: ${room}`);
 
             room.participants.forEach((participant) => {
@@ -213,6 +220,30 @@ function App() {
         );
     });
 
+  const muteAudio = (room) => {
+    room.localParticipant.audioTracks.forEach((publication) => {
+      publication.track.disable();
+    });
+  };
+
+  const muteVideo = (room) => {
+    room.localParticipant.videoTracks.forEach((publication) => {
+      publication.track.disable();
+    });
+  };
+
+  const enableAudio = (room) => {
+    room.localParticipant.audioTracks.forEach((publication) => {
+      publication.track.enable();
+    });
+  };
+
+  const enableVideo = (room) => {
+    room.localParticipant.videoTracks.forEach((publication) => {
+      publication.track.enable();
+    });
+  };
+
   // Test data for panels
   const panelData = [
     {
@@ -255,15 +286,14 @@ function App() {
             key={2}
             chatRoom={chatRoom}
             onSelect={() => selectPanel(2)}
+            muteAudio={() => muteAudio(chatRoom)}
+            muteVideo={() => muteVideo(chatRoom)}
+            enableAudio={() => enableAudio(chatRoom)}
+            enableVideo={() => enableVideo(chatRoom)}
           />
         );
       else if (panel.id === 3)
-        return (
-          <ChatPanel
-            key={3}
-            onSelect={() => selectPanel(3)}
-          />
-        );
+        return <ChatPanel key={3} onSelect={() => selectPanel(3)} />;
       else
         return (
           <Panel
