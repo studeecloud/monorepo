@@ -23,6 +23,7 @@ import Panel from './components/Panel';
 import TitlePanel from './components/TitlePanel';
 import VideoPanel from './components/VideoPanel';
 import ChatPanel from './components/ChatPanel';
+import SoundPanel from './components/SoundPanel';
 
 //Sounds
 import Ghibli from './components/Ghibli';
@@ -254,6 +255,8 @@ function App() {
         );
       else if (panel.id === 3)
         return <ChatPanel key={3} onSelect={() => selectPanel(3)} />;
+      else if (panel.id === 4)
+        return <SoundPanel key={4} onSelect={() => selectPanel(4)} />;
       else
         return (
           <Panel

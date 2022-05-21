@@ -7,8 +7,12 @@ export default function DiscoSound() {
 
   const decimalVolume = volume / 100.0; //volume property of Howl objects has rnage from 0-1
 
-  const volumeCheck = () => console.log('testing to see if onVolume Works');
+  // Helper call-back function that's called with the onvolume property (itself a method)
+  // onvolume is called everytime a howler object has it's volume changed
+  const volumeCheck = () => console.log('testing to see if volume changed');
 
+  // Directly changed via the play and pause buttons
+  // through state change, volume property is changed via slider
   const sound = new Howl({
     src: ['http://localhost:8080/sounds/FunkDiscoSoul.mp3'],
     html5: true,
@@ -18,6 +22,7 @@ export default function DiscoSound() {
     onvolume: volumeCheck,
   });
 
+  //Invoking global function to change volume based state: volume
   Howler.volume(decimalVolume);
 
   return (
