@@ -18,9 +18,6 @@ app.use(cors());
 app.use(morgan(ENVIRONMENT));
 app.use(bodyParser.json());
 
-app.use(express.static('sounds'));
-app.get('/sounds/JaydaG.mp3', (req, res) => {});
-
 //Sound Library -> format is /sounds/[filename.mp3]
 app.use('/sounds', express.static(__dirname + '/sounds'));
 
