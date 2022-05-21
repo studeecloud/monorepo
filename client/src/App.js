@@ -50,6 +50,7 @@ function App() {
   const [data, setData] = useState([]);
   const [panelState, setPanelState] = useState({ focused: null });
 
+
   const selectPanel = (id) => {
     setPanelState((prev) => ({
       focused: prev.focused ? null : id,
