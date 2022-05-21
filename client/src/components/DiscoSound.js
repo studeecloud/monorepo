@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { Howl, Howler } from 'howler';
 import ReactSlider from 'react-slider';
 
+//REVIEW: Test to code here before adjusting Rain & Ghibli components
+//TODO: Refactor into single component
 export default function DiscoSound() {
   const [volume, setVolume] = useState(1);
-
   const decimalVolume = volume / 100.0; //volume property of Howl objects has rnage from 0-1
 
   // Helper call-back function that's called with the onvolume property (itself a method)
@@ -28,27 +29,29 @@ export default function DiscoSound() {
   // Howler.volume(decimalVolume);
 
   return (
-    <div>
-      <button
-        type="button"
-        className="border-2 border-dark-gray p-2 rounded w-48 my-2.5"
-        onClick={() => {
-          sound.play();
-          console.log('testing if play button work');
-        }}
-      >
-        Play Disco
-      </button>
-      <button
-        type="button"
-        className="border-2 border-dark-gray p-2 rounded w-48 my-2.5 m-1"
-        onClick={() => {
-          sound.pause();
-          console.log('testing if pause button work');
-        }}
-      >
-        Pause Disco
-      </button>
-    </div>
+    <section>
+      <div>
+        <button
+          type="button"
+          className="border-2 border-dark-gray p-2 rounded w-48 my-2.5 m-1"
+          onClick={() => {
+            sound.play();
+            console.log('testing if play button work');
+          }}
+        >
+          Play Disco
+        </button>
+        <button
+          type="button"
+          className="border-2 border-dark-gray p-2 rounded w-48 my-2.5 m-1"
+          onClick={() => {
+            sound.pause();
+            console.log('testing if pause button work');
+          }}
+        >
+          Pause Disco
+        </button>
+      </div>
+    </section>
   );
 }

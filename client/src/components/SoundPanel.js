@@ -1,10 +1,13 @@
-import DiscoSound from './DiscoSound';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   solid,
   regular,
   brands,
 } from '@fortawesome/fontawesome-svg-core/import.macro';
+
+import DiscoSound from './DiscoSound';
+import Rain from './Rain';
+import Ghibli from './Ghibli';
 
 export default function TitlePanel({ onSelect }) {
   return (
@@ -19,12 +22,10 @@ export default function TitlePanel({ onSelect }) {
       <h1 className="font-display text-4xl text-black text-center">
         Soundboard
       </h1>
-      <h2 className="font-header text-2xl text-center">
-        Disco
-        <br />
-        Inferno
-      </h2>
+      <h2 className="font-body text-lg text-center">SFX</h2>
       <DiscoSound />
+      <Rain />
+      <Ghibli />
     </section>
   );
 }
