@@ -65,18 +65,6 @@ function App() {
     return () => clearInterval(timer);
   }, [timer]);
 
-  // useEffect(() => {
-  //   axios
-  //     .get('http://localhost:3000/users')
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       setData(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
-
   const selectPanel = (id) => {
     setPanelState((prev) => ({
       focused: prev.focused ? null : id,
