@@ -17,7 +17,7 @@ export default function TitlePanel({ onSelect }) {
       </button>
 
       <h1 className="font-display text-4xl text-black text-center">
-        StudeeCloud
+        Soundboard
       </h1>
       <h2 className="font-header text-2xl text-center">
         Disco
