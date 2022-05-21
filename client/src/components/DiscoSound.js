@@ -37,19 +37,9 @@ export default function DiscoSound() {
       >
         Play Disco
       </button>
-      <ReactSlider
-        className={'slider'}
-        thumbClassName={'thumb'}
-        trackClassName={'track'}
-        min={0}
-        max={100}
-        onChange={(value) => {
-          setVolume(value);
-        }}
-      />
       <button
         type="button"
-        className="border-2 border-dark-gray p-2 rounded w-48 my-2.5"
+        className="border-2 border-dark-gray p-2 rounded w-48 my-2.5 m-1"
         onClick={() => {
           sound.pause();
           console.log('testing if pause button work');
