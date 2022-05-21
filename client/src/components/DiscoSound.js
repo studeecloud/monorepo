@@ -13,22 +13,25 @@ export default function DiscoSound() {
 
   // Directly changed via the play and pause buttons
   // through state change, volume property is changed via slider
+  //REVIEW: Changed volume property from decimalVolume to hardcode max
   const sound = new Howl({
     src: ['http://localhost:8080/sounds/FunkDiscoSoul.mp3'],
     html5: true,
     preload: true,
     loop: true,
-    volume: decimalVolume,
+    volume: 1,
     onvolume: volumeCheck,
   });
 
   //Invoking global function to change volume based state: volume
-  Howler.volume(decimalVolume);
+  //REVIEW: Removed global implementation of volume change (only used with volume slider)
+  // Howler.volume(decimalVolume);
 
   return (
     <div>
       <button
-        className="btn btn-primary border-2 border-teal font-header text-3xl"
+        type="button"
+        className="border-2 border-dark-gray p-2 rounded w-48 my-2.5"
         onClick={() => {
           sound.play();
           console.log('testing if play button work');
@@ -36,18 +39,9 @@ export default function DiscoSound() {
       >
         Play Disco
       </button>
-      <ReactSlider
-        className={'slider'}
-        thumbClassName={'thumb'}
-        trackClassName={'track'}
-        min={0}
-        max={100}
-        onChange={(value) => {
-          setVolume(value);
-        }}
-      />
       <button
-        className="btn btn-primary border-2 border-teal font-header text-3xl"
+        type="button"
+        className="border-2 border-dark-gray p-2 rounded w-48 my-2.5 m-1"
         onClick={() => {
           sound.pause();
           console.log('testing if pause button work');
