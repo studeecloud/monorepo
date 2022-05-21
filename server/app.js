@@ -18,7 +18,8 @@ app.use(cors());
 app.use(morgan(ENVIRONMENT));
 app.use(bodyParser.json());
 
-// app.use(express.static('sounds'));
+app.use(express.static('sounds'));
+app.get('/sounds/JaydaG.mp3', (req, res) => {});
 
 //Sound Library -> format is /sounds/[filename.mp3]
 app.use('/sounds', express.static(__dirname + '/sounds'));
@@ -31,7 +32,5 @@ app.use('/users', usersRoutes(db));
 app.get('/', (req, res) => {
   res.json({ greetings: 'hello world' });
 });
-
-// app.get('/sounds/JaydaG.mp3', (req, res) => {});
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));

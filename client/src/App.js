@@ -10,8 +10,7 @@ import {
 // import { useTimer } from 'use-timer';
 import TimerTest from './components/TimerTests';
 import PomodoroTimer from './components/PomodoroTimer';
-import Sound from './components/Sound';
-import DiscoSound from './components/DiscoSound';
+
 import Login from './pages/Login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -19,6 +18,11 @@ import {
   regular,
   brands,
 } from '@fortawesome/fontawesome-svg-core/import.macro'; // <-- import styles to be used
+
+//Sounds
+import FunkDiscoSoul from './components/FunkDiscoSoul';
+import DiscoSound from './components/DiscoSound';
+import Rain from './components/Rain';
 
 function App() {
   // Display a local camera preview
@@ -296,8 +300,9 @@ function App() {
 
       <Login />
       <PomodoroTimer />
-      <Sound />
+      <FunkDiscoSoul />
       <DiscoSound />
+      <Rain />
     </main>
   );
 }
