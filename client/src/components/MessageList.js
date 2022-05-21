@@ -5,9 +5,10 @@ export default function MessageList(props) {
   return (
     <>
       {
-        props.messages.map(message => {
+        props.messages.map((message, i) => {
           return (
             <Message
+              key={i}
               user='LISA'
               body={message.message_text}
             />
