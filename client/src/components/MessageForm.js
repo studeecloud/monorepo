@@ -11,7 +11,7 @@ export default function MessageForm(props) {
 
   const handleSubmit = () => {
     axios
-      .post('http://localhost:8080/messages', { message_text: message })
+      .post('http://localhost:8080/messages', { message: message })
       .then((res) => {
         console.log(res.data);
         props.getMessages();
