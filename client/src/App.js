@@ -47,29 +47,6 @@ function App() {
 
   const [data, setData] = useState([]);
   const [panelState, setPanelState] = useState({ focused: null });
-  /// PRATICE CODE: Implementing Timer with useState and useEffect()
-  const [secondsLeft, setSecondsLeft] = useState(25 * 60);
-  const [timer, setTimer] = useState();
-
-  const startTimer = () => {
-    const timer = setInterval(() => {
-      setSecondsLeft((secondsLeft) => secondsLeft - 1);
-      if (secondsLeft === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
-    setTimer(timer);
-  };
-
-  useEffect(() => {
-    if (secondsLeft === 0) {
-      clearInterval(timer);
-    }
-  }, [secondsLeft, timer]);
-
-  useEffect(() => {
-    return () => clearInterval(timer);
-  }, [timer]);
 
   // useEffect(() => {
   //   axios
