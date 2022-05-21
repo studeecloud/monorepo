@@ -19,7 +19,6 @@ import {
   regular,
   brands,
 } from '@fortawesome/fontawesome-svg-core/import.macro'; // <-- import styles to be used
-import Panel from './components/Panel';
 import TitlePanel from './components/TitlePanel';
 import VideoPanel from './components/VideoPanel';
 import ChatPanel from './components/ChatPanel';
@@ -280,14 +279,6 @@ function App() {
         return <ChatPanel key={3} onSelect={() => selectPanel(3)} />;
       else if (panel.id === 4)
         return <SoundPanel key={4} onSelect={() => selectPanel(4)} />;
-      else
-        return (
-          <Panel
-            key={panel.id}
-            {...panel}
-            onSelect={() => selectPanel(panel.id)}
-          />
-        );
     });
 
   return <main className={dashboardClasses}>{panels}</main>;
