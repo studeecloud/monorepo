@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import MessageForm from "./MessageForm";
 import MessageList from "./MessageList";
 import { BigHead } from '@bigheads/core';
@@ -18,8 +19,10 @@ export default function ChatPanel({ onSelect }) {
         <FontAwesomeIcon icon={solid('expand')} className="h-7" />
       </button>
       <h1 className="font-display text-4xl text-black text-center">Chat</h1>
-      <MessageList />
-      <MessageForm />
+      <article className='flex flex-col items-center'>
+        <MessageList />
+        <MessageForm />
+      </article>
     </section>
 
   );
