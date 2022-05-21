@@ -10,6 +10,7 @@ const db = require('./configs/db.config');
 
 // routes import
 const usersRoutes = require('./routes/users');
+const videoRoutes = require('./routes/video');
 
 const app = express();
 
@@ -25,6 +26,7 @@ console.log(__dirname);
 
 // routes
 app.use('/users', usersRoutes(db));
+app.use('/video', videoRoutes());
 
 app.get('/', (req, res) => {
   res.json({ greetings: 'hello world' });
