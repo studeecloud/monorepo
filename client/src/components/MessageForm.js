@@ -7,10 +7,10 @@ export default function MessageForm(props) {
   }
 
   return (
-    <section className="my-2.5">
-      <form method="post" action="/messages" className='newMessage__form' onSubmit={disableSubmit}>
-        <textarea type='text' className='form__input' name='text' placeholder={placeholder} style={{ border: '2px solid coral', width: 500, height: 75 }}></textarea>
-        <input type='submit' value='Message' className='form__input' onClick={disableSubmit} style={{ border: '1px solid coral' }} />
+    <section>
+      <form method="post" action="/messages" className='flex flex-col items-center' onSubmit={disableSubmit}>
+        <textarea type='text' className='border-2 p-2 rounded' name='text' placeholder={placeholder} style={{ width: 500, height: 75 }}></textarea>
+        <input type='submit' value='Message' className='border-2 p-2 rounded w-48 my-2.5' onClick={disableSubmit} />
       </form>
     </section>
   );
