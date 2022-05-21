@@ -21,6 +21,7 @@ import {
 import Panel from './components/Panel';
 import TitlePanel from './components/TitlePanel';
 import VideoPanel from './components/VideoPanel';
+import ChatPanel from './components/ChatPanel';
 
 function App() {
   // Display a local camera preview
@@ -266,6 +267,13 @@ function App() {
             key={2}
             chatRoom={chatRoom}
             onSelect={() => selectPanel(2)}
+          />
+        );
+      else if (panel.id === 3)
+        return (
+          <ChatPanel
+            key={3}
+            onSelect={() => selectPanel(3)}
           />
         );
       else
