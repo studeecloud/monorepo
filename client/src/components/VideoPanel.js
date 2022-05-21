@@ -37,42 +37,44 @@ export default function VideoPanel({ onSelect, chatRoom }) {
     <section
       className="dashboard__panel bg-meringue"
       style={{ border: '1px solid black' }}
-    // onClick={onSelect}
+      // onClick={onSelect}
     >
-      <button
-        type='button'
-        className="flex mx-6"
-        onClick={onSelect}
-      >
+      <button type="button" className="flex mx-6" onClick={onSelect}>
         <FontAwesomeIcon icon={solid('expand')} className="h-7" />
       </button>
-      <h1 className="font-display mb-2 text-4xl text-black text-center">
+      <h1 className="font-display mb-6 text-4xl text-black text-center">
         Squad
       </h1>
 
       <div className="grid grid-rows-2 grid-cols-2 gap-3">
-        <div id="local-media-div" className="w-48 border-2 border-coral">
+        <div
+          id="local-media-div"
+          className="w-48 border-2 border-dark-gray mx-auto"
+        >
           <div className="flex flex-col items-center">
             <BigHead className="w-1/2 mb-3" />
             GONZO
           </div>
         </div>
 
-        <div id="remote-media-div" className="w-48 border-2 border-coral">
+        <div
+          id="remote-media-div"
+          className="w-48 border-2 border-dark-gray mx-auto"
+        >
           <div className="flex flex-col items-center">
             <BigHead className="w-1/2 mb-3" />
             LISA
           </div>
         </div>
 
-        <div className="w-48 border-2 border-coral flex flex-col items-center">
+        <div className="w-48 border-2 border-dark-gray mx-auto">
           <div className="flex flex-col items-center">
             <BigHead className="w-1/2 mb-3" />
             KEHAN
           </div>
         </div>
 
-        <div className="w-48 border-2 border-coral flex flex-col items-center">
+        <div className="w-48 border-2 border-dark-gray mx-auto">
           <div className="flex flex-col items-center">
             <BigHead className="w-1/2 mb-3" />
             GONZO
