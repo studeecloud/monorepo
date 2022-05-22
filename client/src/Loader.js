@@ -38,33 +38,16 @@ function Loader() {
         });
       })
       .then((room) => {
+        console.log(`Successfully joined a Room: ${room}`);
         setChatRoom(room);
       });
   }, [token]);
 
-  // createLocalTracks({
-  //   audio: true,
-  //   video: { width: 640 },
-  // });
-  // .then((localTracks) => {
-  //   // Use the unique user token to connect to the given room name with the given local media tracks
-  //   return connect(token, {
-  //     tracks: localTracks,
-  //   });
-  // })
-  // .then((room) => {
-  //   setChatRoom(room);
-  // });
-
+  // TODO -- Gonzo thinks the token does not need to be passed as props
   return (
     <>
       {token !== '' && chatRoom !== null && (
-        <App
-          userName={userName}
-          roomName={roomName}
-          token={token}
-          chatRoom={chatRoom}
-        />
+        <App userName={userName} token={token} chatRoom={chatRoom} />
       )}
     </>
   );
