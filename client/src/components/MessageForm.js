@@ -4,14 +4,16 @@ import axios from 'axios';
 export default function MessageForm({ getMessages, userName }) {
   const [message, setMessage] = useState('');
 
-  const placeholder = 'Talk to me...';
   const disableSubmit = (e) => {
     e.preventDefault();
   };
 
   const handleSubmit = () => {
     axios
-      .post('http://localhost:8080/messages', { message: message, userName: userName })
+      .post('http://localhost:8080/messages', {
+        message: message,
+        userName: userName,
+      })
       .then((res) => {
         getMessages();
       })
@@ -19,7 +21,7 @@ export default function MessageForm({ getMessages, userName }) {
         console.log(err);
       });
     setMessage('');
-  }
+  };
 
   return (
     <section>
@@ -30,13 +32,12 @@ export default function MessageForm({ getMessages, userName }) {
         onSubmit={disableSubmit}
       >
         <textarea
-          type="text"
           className="border-2 border-dark-gray p-2 rounded"
-          name="text"
-          placeholder={placeholder}
+          name="message"
+          placeholder="Talk to me..."
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          style={{ width: 500, height: 75 }}
+          style={{ resize: 'none', width: 500, height: '2rem' }}
         ></textarea>
         <input
           type="submit"
