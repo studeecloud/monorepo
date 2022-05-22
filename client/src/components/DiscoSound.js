@@ -1,6 +1,14 @@
 import { useState } from 'react';
 import { Howl, Howler } from 'howler';
-import ReactSlider from 'react-slider';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  solid,
+  regular,
+  brands,
+} from '@fortawesome/fontawesome-svg-core/import.macro';
+
+//REVIEW: Slider component only necessary as stretch to incoporate volume control
+//import ReactSlider from 'react-slider';
 
 //REVIEW: Test to code here before adjusting Rain & Ghibli components
 //TODO: Refactor into single component
@@ -29,27 +37,29 @@ export default function DiscoSound() {
   // Howler.volume(decimalVolume);
 
   return (
-    <section>
+    <section className="flex flex-row justify-around">
+      <div>
+        <h1 className="font-body text-4xl text-black text-center">Disco </h1>
+      </div>
       <div>
         <button
           type="button"
-          className="border-2 border-dark-gray p-2 rounded w-48 my-2.5 m-1"
+          name="playSound"
           onClick={() => {
             sound.play();
-            console.log('testing if play button work');
           }}
         >
-          Play Disco
+          <FontAwesomeIcon icon={solid('circle-play')} />
         </button>
+
         <button
           type="button"
-          className="border-2 border-dark-gray p-2 rounded w-48 my-2.5 m-1"
+          name="playSound"
           onClick={() => {
             sound.pause();
-            console.log('testing if pause button work');
           }}
         >
-          Pause Disco
+          <FontAwesomeIcon icon={solid('circle-pause')} />
         </button>
       </div>
     </section>

@@ -1,4 +1,10 @@
 import { Howl } from 'howler';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  solid,
+  regular,
+  brands,
+} from '@fortawesome/fontawesome-svg-core/import.macro';
 
 export default function Ghibli() {
   const sound = new Howl({
@@ -10,23 +16,26 @@ export default function Ghibli() {
   });
 
   return (
-    <div>
-      <button
-        className="border-2 border-dark-gray p-2 rounded w-48 my-2.5 m-1"
-        onClick={() => {
-          sound.play();
-        }}
-      >
-        Play Ghibli
-      </button>
-      <button
-        className="border-2 border-dark-gray p-2 rounded w-48 my-2.5 m-1"
-        onClick={() => {
-          sound.pause();
-        }}
-      >
-        Pause Ghibli
-      </button>
-    </div>
+    <section className="flex flex-row justify-around">
+      <div>
+        <h1 className="font-body text-4xl text-black text-center">Ghibli </h1>
+      </div>
+      <div>
+        <button
+          onClick={() => {
+            sound.play();
+          }}
+        >
+          <FontAwesomeIcon icon={solid('circle-play')} />
+        </button>
+        <button
+          onClick={() => {
+            sound.pause();
+          }}
+        >
+          <FontAwesomeIcon icon={solid('circle-pause')} />
+        </button>
+      </div>
+    </section>
   );
 }
