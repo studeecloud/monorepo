@@ -12,7 +12,7 @@ export default function Timer(props) {
   // workMinutes and breakMinutes are both numbers
   const { setShowSettings, workMinutes, breakMinutes } = props;
 
-  const [isPaused, setIsPaused] = useState(false); //Used by pause & play buttons on timer
+  const [isPaused, setIsPaused] = useState(true); //Used by pause & play buttons on timer
   const [mode, setMode] = useState('work'); // "Work" and "Play" alternate once timer reaches 0
   const [secondsLeft, setSecondsLeft] = useState(0); //Each mode has independent secondsLeft state
 
