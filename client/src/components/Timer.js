@@ -68,17 +68,18 @@ export default function Timer(props) {
   const percentage = Math.round((secondsLeft / totalSeconds) * 100);
 
   return (
-    <div>
-      <div className>
-        <CircularProgressbar
-          value={percentage}
-          text={minutes + ':' + seconds}
-          styles={buildStyles({
-            textColor: '#f54e4e',
-            pathColor: mode === 'work' ? '#f54e4e' : '#00FF00',
-            tailColor: 'rgba(255,255,255,.2)',
-          })}
-        />
+    <div className="flex w-full items-center justify-center">
+      <CircularProgressbar
+        value={percentage}
+        text={minutes + ':' + seconds}
+        className="w-1/4"
+        styles={buildStyles({
+          textColor: '#f54e4e',
+          pathColor: mode === 'work' ? '#f54e4e' : '#00FF00',
+          tailColor: 'rgba(255,255,255,.2)',
+        })}
+      />
+      <div>
         <div style={{ marginTop: '20px' }}>
           {isPaused ? (
             <PlayButton setPlay={() => setIsPaused(false)} />
@@ -88,7 +89,7 @@ export default function Timer(props) {
         </div>
         <div style={{ marginTop: '20px' }}>
           <button
-            className="bg-meringue border-2 border-dark-purple font-body p-2 hover:p-3 rounded text-dark-gray text-2xl"
+            className="bg-meringue border-2 border-dark-purple font-body p-2 rounded text-dark-gray text-2xl"
             onClick={() => setShowSettings(true)}
           >
             Settings
