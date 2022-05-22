@@ -25,7 +25,7 @@ export default function DiscoSound() {
   //REVIEW: Changed volume property from decimalVolume to hardcode max
   const sound = new Howl({
     //TODO: Remove direct reference to localhost in file src
-    src: ['http://localhost:8080/public/FunkDiscoSoul.mp3'],
+    src: ['http://localhost:8080/public/Disco.mp3'],
     html5: true,
     preload: true,
     loop: true,

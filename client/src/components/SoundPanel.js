@@ -6,8 +6,8 @@ import {
 } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 import DiscoSound from './DiscoSound';
-import Rain from './Rain';
-import Ghibli from './Ghibli';
+import RainSound from './RainSound';
+import GhibliSound from './GhibliSound';
 
 export default function TitlePanel({ onSelect }) {
   return (
@@ -29,8 +29,8 @@ export default function TitlePanel({ onSelect }) {
       </h1>
       <h2 className="font-body text-lg text-center">SFX</h2>
       <DiscoSound />
-      <Rain />
-      <Ghibli />
+      <RainSound />
+      <GhibliSound />
     </section>
   );
 }
