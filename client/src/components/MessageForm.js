@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-export default function MessageForm(props) {
+export default function MessageForm({ getMessages, userName }) {
   const [message, setMessage] = useState('');
 
   const placeholder = 'Talk to me...';
@@ -11,9 +11,9 @@ export default function MessageForm(props) {
 
   const handleSubmit = () => {
     axios
-      .post('http://localhost:8080/messages', { message: message }) // TODO: send user here?
+      .post('http://localhost:8080/messages', { message: message, userName: userName })
       .then((res) => {
-        props.getMessages();
+        getMessages();
       })
       .catch((err) => {
         console.log(err);

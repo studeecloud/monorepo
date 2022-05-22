@@ -6,7 +6,7 @@ import { BigHead } from '@bigheads/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
-export default function ChatPanel({ onSelect }) {
+export default function ChatPanel({ onSelect, userName }) {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export default function ChatPanel({ onSelect }) {
       <h1 className="font-display text-4xl text-black text-center">Chat</h1>
       <article className='flex flex-col items-center'>
         <MessageList messages={messages} />
-        <MessageForm getMessages={getMessages} />
+        <MessageForm getMessages={getMessages} userName={userName} />
       </article>
     </section>
 

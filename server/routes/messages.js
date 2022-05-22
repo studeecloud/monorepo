@@ -9,7 +9,7 @@ module.exports = (db) => {
     });
   });
   router.post('/', (req, res) => {
-    const insertMessage = `INSERT INTO messages VALUES($1, $2)`;
+    const insertMessage = `INSERT INTO messages VALUES($1, $2, $3)`;
     const msgCountQuery = `SELECT COUNT(*) FROM messages;`;
 
     db.query(msgCountQuery).then((data) => {
@@ -18,7 +18,7 @@ module.exports = (db) => {
         parseInt(data.rows[0].count)
       );
       const msgCount = parseInt(data.rows[0].count);
-      db.query(insertMessage, [msgCount + 1, req.body.message]).then(
+      db.query(insertMessage, [msgCount + 1, req.body.message, req.body.userName]).then(
         (data) => {
           res.json({ status: 'success' });
         }
