@@ -22,6 +22,9 @@ export default function Ghibli() {
       </div>
       <div>
         <button
+          type="button"
+          name="playSound"
+          className="px-3"
           onClick={() => {
             sound.play();
           }}
@@ -29,6 +32,8 @@ export default function Ghibli() {
           <FontAwesomeIcon icon={solid('circle-play')} />
         </button>
         <button
+          type="button"
+          name="playSound"
           onClick={() => {
             sound.pause();
           }}

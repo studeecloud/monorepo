@@ -45,6 +45,7 @@ export default function DiscoSound() {
         <button
           type="button"
           name="playSound"
+          className="px-3"
           onClick={() => {
             sound.play();
           }}

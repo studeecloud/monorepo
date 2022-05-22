@@ -18,10 +18,13 @@ export default function Rain() {
   return (
     <section className="flex flex-row justify-around">
       <div>
-        <h1 className="font-body text-2xl text-black text-center">Rain </h1>
+        <h1 className="font-body text-2xl text-black text-center">Rainy</h1>
       </div>
       <div>
         <button
+          type="button"
+          name="playSound"
+          className="px-3"
           onClick={() => {
             sound.play();
           }}
@@ -29,6 +32,8 @@ export default function Rain() {
           <FontAwesomeIcon icon={solid('circle-play')} />
         </button>
         <button
+          type="button"
+          name="playSound"
           onClick={() => {
             sound.pause();
           }}
