@@ -20,8 +20,8 @@ app.use(cors());
 app.use(morgan(ENVIRONMENT));
 app.use(bodyParser.json());
 
-//Sound Library -> format is /sounds/[filename.mp3]
-app.use('/sounds', express.static(__dirname + '/sounds'));
+//Accessing static sound file => acess URL in format: /public/[filename.mp3]
+app.use('/public', express.static(__dirname + '/public'));
 
 console.log(__dirname);
 
