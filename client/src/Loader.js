@@ -34,7 +34,8 @@ function Loader() {
         });
       })
       .then((room) => {
-        console.log(`Successfully joined a Room: ${room}`);
+        console.log(`Room joined: ${room.name}`);
+        console.log(room);
         setChatRoom(room);
       });
   }, [token]);
