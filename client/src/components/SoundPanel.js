@@ -5,9 +5,9 @@ import {
   brands,
 } from '@fortawesome/fontawesome-svg-core/import.macro';
 
-import DiscoSound from './DiscoSound';
+import PianoSound from './PianoSound';
 import RainSound from './RainSound';
-import GhibliSound from './GhibliSound';
+import StringSound from './StringSound';
 
 export default function TitlePanel({ onSelect }) {
   return (
@@ -25,9 +25,9 @@ export default function TitlePanel({ onSelect }) {
         Soundboard
       </h1>
       <h2 className="font-body text-lg text-center">SFX</h2>
-      <DiscoSound />
+      <StringSound />
       <RainSound />
-      <GhibliSound />
+      <PianoSound />
     </section>
   );
 }
