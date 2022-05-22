@@ -29,9 +29,14 @@ import Ghibli from './components/Ghibli';
 import DiscoSound from './components/DiscoSound';
 import Rain from './components/Rain';
 
-function App() {
-  // Display a local camera preview
+function App({ userName, roomName, token, chatRoom }) {
+  console.log('LOGGING PROPS');
+  console.log('LOGGING "userName":', userName);
+  console.log('LOGGING "roomName":', roomName);
+  console.log('LOGGING "token":', token);
+  console.log('LOGGING "chatRoom":', chatRoom);
 
+  // Display a local camera preview
   createLocalVideoTrack().then((track) => {
     const localMediaContainer = document.getElementById('local-media-div');
     localMediaContainer.replaceChild(
@@ -42,14 +47,14 @@ function App() {
 
   const queryParams = new URLSearchParams(window.location.search);
 
-  const userName = queryParams.get('username');
-  const roomName = queryParams.get('room');
+  // TODO -- DELETE if this works
+  // const userName = queryParams.get('username');
+  // const roomName = queryParams.get('room');
 
   // const [chatRoom, setChatRoom] = useState(null);
 
   const [data, setData] = useState([]);
   const [panelState, setPanelState] = useState({ focused: null });
-
 
   const selectPanel = (id) => {
     setPanelState((prev) => ({
@@ -68,8 +73,8 @@ function App() {
     );
   }
 
-  let token = null;
-  let chatRoom = null;
+  // let token = null;
+  // let chatRoom = null;
   axios
     .get(`http://localhost:8080/video/token/${userName}/${roomName}`)
     .then((res) => {
