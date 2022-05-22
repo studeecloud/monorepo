@@ -84,15 +84,15 @@ export default function Timer(props) {
         <p>{minutes + ':' + seconds}</p>
       </CircularProgressbarWithChildren>
 
-      <div>
-        <div style={{ marginTop: '20px' }}>
+      <div className="ml-4">
+        <div>
           {isPaused ? (
             <PlayButton setPlay={() => setIsPaused(false)} />
           ) : (
             <PauseButton setPause={() => setIsPaused(true)} />
           )}
         </div>
-        <div style={{ marginTop: '20px' }}>
+        <div>
           <button
             className="bg-meringue border-2 border-dark-purple font-body p-2 rounded text-dark-gray text-2xl"
             onClick={() => setShowSettings(true)}
