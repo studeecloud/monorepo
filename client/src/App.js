@@ -216,7 +216,13 @@ function App({ userName, token, chatRoom }) {
     )
     .map((panel) => {
       if (panel.id === 1)
-        return <TitlePanel key={1} onSelect={() => selectPanel(1)} />;
+        return (
+          <TitlePanel
+            key={1}
+            roomName={roomName}
+            onSelect={() => selectPanel(1)}
+          />
+        );
       else if (panel.id === 2)
         return (
           <VideoPanel
@@ -230,7 +236,13 @@ function App({ userName, token, chatRoom }) {
           />
         );
       else if (panel.id === 3)
-        return <ChatPanel key={3} onSelect={() => selectPanel(3)} userName={userName} />;
+        return (
+          <ChatPanel
+            key={3}
+            onSelect={() => selectPanel(3)}
+            userName={userName}
+          />
+        );
       else if (panel.id === 4)
         return <SoundPanel key={4} onSelect={() => selectPanel(4)} />;
     });
