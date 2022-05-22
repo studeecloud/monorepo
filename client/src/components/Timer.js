@@ -1,4 +1,13 @@
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import {
+  CircularProgressbarWithChildren,
+  buildStyles,
+} from 'react-circular-progressbar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  solid,
+  regular,
+  brands,
+} from '@fortawesome/fontawesome-svg-core/import.macro';
 
 //FIXME: Componenents have only a single onClick callback that changes isPaused state.
 // Can be removed added direclty to this document
@@ -54,6 +63,15 @@ export default function Timer(props) {
     return () => clearInterval(interval);
   }, [isPaused, secondsLeft, workMinutes, mode, breakMinutes]);
 
+  // Helper function that plays if paused and pauses if playing. Simplifies logic by sending the same function to both play and pause buttons
+  const togglePlay = () => {
+    if (isPaused) {
+      setIsPaused(false);
+      return;
+    }
+    setIsPaused(true);
+  };
+
   // Helper functions to calcuate time left in Min:Sec format
   const totalSeconds = mode === 'work' ? workMinutes * 60 : breakMinutes * 60;
 
@@ -69,30 +87,35 @@ export default function Timer(props) {
 
   return (
     <div className="flex w-full items-center justify-center">
-      <CircularProgressbar
-        value={percentage}
-        text={minutes + ':' + seconds}
-        className="w-1/4"
-        styles={buildStyles({
-          textColor: '#f54e4e',
-          pathColor: mode === 'work' ? '#f54e4e' : '#00FF00',
-          tailColor: 'rgba(255,255,255,.2)',
-        })}
-      />
-      <div>
-        <div style={{ marginTop: '20px' }}>
-          {isPaused ? (
-            <PlayButton setPlay={() => setIsPaused(false)} />
-          ) : (
-            <PauseButton setPause={() => setIsPaused(true)} />
-          )}
+      <div className="w-36">
+        <CircularProgressbarWithChildren
+          value={percentage}
+          styles={buildStyles({
+            textColor: 'black',
+            pathColor: 'black',
+            tailColor: 'rgba(255,255,255,.2)',
+          })}
+        >
+          <p className="text-2xl">{minutes + ':' + seconds}</p>
+        </CircularProgressbarWithChildren>
+      </div>
+
+      {/* TODO -- These are the classes that were being used to style the Timer buttons */}
+      {/* className="bg-meringue border-2 border-dark-purple font-body p-2 rounded text-dark-gray text-2xl" */}
+
+      <div className="ml-4">
+        <div className="mb-2">
+          <button type="button" onClick={togglePlay}>
+            {isPaused ? (
+              <FontAwesomeIcon icon={solid('circle-play')} className="h-7" />
+            ) : (
+              <FontAwesomeIcon icon={solid('circle-pause')} className="h-7" />
+            )}
+          </button>
         </div>
-        <div style={{ marginTop: '20px' }}>
-          <button
-            className="bg-meringue border-2 border-dark-purple font-body p-2 rounded text-dark-gray text-2xl"
-            onClick={() => setShowSettings(true)}
-          >
-            Settings
+        <div>
+          <button onClick={() => setShowSettings(true)}>
+            <FontAwesomeIcon icon={solid('gear')} className="h-7" />
           </button>
         </div>
       </div>

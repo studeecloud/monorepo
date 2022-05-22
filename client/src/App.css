@@ -29,3 +29,7 @@
   margin: 1rem;
   line-height: 2rem;
 }
+
+.CircularProgressbar-text {
+  text-align: center;
+}
