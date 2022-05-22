@@ -24,16 +24,16 @@ export default function MessageForm({ getMessages, userName }) {
   };
 
   return (
-    <section>
+    <section className="w-full">
       <form
         method="post"
         action="/messages"
         className="flex flex-col items-center"
         onSubmit={disableSubmit}
       >
-        <div className="flex">
+        <div className="flex w-full">
           <textarea
-            className="border-2 border-dark-gray py-2 px-1 mr-3 rounded"
+            className="border-2 border-dark-gray py-2 px-3 mr-2 rounded w-full"
             name="message"
             placeholder="Talk to me..."
             rows={1}
@@ -44,7 +44,7 @@ export default function MessageForm({ getMessages, userName }) {
           <input
             type="submit"
             value="Send"
-            className="border-2 border-dark-gray p-2 rounded w-24 my-2.5"
+            className="w-24 p-2 border-2 border-dark-gray rounded"
             onClick={handleSubmit}
           />
         </div>
