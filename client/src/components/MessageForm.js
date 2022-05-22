@@ -4,14 +4,16 @@ import axios from 'axios';
 export default function MessageForm({ getMessages, userName }) {
   const [message, setMessage] = useState('');
 
-  const placeholder = 'Talk to me...';
   const disableSubmit = (e) => {
     e.preventDefault();
   };
 
   const handleSubmit = () => {
     axios
-      .post('http://localhost:8080/messages', { message: message, userName: userName })
+      .post('http://localhost:8080/messages', {
+        message: message,
+        userName: userName || 'NullUser',
+      })
       .then((res) => {
         getMessages();
       })
@@ -19,31 +21,33 @@ export default function MessageForm({ getMessages, userName }) {
         console.log(err);
       });
     setMessage('');
-  }
+  };
 
   return (
-    <section>
+    <section className="w-full">
       <form
         method="post"
         action="/messages"
         className="flex flex-col items-center"
         onSubmit={disableSubmit}
       >
-        <textarea
-          type="text"
-          className="border-2 border-dark-gray p-2 rounded"
-          name="text"
-          placeholder={placeholder}
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          style={{ width: 500, height: 75 }}
-        ></textarea>
-        <input
-          type="submit"
-          value="Message"
-          className="border-2 border-dark-gray p-2 rounded w-48 my-2.5"
-          onClick={handleSubmit}
-        />
+        <div className="flex w-full">
+          <textarea
+            className="border-2 border-dark-gray py-2 px-3 mr-2 rounded w-full"
+            name="message"
+            placeholder="Talk to me..."
+            rows={1}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            style={{ resize: 'none' }}
+          ></textarea>
+          <input
+            type="submit"
+            value="Send"
+            className="w-24 p-2 border-2 border-dark-gray rounded"
+            onClick={handleSubmit}
+          />
+        </div>
       </form>
     </section>
   );
