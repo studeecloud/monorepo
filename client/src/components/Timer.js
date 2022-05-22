@@ -69,33 +69,31 @@ export default function Timer(props) {
 
   return (
     <div>
-      <span className="countdown font-mono text-2xl">
-        <span style={{ value: { minutes } }}></span>:
-        <span style={{ value: { seconds } }}></span>
-      </span>
-      <CircularProgressbar
-        value={percentage}
-        text={minutes + ':' + seconds}
-        styles={buildStyles({
-          textColor: '#f54e4e',
-          pathColor: mode === 'work' ? '#f54e4e' : '#00FF00',
-          tailColor: 'rgba(255,255,255,.2)',
-        })}
-      />
-      <div style={{ marginTop: '20px' }}>
-        {isPaused ? (
-          <PlayButton setPlay={() => setIsPaused(false)} />
-        ) : (
-          <PauseButton setPause={() => setIsPaused(true)} />
-        )}
-      </div>
-      <div style={{ marginTop: '20px' }}>
-        <button
-          className="btn btn-primary"
-          onClick={() => setShowSettings(true)}
-        >
-          Settings
-        </button>
+      <div className>
+        <CircularProgressbar
+          value={percentage}
+          text={minutes + ':' + seconds}
+          styles={buildStyles({
+            textColor: '#f54e4e',
+            pathColor: mode === 'work' ? '#f54e4e' : '#00FF00',
+            tailColor: 'rgba(255,255,255,.2)',
+          })}
+        />
+        <div style={{ marginTop: '20px' }}>
+          {isPaused ? (
+            <PlayButton setPlay={() => setIsPaused(false)} />
+          ) : (
+            <PauseButton setPause={() => setIsPaused(true)} />
+          )}
+        </div>
+        <div style={{ marginTop: '20px' }}>
+          <button
+            className="bg-meringue border-2 border-dark-purple font-body p-2 hover:p-3 rounded text-dark-gray text-2xl"
+            onClick={() => setShowSettings(true)}
+          >
+            Settings
+          </button>
+        </div>
       </div>
     </div>
   );
