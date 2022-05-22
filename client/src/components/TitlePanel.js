@@ -13,14 +13,18 @@ export default function TitlePanel({ onSelect }) {
 
   return (
     <section
-      className="dashboard__panel bg-gold"
+      className="dashboard__panel relative bg-gold"
       style={{ border: '1px solid black' }}
-      // onClick={onSelect}
     >
-      <button type="button" className="flex mx-6" onClick={onSelect}>
+      <button
+        type="button"
+        className="mt-3 absolute"
+        style={{ width: '93%' }}
+        onClick={onSelect}
+      >
         <FontAwesomeIcon icon={solid('expand')} className="h-7" />
       </button>
-      <h1 className="font-display text-4xl text-black text-center">
+      <h1 className="mt-3 mb-5 font-display text-4xl text-black text-center">
         StudeeCloud
       </h1>
       <h2 className="font-header text-2xl text-center">
