@@ -6,6 +6,7 @@ import {
   brands,
 } from '@fortawesome/fontawesome-svg-core/import.macro';
 
+
 export default function Ghibli() {
   const sound = new Howl({
     src: ['http://localhost:8080/sounds/Ghibli.mp3'],
@@ -42,5 +43,6 @@ export default function Ghibli() {
         </button>
       </div>
     </section>
+
   );
 }

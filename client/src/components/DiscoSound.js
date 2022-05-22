@@ -7,6 +7,7 @@ import {
   brands,
 } from '@fortawesome/fontawesome-svg-core/import.macro';
 
+
 //REVIEW: Slider component only necessary as stretch to incoporate volume control
 //import ReactSlider from 'react-slider';
 
@@ -61,6 +62,7 @@ export default function DiscoSound() {
           }}
         >
           <FontAwesomeIcon icon={solid('circle-pause')} />
+
         </button>
       </div>
     </section>
