@@ -10,8 +10,8 @@ export default function ChatPanel({ onSelect, userName }) {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    getMessages();
-  }, []);
+    setInterval(getMessages(), 1000);
+  }, [messages]);
 
   const getMessages = () => {
     axios
