@@ -19,7 +19,7 @@ export default function GhibliSound() {
   return (
     <section className="flex flex-row justify-around">
       <div>
-        <h1 className="font-body text-2xl text-black text-center">Ghibli </h1>
+        <h1 className="font-body text-2xl text-center">Ghibli </h1>
       </div>
       <div>
         <button

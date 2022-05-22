@@ -12,30 +12,31 @@ export default function TitlePanel({ onSelect, roomName }) {
   // onSelect:Function
 
   return (
-    <section
-      className="dashboard__panel relative bg-gold"
-      style={{ border: '1px solid black' }}
-    >
+    <section className="dashboard__panel relative border bg-gold">
       <button
         type="button"
-        className="mt-3 absolute"
-        style={{ width: '93%' }}
+        className="absolute"
+        style={{ top: '3.5%', right: '2%' }}
         onClick={onSelect}
       >
         <FontAwesomeIcon icon={solid('expand')} className="h-7" />
       </button>
-      <h1 className="mt-3 mb-5 font-display text-4xl text-black text-center">
+
+      <h1 className="mt-3 mb-5 font-display text-4xl text-center">
         StudeeCloud
       </h1>
+
       <h2 className="font-header text-3xl text-center">
         Collaborative
         <br />
         Study Environment
       </h2>
+
       <h3 className="font-body text-2xl">
         <strong>Room: </strong>
         {roomName}
       </h3>
+
       <PomodoroTimer />
     </section>
   );
