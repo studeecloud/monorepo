@@ -6,6 +6,7 @@ import Message from './Message';
  * @returns All Message components
  */
 export default function MessageList({ messages }) {
+
   return (
     <>
       {messages.map((message, i) => {
