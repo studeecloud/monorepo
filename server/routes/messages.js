@@ -4,14 +4,13 @@ module.exports = (db) => {
   router.get('/', (req, res) => {
     const getMessages = 'SELECT * FROM messages';
     db.query(getMessages).then((data) => {
-      console.log('message data', data);
+      // console.log('message data', data.rows);
       res.json(data.rows);
     });
   });
   router.post('/', (req, res) => {
     const insertMessage = `INSERT INTO messages VALUES($1, $2)`;
     const msgCountQuery = `SELECT COUNT(*) FROM messages;`;
-    console.log('req', req.body);
 
     db.query(msgCountQuery).then((data) => {
       console.log(
