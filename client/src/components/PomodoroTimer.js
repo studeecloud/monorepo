@@ -9,7 +9,7 @@ export default function PomodoroTimer() {
   const [breakMinutes, setBreakMinutes] = useState(15);
 
   return (
-    <main>
+    <main className="w-full">
       {showSettings ? (
         <Settings
           setShowSettings={setShowSettings}
