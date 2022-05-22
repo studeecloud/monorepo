@@ -10,7 +10,7 @@ export default function MessageList(props) {
             <Message
               key={i}
               user='LISA'
-              body={message.message_text}
+              body={message.message}
             />
           )
         }
