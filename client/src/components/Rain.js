@@ -8,6 +8,7 @@ import {
 
 export default function Rain() {
   const sound = new Howl({
+    //TODO: Remove direct reference to localhost in file src
     src: ['http://localhost:8080/public/Rain.mp3'],
     html5: true,
     preload: true,
