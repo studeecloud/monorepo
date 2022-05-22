@@ -1,4 +1,7 @@
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import {
+  CircularProgressbarWithChildren,
+  buildStyles,
+} from 'react-circular-progressbar';
 
 //FIXME: Componenents have only a single onClick callback that changes isPaused state.
 // Can be removed added direclty to this document
@@ -69,16 +72,18 @@ export default function Timer(props) {
 
   return (
     <div className="flex w-full items-center justify-center">
-      <CircularProgressbar
+      <CircularProgressbarWithChildren
         value={percentage}
-        text={minutes + ':' + seconds}
-        className="w-1/4"
+        className="w-24"
         styles={buildStyles({
-          textColor: '#f54e4e',
-          pathColor: mode === 'work' ? '#f54e4e' : '#00FF00',
+          textColor: 'black',
+          pathColor: 'black',
           tailColor: 'rgba(255,255,255,.2)',
         })}
-      />
+      >
+        <p>{minutes + ':' + seconds}</p>
+      </CircularProgressbarWithChildren>
+
       <div>
         <div style={{ marginTop: '20px' }}>
           {isPaused ? (
