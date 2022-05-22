@@ -39,11 +39,10 @@ function Loader() {
       });
   }, [token]);
 
-  // TODO -- Gonzo thinks the token does not need to be passed as props
   return (
     <>
       {token !== '' && chatRoom !== null && (
-        <App userName={userName} token={token} chatRoom={chatRoom} />
+        <App userName={userName} chatRoom={chatRoom} />
       )}
     </>
   );
