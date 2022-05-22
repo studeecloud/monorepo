@@ -100,22 +100,22 @@ export default function Timer(props) {
         </CircularProgressbarWithChildren>
       </div>
 
+      {/* TODO -- These are the classes that were being used to style the Timer buttons */}
+      {/* className="bg-meringue border-2 border-dark-purple font-body p-2 rounded text-dark-gray text-2xl" */}
+
       <div className="ml-4">
         <div className="mb-2">
           <button type="button" onClick={togglePlay}>
             {isPaused ? (
-              <FontAwesomeIcon icon={solid('circle-play')} />
+              <FontAwesomeIcon icon={solid('circle-play')} className="h-7" />
             ) : (
-              <FontAwesomeIcon icon={solid('circle-pause')} />
+              <FontAwesomeIcon icon={solid('circle-pause')} className="h-7" />
             )}
           </button>
         </div>
         <div>
-          <button
-            className="bg-meringue border-2 border-dark-purple font-body p-2 rounded text-dark-gray text-2xl"
-            onClick={() => setShowSettings(true)}
-          >
-            Settings
+          <button onClick={() => setShowSettings(true)}>
+            <FontAwesomeIcon icon={solid('gear')} className="h-7" />
           </button>
         </div>
       </div>
