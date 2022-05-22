@@ -6,10 +6,9 @@ import {
   brands,
 } from '@fortawesome/fontawesome-svg-core/import.macro';
 
-
 export default function Rain() {
   const sound = new Howl({
-    src: ['http://localhost:8080/sounds/Rain.mp3'],
+    src: ['http://localhost:8080/public/Rain.mp3'],
     html5: true,
     preload: true,
     loop: true,
