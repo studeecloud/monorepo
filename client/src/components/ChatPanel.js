@@ -16,7 +16,6 @@ export default function ChatPanel({ onSelect }) {
   const getMessages = () => {
     axios.get('http://localhost:8080/messages')
       .then((res) => {
-        console.log(res.data);
         setMessages(res.data);
       })
       .catch((err) => {
