@@ -1,10 +1,6 @@
-import { useState, useEffect, Fragment } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import {
-  connect,
-  createLocalTracks,
-  createLocalVideoTrack,
-} from 'twilio-video';
+import { connect, createLocalTracks } from 'twilio-video';
 
 import App from './App';
 

@@ -31,11 +31,6 @@ import Rain from './components/Rain';
 
 function App({ userName, token, chatRoom }) {
   const roomName = chatRoom.name;
-  console.log('LOGGING PROPS');
-  console.log('LOGGING "userName":', userName);
-  console.log('LOGGING "roomName":', roomName);
-  console.log('LOGGING "token":', token);
-  console.log('LOGGING "chatRoom":', chatRoom);
 
   // Display a local camera preview
   createLocalVideoTrack().then((track) => {
