@@ -19,7 +19,7 @@ module.exports = (db) => {
         parseInt(data.rows[0].count)
       );
       const msgCount = parseInt(data.rows[0].count);
-      db.query(insertMessage, [msgCount + 1, req.body.message_text]).then(
+      db.query(insertMessage, [msgCount + 1, req.body.message]).then(
         (data) => {
           res.json({ status: 'success' });
         }
