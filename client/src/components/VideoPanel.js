@@ -19,7 +19,7 @@ export default function VideoPanel({
       style={{ border: '1px solid black' }}
       // onClick={onSelect}
     >
-      <button type="button" className="flex mx-6" onClick={onSelect}>
+      <button type="button" className="flex absolute" onClick={onSelect}>
         <FontAwesomeIcon icon={solid('expand')} className="h-7" />
       </button>
       <h1 className="font-display mb-6 text-4xl text-black text-center">

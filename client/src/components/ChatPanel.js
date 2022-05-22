@@ -29,7 +29,7 @@ export default function ChatPanel({ onSelect, userName }) {
       className="dashboard__panel bg-meringue"
       style={{ border: '1px solid black' }}
     >
-      <button type="button" className="flex mx-6" onClick={onSelect}>
+      <button type="button" className="flex absolute" onClick={onSelect}>
         <FontAwesomeIcon icon={solid('expand')} className="h-7" />
       </button>
       <h1 className="mb-6 font-display text-4xl text-black text-center">
