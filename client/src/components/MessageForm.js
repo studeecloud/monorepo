@@ -12,7 +12,7 @@ export default function MessageForm({ getMessages, userName }) {
     axios
       .post('http://localhost:8080/messages', {
         message: message,
-        userName: userName,
+        userName: userName || 'NullUser',
       })
       .then((res) => {
         getMessages();
@@ -31,20 +31,23 @@ export default function MessageForm({ getMessages, userName }) {
         className="flex flex-col items-center"
         onSubmit={disableSubmit}
       >
-        <textarea
-          className="border-2 border-dark-gray p-2 rounded"
-          name="message"
-          placeholder="Talk to me..."
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          style={{ resize: 'none', width: 500, height: '2rem' }}
-        ></textarea>
-        <input
-          type="submit"
-          value="Message"
-          className="border-2 border-dark-gray p-2 rounded w-48 my-2.5"
-          onClick={handleSubmit}
-        />
+        <div className="flex">
+          <textarea
+            className="border-2 border-dark-gray py-2 px-1 mr-3 rounded"
+            name="message"
+            placeholder="Talk to me..."
+            rows={1}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            style={{ resize: 'none' }}
+          ></textarea>
+          <input
+            type="submit"
+            value="Send"
+            className="border-2 border-dark-gray p-2 rounded w-24 my-2.5"
+            onClick={handleSubmit}
+          />
+        </div>
       </form>
     </section>
   );
