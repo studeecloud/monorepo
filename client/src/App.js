@@ -24,11 +24,6 @@ import VideoPanel from './components/VideoPanel';
 import ChatPanel from './components/ChatPanel';
 import SoundPanel from './components/SoundPanel';
 
-//Sounds
-import Ghibli from './components/Ghibli';
-import DiscoSound from './components/DiscoSound';
-import Rain from './components/Rain';
-
 function App({ userName, token, chatRoom }) {
   const roomName = chatRoom.name;
 

@@ -7,7 +7,6 @@ import {
   brands,
 } from '@fortawesome/fontawesome-svg-core/import.macro';
 
-
 //REVIEW: Slider component only necessary as stretch to incoporate volume control
 //import ReactSlider from 'react-slider';
 
@@ -25,7 +24,8 @@ export default function DiscoSound() {
   // through state change, volume property is changed via slider
   //REVIEW: Changed volume property from decimalVolume to hardcode max
   const sound = new Howl({
-    src: ['http://localhost:8080/sounds/FunkDiscoSoul.mp3'],
+    //TODO: Remove direct reference to localhost in file src
+    src: ['http://localhost:8080/public/Disco.mp3'],
     html5: true,
     preload: true,
     loop: true,
@@ -62,7 +62,6 @@ export default function DiscoSound() {
           }}
         >
           <FontAwesomeIcon icon={solid('circle-pause')} />
-
         </button>
       </div>
     </section>
