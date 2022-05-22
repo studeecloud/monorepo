@@ -7,7 +7,7 @@ export default function Message(props) {
   // }
 
   return (
-    <article className="flex border-2 border-dark-gray rounded p-2 bg-meringue h-30 w-full mb-2">
+    <article className="flex border-2 border-dark-gray rounded p-2 bg-meringue mb-2">
       <header>
         {/* <BigHead className="h-20 w-20" /> */}
         <h2 className="m-1 font-header w-24">
@@ -15,7 +15,7 @@ export default function Message(props) {
         </h2>
       </header>
 
-      <p className="m-auto ml-3 font-body">{props.body}</p>
+      <p className="my-auto ml-3 font-body break-all">{props.body}</p>
     </article>
   );
 }
