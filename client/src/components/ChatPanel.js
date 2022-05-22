@@ -34,9 +34,13 @@ export default function ChatPanel({ onSelect, userName }) {
       >
         <FontAwesomeIcon icon={solid('expand')} className="h-7" />
       </button>
-      <h1 className="mt-3 mb-5 font-display text-4xl text-center">Chat</h1>
-      <article className="flex flex-col items-center w-2/3 mx-auto">
-        <MessageList messages={messages} />
+      <h1 className="mt-3 mb-5 font-display text-4xl text-black text-center">
+        Chat
+      </h1>
+      <article className="flex flex-col justify-between w-2/3 mx-auto bg-gold p-2 rounded max-h-5/6 h-5/6 overflow-auto">
+        <div>
+          <MessageList messages={messages} />
+        </div>
         <MessageForm getMessages={getMessages} userName={userName} />
       </article>
     </section>
