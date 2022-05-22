@@ -25,21 +25,16 @@ export default function ChatPanel({ onSelect, userName }) {
   };
 
   return (
-    <section
-      className="dashboard__panel relative bg-meringue"
-      style={{ border: '1px solid black' }}
-    >
+    <section className="dashboard__panel relative border bg-meringue">
       <button
         type="button"
-        className="mt-3 absolute"
-        style={{ width: '93%' }}
+        className="absolute"
+        style={{ top: '3.5%', right: '2%' }}
         onClick={onSelect}
       >
         <FontAwesomeIcon icon={solid('expand')} className="h-7" />
       </button>
-      <h1 className="mt-3 mb-5 font-display text-4xl text-black text-center">
-        Chat
-      </h1>
+      <h1 className="mt-3 mb-5 font-display text-4xl text-center">Chat</h1>
       <article className="flex flex-col items-center w-2/3 mx-auto">
         <MessageList messages={messages} />
         <MessageForm getMessages={getMessages} userName={userName} />
