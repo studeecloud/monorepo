@@ -39,7 +39,7 @@ export default function DiscoSound() {
   return (
     <section className="flex flex-row justify-around">
       <div>
-        <h1 className="font-body text-4xl text-black text-center">Disco </h1>
+        <h1 className="font-body text-2xl text-black text-center">Disco </h1>
       </div>
       <div>
         <button
