@@ -69,7 +69,7 @@ export default function Timer(props) {
 
   return (
     <div>
-      <div className="bg-meringue">
+      <div className>
         <CircularProgressbar
           value={percentage}
           text={minutes + ':' + seconds}
