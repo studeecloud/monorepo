@@ -1,15 +1,21 @@
 import Message from "./Message";
 
-export default function MessageList(props) {
+
+/**
+ * 
+ * @param {Object} messages includes two keys: {String} message and {String} sender 
+ * @returns All Message components
+ */
+export default function MessageList({ messages }) {
 
   return (
     <>
       {
-        props.messages.map((message, i) => {
+        messages.map((message, i) => {
           return (
             <Message
               key={i}
-              user={message.sender}
+              user={message.sender.toUpperCase()}
               body={message.message}
             />
           )
