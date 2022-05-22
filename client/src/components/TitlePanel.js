@@ -7,7 +7,7 @@ import {
   brands,
 } from '@fortawesome/fontawesome-svg-core/import.macro';
 
-export default function TitlePanel({ onSelect }) {
+export default function TitlePanel({ onSelect, roomName }) {
   // EXPECTED PROPS:
   // onSelect:Function
 
@@ -27,14 +27,16 @@ export default function TitlePanel({ onSelect }) {
       <h1 className="mt-3 mb-5 font-display text-4xl text-black text-center">
         StudeeCloud
       </h1>
-      <h2 className="font-header text-2xl text-center">
+      <h2 className="font-header text-3xl text-center">
         Collaborative
         <br />
         Study Environment
       </h2>
-      <div className="w-1/6">
-        <PomodoroTimer />
-      </div>
+      <h3 className="font-body text-2xl">
+        <strong>Room: </strong>
+        {roomName}
+      </h3>
+      <PomodoroTimer />
     </section>
   );
 }
