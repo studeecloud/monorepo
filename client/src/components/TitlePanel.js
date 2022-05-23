@@ -12,7 +12,7 @@ export default function TitlePanel({ onSelect, roomName }) {
   // onSelect:Function
 
   return (
-    <section className="dashboard__panel relative border bg-gold">
+    <section className="dashboard__panel relative border bg-meringue">
       <button
         type="button"
         className="absolute"
