@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import MessageForm from './MessageForm';
 import MessageList from './MessageList';
@@ -9,9 +9,30 @@ import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 export default function ChatPanel({ onSelect, userName }) {
   const [messages, setMessages] = useState([]);
 
-  useEffect(() => {
-    setInterval(getMessages(), 1000);
-  }, [messages]);
+  // Custom hook useInterval will take an action on a set time interval
+  const useInterval = (callback, delay) => {
+    const savedCallback = useRef();
+
+    // Remember the latest callback
+    useEffect(() => {
+      savedCallback.current = callback;
+    }, [callback]);
+
+    // Set up the interval
+    useEffect(() => {
+      function tick() {
+        savedCallback.current();
+      }
+      if (delay !== null) {
+        let id = setInterval(tick, delay);
+        return () => clearInterval(id);
+      }
+    }, [delay]);
+  };
+
+  useInterval(() => {
+    getMessages();
+  }, 250);
 
   const getMessages = () => {
     axios
