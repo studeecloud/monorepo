@@ -47,52 +47,6 @@ function App({ userName, token, chatRoom }) {
   //   );
   // }
 
-  // When a new participant connects, display their published media tracks
-  chatRoom.on('participantConnected', (participant) => {
-    console.log(`A remote Participant connected: ${participant}`);
-
-    // When a participant joins, we iterate over the possible media tracks that they might be broadcasting at the time that they join the Room
-    participant.tracks.forEach((publication) => {
-      // If a given media track is being broadcast, we grab it and use it to replace the existing child of 'remote-media-div'
-      if (publication.isSubscribed) {
-        const track = publication.track;
-        const remoteMediaContainer =
-          document.getElementById('remote-media-div');
-        remoteMediaContainer.replaceChild(
-          track.attach(),
-          remoteMediaContainer.firstChild
-        );
-      }
-    });
-
-    // If a participant begins broadcasting a media track that they were not broadcasting when they joined the call, this event is triggered
-    participant.on('trackSubscribed', (track) => {
-      // When that happens, we use it to replace the existing child of 'remote-media-div'
-      const remoteMediaContainer = document.getElementById('remote-media-div');
-      if (remoteMediaContainer) {
-        remoteMediaContainer.replaceChild(
-          track.attach(),
-          remoteMediaContainer.firstChild
-        );
-      }
-    });
-  });
-  // When a participant disconnects, detach their media tracks
-  chatRoom.on('participantDisconnected', (participant) => {
-    participant.tracks.forEach((publication) => {
-      console.log('Participant "%s" disconnected', participant.identity);
-      // TODO: Find the correct code for clearing the media track div, or just replace with avatar
-    });
-  });
-
-  chatRoom.on('disconnected', (room) => {
-    // Detach local media elements
-    room.localParticipant.tracks.forEach((publication) => {
-      const attachedElements = publication.track.detach();
-      attachedElements.forEach((element) => element.remove());
-    });
-  });
-
   // Test data for panels
   const panelData = [
     {
@@ -141,6 +95,7 @@ function App({ userName, token, chatRoom }) {
             key={2}
             chatRoom={chatRoom}
             onSelect={() => selectPanel(2)}
+            focused={panelState.focused === 2}
           />
         );
       else if (panel.id === 3)
