@@ -46,7 +46,7 @@ export default function ChatPanel({ onSelect, userName }) {
   };
 
   return (
-    <section className="dashboard__panel relative border bg-meringue">
+    <section className="dashboard__panel relative border bg-meringue pb-4">
       <button
         type="button"
         className="absolute"
@@ -58,7 +58,7 @@ export default function ChatPanel({ onSelect, userName }) {
       <h1 className="mt-3 mb-5 font-display text-4xl text-black text-center">
         Chat
       </h1>
-      <article className="flex flex-col justify-between w-2/3 mx-auto bg-gold p-2 rounded h-5/6 overflow-auto">
+      <article className="flex flex-col justify-between border w-5/6 mx-auto bg-gold p-2 rounded h-5/6 overflow-auto">
         <div>
           <MessageList messages={messages} />
         </div>
