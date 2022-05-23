@@ -4,6 +4,7 @@ const TimerContext = createContext({});
 
 function TimerProvider({ children }) {
   //STATE MANAGEMENT: States related to Timer in Title Panel
+  //TODO: Refactor by packaging into single object
   const [showSettings, setShowSettings] = useState(false);
   const [workMinutes, setWorkMinutes] = useState(45);
   const [breakMinutes, setBreakMinutes] = useState(15);
@@ -57,6 +58,7 @@ function TimerProvider({ children }) {
     }
     setIsPaused(true);
   };
+
   const value = useMemo(
     () => ({
       showSettings,

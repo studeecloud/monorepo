@@ -14,8 +14,6 @@ import {
 import { useState, useEffect } from 'react';
 
 export default function Timer() {
-  // setShowSettings is booelan
-  // workMinutes and breakMinutes are both numbers
   const {
     setShowSettings,
     workMinutes,

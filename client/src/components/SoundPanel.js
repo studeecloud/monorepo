@@ -12,17 +12,7 @@ import PianoSound from './PianoSound';
 import RainSound from './RainSound';
 import StringSound from './StringSound';
 
-export default function TitlePanel({ onSelect }) {
-  const { secondsLeft } = useTimer();
-
-  //Function testing to see where Timer Panel secondsLeft is being reset
-  useEffect(() => {
-    console.log(
-      'testing to see what is causing secondsLeft Reset',
-      secondsLeft
-    );
-  }, [secondsLeft]);
-
+export default function SoundPanel({ onSelect }) {
   return (
     <section className="dashboard__panel relative border bg-meringue">
       <button

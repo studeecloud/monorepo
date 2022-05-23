@@ -30,24 +30,12 @@ function App({ userName, token, chatRoom }) {
   // const [data, setData] = useState([]); // TODO -- old code, remove
   const [panelState, setPanelState] = useState({ focused: null });
 
-  //STATE MANAGEMENT: States related to Timer in Title Panel
-  const [showSettings, setShowSettings] = useState(false);
-  const [workMinutes, setWorkMinutes] = useState(45);
-  const [breakMinutes, setBreakMinutes] = useState(15);
-  const [secondsLeft, setSecondsLeft] = useState(0); //Each mode has independent secondsLeft state
-  const [isPaused, setIsPaused] = useState(true); //Used by pause & play buttons on timer
-  const [mode, setMode] = useState('work'); // "Work" and "Play" alternate once timer reaches 0
-
-  //Changes a panel panelState by panel id
+  //Changes panelState by panel id
   const selectPanel = (id) => {
     setPanelState((prev) => ({
       focused: prev.focused ? null : id,
     }));
   };
-  // Testing to see secondsLeft state
-  useEffect(() => {
-    console.log('secondsLeft state', secondsLeft);
-  }, [secondsLeft]);
 
   // TODO -- delete the 9 lines of code below this -- we're not using the headArray anymore, that was for testing
   // const headNum = 5;
