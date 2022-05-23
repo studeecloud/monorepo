@@ -29,11 +29,13 @@ function App({ userName, token, chatRoom }) {
 
   // Display a local camera preview
   createLocalVideoTrack().then((track) => {
-    const localMediaContainer = document.getElementById('local-media-div');
-    localMediaContainer.replaceChild(
-      track.attach(),
-      localMediaContainer.firstChild
-    );
+    if (document.getElementById('local-media-div')) {
+      const localMediaContainer = document.getElementById('local-media-div');
+      localMediaContainer.replaceChild(
+        track.attach(),
+        localMediaContainer.firstChild
+      );
+    }
   });
 
   // const [data, setData] = useState([]); // TODO -- old code, remove
@@ -74,8 +76,9 @@ function App({ userName, token, chatRoom }) {
   chatRoom.participants.forEach((participant) => {
     participant.tracks.forEach((publication) => {
       // Display the media tracks of participants that are already in the room
-      if (publication.track) {
-        const remoteMediaContainer = document.getElementById('remote-media-div');
+      if (publication.track && document.getElementById('remote-media-div')) {
+        const remoteMediaContainer =
+          document.getElementById('remote-media-div');
         remoteMediaContainer.replaceChild(
           publication.track.attach(),
           remoteMediaContainer.firstChild
