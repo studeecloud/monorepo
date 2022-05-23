@@ -25,18 +25,17 @@ import ChatPanel from './components/ChatPanel';
 import SoundPanel from './components/SoundPanel';
 
 function App({ userName, token, chatRoom }) {
-  const roomName = chatRoom.name;
+  const [showVideos, setShowVideos] = useState(true);
 
-  // Display a local camera preview
-  createLocalVideoTrack().then((track) => {
-    if (document.getElementById('local-media-div')) {
-      const localMediaContainer = document.getElementById('local-media-div');
-      localMediaContainer.replaceChild(
-        track.attach(),
-        localMediaContainer.firstChild
-      );
+  const toggleShowVideos = () => {
+    if (showVideos) {
+      setShowVideos(false);
+      return;
     }
-  });
+    setShowVideos(true);
+  };
+
+  const roomName = chatRoom.name;
 
   // const [data, setData] = useState([]); // TODO -- old code, remove
   const [panelState, setPanelState] = useState({ focused: null });
@@ -61,6 +60,7 @@ function App({ userName, token, chatRoom }) {
   // If we receive an event indicating a track was disabled, execute the code inside
   function handleTrackDisabled(track) {
     track.on('disabled', () => {
+      // TODO - render Big Head avatar
       console.log('Track disabled:');
       console.log(track);
     });
@@ -68,50 +68,65 @@ function App({ userName, token, chatRoom }) {
   // If we receive an event indicating a track was enabled, execute the code inside
   function handleTrackEnabled(track) {
     track.on('enabled', () => {
+      // TODO - render Big Head avatar
       console.log('Track enabled:');
       console.log(track);
     });
   }
 
   chatRoom.participants.forEach((participant) => {
-    participant.tracks.forEach((publication) => {
-      // Display the media tracks of participants that are already in the room
-      if (publication.track && document.getElementById('remote-media-div')) {
-        const remoteMediaContainer =
-          document.getElementById('remote-media-div');
+    // Display any new media tracks that are subscribed by participants in the room
+    participant.on('trackSubscribed', (track) => {
+      const remoteMediaContainer = document.getElementById('remote-media-div');
+      if (remoteMediaContainer) {
         remoteMediaContainer.replaceChild(
-          publication.track.attach(),
+          track.attach(),
           remoteMediaContainer.firstChild
         );
       }
-      // Attach the listeners to every subscribed media track
-      if (publication.isSubscribed) {
-        handleTrackEnabled(publication.track);
-        handleTrackDisabled(publication.track);
-      }
+    });
+
+    participant.tracks.forEach((publication) => {
       // When a new media track is subscribed, attach the listeners to it
       publication.on('subscribed', handleTrackDisabled);
       publication.on('subscribed', handleTrackEnabled);
 
       publication.on('unsubscribed', () => {
+        // TODO - render Big Heads avatar
         console.log('Publication unsubscribed:');
         console.log(publication);
       });
 
       publication.on('subscribed', () => {
+        // TODO - render Big Heads avatar
         console.log('Publication subscribed:');
         console.log(publication);
       });
     });
-    // Display any new media tracks that are subscribed by participants in the room
-    participant.on('trackSubscribed', (track) => {
-      const remoteMediaContainer = document.getElementById('remote-media-div');
-      remoteMediaContainer.replaceChild(
-        track.attach(),
-        remoteMediaContainer.firstChild
-      );
-    });
   });
+
+  useEffect(() => {
+    chatRoom.participants.forEach((participant) => {
+      participant.tracks.forEach((publication) => {
+        // Display the media tracks of participants that are already in the room
+        if (publication.track && document.getElementById('remote-media-div')) {
+          const remoteMediaContainer =
+            document.getElementById('remote-media-div');
+          if (remoteMediaContainer) {
+            remoteMediaContainer.replaceChild(
+              publication.track.attach(),
+              remoteMediaContainer.firstChild
+            );
+          }
+        }
+        // Attach the listeners to every subscribed media track
+        if (publication.isSubscribed) {
+          handleTrackEnabled(publication.track);
+          handleTrackDisabled(publication.track);
+        }
+      });
+    });
+  }, [chatRoom.participants, showVideos]);
 
   // When a new participant connects, display their published media tracks
   chatRoom.on('participantConnected', (participant) => {
@@ -135,10 +150,12 @@ function App({ userName, token, chatRoom }) {
     participant.on('trackSubscribed', (track) => {
       // When that happens, we use it to replace the existing child of 'remote-media-div'
       const remoteMediaContainer = document.getElementById('remote-media-div');
-      remoteMediaContainer.replaceChild(
-        track.attach(),
-        remoteMediaContainer.firstChild
-      );
+      if (remoteMediaContainer) {
+        remoteMediaContainer.replaceChild(
+          track.attach(),
+          remoteMediaContainer.firstChild
+        );
+      }
     });
   });
   // When a participant disconnects, detach their media tracks
@@ -156,30 +173,6 @@ function App({ userName, token, chatRoom }) {
       attachedElements.forEach((element) => element.remove());
     });
   });
-
-  const muteAudio = (room) => {
-    room.localParticipant.audioTracks.forEach((publication) => {
-      publication.track.disable();
-    });
-  };
-
-  const muteVideo = (room) => {
-    room.localParticipant.videoTracks.forEach((publication) => {
-      publication.track.disable();
-    });
-  };
-
-  const enableAudio = (room) => {
-    room.localParticipant.audioTracks.forEach((publication) => {
-      publication.track.enable();
-    });
-  };
-
-  const enableVideo = (room) => {
-    room.localParticipant.videoTracks.forEach((publication) => {
-      publication.track.enable();
-    });
-  };
 
   // Test data for panels
   const panelData = [
@@ -229,10 +222,8 @@ function App({ userName, token, chatRoom }) {
             key={2}
             chatRoom={chatRoom}
             onSelect={() => selectPanel(2)}
-            muteAudio={() => muteAudio(chatRoom)}
-            muteVideo={() => muteVideo(chatRoom)}
-            enableAudio={() => enableAudio(chatRoom)}
-            enableVideo={() => enableVideo(chatRoom)}
+            showVideos={showVideos}
+            toggleShowVideos={toggleShowVideos}
           />
         );
       else if (panel.id === 3)
