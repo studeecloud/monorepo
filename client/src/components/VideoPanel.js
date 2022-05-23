@@ -9,8 +9,6 @@ import {
 } from 'twilio-video';
 
 export default function VideoPanel({ onSelect, chatRoom, focused }) {
-  console.log('LOGGING "chatRoom":', chatRoom);
-
   // TODO -- Update this so the Big Heads aren't regenerated on each click to this panel
   const [showVideos, setShowVideos] = useState(true);
 
@@ -25,7 +23,6 @@ export default function VideoPanel({ onSelect, chatRoom, focused }) {
   // Display a local camera preview
   createLocalVideoTrack().then((track) => {
     if (document.getElementById('local-media-div')) {
-      console.log('Local media attacher');
       const localMediaContainer = document.getElementById('local-media-div');
       localMediaContainer.replaceChild(
         track.attach(),
@@ -52,32 +49,19 @@ export default function VideoPanel({ onSelect, chatRoom, focused }) {
   }
 
   useEffect(() => {
-    console.log('Is the useEffect running???');
+    // Iterate over remote participants in the room
     chatRoom.participants.forEach((participant) => {
-      console.log('Now iterating through the participants in chatRoom');
+      // Iterate over media tracks for the participant
       participant.tracks.forEach((publication) => {
-        console.log(
-          'Now iterating through the media tracks of each participant'
-        );
-        // Display the media tracks of participants that are already in the room
+        // If the media track is published, display it
         if (publication.track) {
-          console.log('This track is indeed published!');
-          console.log(publication);
           const remoteMediaContainer =
             document.getElementById('remote-media-div');
-
           if (remoteMediaContainer) {
-            console.log('I found a remote media container');
-            console.log(
-              `It has ${remoteMediaContainer.childElementCount} children.`
-            );
-            console.log('Remote media attacher #4');
             remoteMediaContainer.replaceChild(
               publication.track.attach(),
               remoteMediaContainer.firstChild
             );
-          } else {
-            console.log('I did not find a remote media container');
           }
         }
         // Attach the listeners to every subscribed media track
@@ -85,53 +69,45 @@ export default function VideoPanel({ onSelect, chatRoom, focused }) {
           handleTrackEnabled(publication.track);
           handleTrackDisabled(publication.track);
         }
-      });
-    });
 
-    chatRoom.participants.forEach((participant) => {
+        // When a new media track is subscribed, attach the listeners to it
+        publication.on('subscribed', handleTrackDisabled);
+        publication.on('subscribed', handleTrackEnabled);
+
+        publication.on('unsubscribed', () => {
+          // TODO - render Big Heads avatar
+          console.log('Publication unsubscribed:');
+          console.log(publication);
+        });
+
+        publication.on('subscribed', () => {
+          console.log('Publication subscribed:');
+          console.log(publication);
+        });
+      });
+
       // Display any new media tracks that are subscribed by participants in the room
       participant.on('trackSubscribed', (track) => {
         const remoteMediaContainer =
           document.getElementById('remote-media-div');
         if (remoteMediaContainer) {
-          console.log('Remote media attacher #5');
           remoteMediaContainer.replaceChild(
             track.attach(),
             remoteMediaContainer.firstChild
           );
         }
 
-        participant.tracks.forEach((publication) => {
-          // When a new media track is subscribed, attach the listeners to it
-          publication.on('subscribed', handleTrackDisabled);
-          publication.on('subscribed', handleTrackEnabled);
-
-          publication.on('unsubscribed', () => {
-            // TODO - render Big Heads avatar
-            console.log('Publication unsubscribed:');
-            console.log(publication);
-          });
-
-          publication.on('subscribed', () => {
-            // TODO - render Big Heads avatar
-            console.log('Publication subscribed:');
-            console.log(publication);
-          });
-        });
+        participant.tracks.forEach((publication) => {});
       });
     });
   }, [chatRoom, focused, showVideos]);
 
   // When a new participant connects, display their published media tracks
   chatRoom.on('participantConnected', (participant) => {
-    console.log('LOGGING "chatRoom":', chatRoom);
-    console.log(`A remote Participant connected: ${participant}`);
-
     // When a participant joins, we iterate over the possible media tracks that they might be broadcasting at the time that they join the Room
     participant.tracks.forEach((publication) => {
       // If a given media track is being broadcast, we grab it and use it to replace the existing child of 'remote-media-div'
       if (publication.isSubscribed) {
-        console.log('Remote media attacher #1');
         const track = publication.track;
         const remoteMediaContainer =
           document.getElementById('remote-media-div');
@@ -146,7 +122,6 @@ export default function VideoPanel({ onSelect, chatRoom, focused }) {
     participant.on('trackSubscribed', (track) => {
       // When that happens, we use it to replace the existing child of 'remote-media-div'
       const remoteMediaContainer = document.getElementById('remote-media-div');
-      console.log('Remote media attacher #2');
       if (remoteMediaContainer) {
         remoteMediaContainer.replaceChild(
           track.attach(),
