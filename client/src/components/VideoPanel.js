@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { BigHead } from '@bigheads/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
@@ -7,13 +8,17 @@ import {
   createLocalVideoTrack,
 } from 'twilio-video';
 
-export default function VideoPanel({
-  onSelect,
-  chatRoom,
-  showVideos,
-  toggleShowVideos,
-}) {
+export default function VideoPanel({ onSelect, chatRoom }) {
   // TODO -- Update this so the Big Heads aren't regenerated on each click to this panel
+  const [showVideos, setShowVideos] = useState(true);
+
+  const toggleShowVideos = () => {
+    if (showVideos) {
+      setShowVideos(false);
+      return;
+    }
+    setShowVideos(true);
+  };
 
   // Display a local camera preview
   createLocalVideoTrack().then((track) => {
@@ -26,6 +31,78 @@ export default function VideoPanel({
     }
   });
 
+  // If we receive an event indicating a track was disabled, execute the code inside
+  function handleTrackDisabled(track) {
+    track.on('disabled', () => {
+      // TODO - render Big Head avatar
+      console.log('Track disabled:');
+      console.log(track);
+    });
+  }
+  // If we receive an event indicating a track was enabled, execute the code inside
+  function handleTrackEnabled(track) {
+    track.on('enabled', () => {
+      // TODO - render Big Head avatar
+      console.log('Track enabled:');
+      console.log(track);
+    });
+  }
+
+  useEffect(() => {
+    chatRoom.participants.forEach((participant) => {
+      participant.tracks.forEach((publication) => {
+        // Display the media tracks of participants that are already in the room
+        if (publication.track && document.getElementById('remote-media-div')) {
+          const remoteMediaContainer =
+            document.getElementById('remote-media-div');
+          if (remoteMediaContainer) {
+            remoteMediaContainer.replaceChild(
+              publication.track.attach(),
+              remoteMediaContainer.firstChild
+            );
+          }
+        }
+        // Attach the listeners to every subscribed media track
+        if (publication.isSubscribed) {
+          handleTrackEnabled(publication.track);
+          handleTrackDisabled(publication.track);
+        }
+      });
+    });
+  }, [chatRoom.participants, showVideos]);
+
+  chatRoom.participants.forEach((participant) => {
+    // Display any new media tracks that are subscribed by participants in the room
+    participant.on('trackSubscribed', (track) => {
+      const remoteMediaContainer = document.getElementById('remote-media-div');
+      if (remoteMediaContainer) {
+        remoteMediaContainer.replaceChild(
+          track.attach(),
+          remoteMediaContainer.firstChild
+        );
+      }
+    });
+
+    participant.tracks.forEach((publication) => {
+      // When a new media track is subscribed, attach the listeners to it
+      publication.on('subscribed', handleTrackDisabled);
+      publication.on('subscribed', handleTrackEnabled);
+
+      publication.on('unsubscribed', () => {
+        // TODO - render Big Heads avatar
+        console.log('Publication unsubscribed:');
+        console.log(publication);
+      });
+
+      publication.on('subscribed', () => {
+        // TODO - render Big Heads avatar
+        console.log('Publication subscribed:');
+        console.log(publication);
+      });
+    });
+  });
+
+  // Call control buttons for local participant
   const muteAudio = (room) => {
     room.localParticipant.audioTracks.forEach((publication) => {
       publication.track.disable();
