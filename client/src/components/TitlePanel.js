@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component, useState } from 'react';
 import PomodoroTimer from './PomodoroTimer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -10,6 +10,13 @@ import {
 export default function TitlePanel({ onSelect, roomName }) {
   // EXPECTED PROPS:
   // onSelect:Function
+
+  const [showSettings, setShowSettings] = useState(false);
+  const [workMinutes, setWorkMinutes] = useState(45);
+  const [breakMinutes, setBreakMinutes] = useState(15);
+  const [secondsLeft, setSecondsLeft] = useState(0); //Each mode has independent secondsLeft state
+  const [isPaused, setIsPaused] = useState(true); //Used by pause & play buttons on timer
+  const [mode, setMode] = useState('work'); // "Work" and "Play" alternate once timer reaches 0
 
   return (
     <section className="dashboard__panel relative border bg-meringue">
@@ -37,7 +44,20 @@ export default function TitlePanel({ onSelect, roomName }) {
         {roomName}
       </h3>
 
-      <PomodoroTimer />
+      <PomodoroTimer
+        showSettings={showSettings}
+        setShowSettings={setShowSettings}
+        workMinutes={workMinutes}
+        setWorkMinutes={setWorkMinutes}
+        breakMinutes={breakMinutes}
+        setBreakMinutes={setBreakMinutes}
+        secondsLeft={secondsLeft}
+        setSecondsLeft={setSecondsLeft}
+        isPaused={isPaused}
+        setIsPaused={setIsPaused}
+        mode={mode}
+        setMode={setMode}
+      />
     </section>
   );
 }

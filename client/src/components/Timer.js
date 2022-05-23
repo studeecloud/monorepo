@@ -9,11 +9,6 @@ import {
   brands,
 } from '@fortawesome/fontawesome-svg-core/import.macro';
 
-//FIXME: Componenents have only a single onClick callback that changes isPaused state.
-// Can be removed added direclty to this document
-import PlayButton from './PlayButton';
-import PauseButton from './PauseButton';
-
 import { useState, useEffect } from 'react';
 
 export default function Timer(props) {
