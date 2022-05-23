@@ -7,16 +7,11 @@ import {
   brands,
 } from '@fortawesome/fontawesome-svg-core/import.macro';
 
-export default function TitlePanel({ onSelect, roomName }) {
-  // EXPECTED PROPS:
-  // onSelect:Function
-
-  const [showSettings, setShowSettings] = useState(false);
-  const [workMinutes, setWorkMinutes] = useState(45);
-  const [breakMinutes, setBreakMinutes] = useState(15);
-  const [secondsLeft, setSecondsLeft] = useState(0); //Each mode has independent secondsLeft state
-  const [isPaused, setIsPaused] = useState(true); //Used by pause & play buttons on timer
-  const [mode, setMode] = useState('work'); // "Work" and "Play" alternate once timer reaches 0
+export default function TitlePanel(props) {
+  const {
+    onSelect, //used in onSelect Function
+    roomName, //used in displaying roomName
+  } = props;
 
   return (
     <section className="dashboard__panel relative border bg-meringue">
@@ -44,20 +39,7 @@ export default function TitlePanel({ onSelect, roomName }) {
         {roomName}
       </h3>
 
-      <PomodoroTimer
-        showSettings={showSettings}
-        setShowSettings={setShowSettings}
-        workMinutes={workMinutes}
-        setWorkMinutes={setWorkMinutes}
-        breakMinutes={breakMinutes}
-        setBreakMinutes={setBreakMinutes}
-        secondsLeft={secondsLeft}
-        setSecondsLeft={setSecondsLeft}
-        isPaused={isPaused}
-        setIsPaused={setIsPaused}
-        mode={mode}
-        setMode={setMode}
-      />
+      <PomodoroTimer />
     </section>
   );
 }

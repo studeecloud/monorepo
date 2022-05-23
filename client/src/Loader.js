@@ -9,6 +9,7 @@ import {
 } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 import App from './App';
+import { TimerProvider } from './context/TimerContext';
 
 function Loader() {
   const [token, setToken] = useState('');
@@ -49,7 +50,9 @@ function Loader() {
   return (
     <main className="bg-teal h-screen flex flex-col justify-center">
       {token !== '' && chatRoom !== null && (
-        <App userName={userName} chatRoom={chatRoom} />
+        <TimerProvider>
+          <App userName={userName} chatRoom={chatRoom} />
+        </TimerProvider>
       )}
 
       {token === '' ||

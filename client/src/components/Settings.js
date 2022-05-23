@@ -1,4 +1,7 @@
+import { useTimer } from '../context/TimerContext';
+
 import ReactSlider from 'react-slider';
+
 import './slider.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -7,7 +10,7 @@ import {
   brands,
 } from '@fortawesome/fontawesome-svg-core/import.macro';
 
-export default function Settings(props) {
+export default function Settings() {
   // setShowSettings is booelan
   // workMinutes & setWorkMinutes and breakMinutes & setBreakMinutes are numbers
   const {
@@ -18,7 +21,7 @@ export default function Settings(props) {
     setBreakMinutes,
     secondsLeft,
     setSecondsLeft,
-  } = props;
+  } = useTimer();
 
   return (
     <div className="w-40" style={{ textAlign: 'left' }}>

@@ -1,3 +1,6 @@
+import { useEffect } from 'react';
+import { useTimer } from '../context/TimerContext';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   solid,
@@ -10,6 +13,16 @@ import RainSound from './RainSound';
 import StringSound from './StringSound';
 
 export default function TitlePanel({ onSelect }) {
+  const { secondsLeft } = useTimer();
+
+  //Function testing to see where Timer Panel secondsLeft is being reset
+  useEffect(() => {
+    console.log(
+      'testing to see what is causing secondsLeft Reset',
+      secondsLeft
+    );
+  }, [secondsLeft]);
+
   return (
     <section className="dashboard__panel relative border bg-meringue">
       <button

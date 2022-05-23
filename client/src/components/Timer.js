@@ -1,3 +1,5 @@
+import { useTimer } from '../context/TimerContext';
+
 import {
   CircularProgressbarWithChildren,
   buildStyles,
@@ -11,7 +13,7 @@ import {
 
 import { useState, useEffect } from 'react';
 
-export default function Timer(props) {
+export default function Timer() {
   // setShowSettings is booelan
   // workMinutes and breakMinutes are both numbers
   const {
@@ -24,16 +26,8 @@ export default function Timer(props) {
     setIsPaused,
     mode,
     setMode,
-  } = props;
-
-  // Helper function that plays if paused and pauses if playing. Simplifies logic by sending the same function to both play and pause buttons
-  const togglePlay = () => {
-    if (isPaused) {
-      setIsPaused(false);
-      return;
-    }
-    setIsPaused(true);
-  };
+    togglePlay,
+  } = useTimer();
 
   // Helper functions to calcuate time left in Min:Sec format
   const totalSeconds = mode === 'work' ? workMinutes * 60 : breakMinutes * 60;
