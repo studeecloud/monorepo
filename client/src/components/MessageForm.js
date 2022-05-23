@@ -33,19 +33,21 @@ export default function MessageForm({ getMessages, userName }) {
       >
         <div className="flex w-full">
           <label className="hidden">Chat with your squad</label>
-          <textarea
+          <input
+            type="text"
             className="border focus:border-2 border-dark-gray py-2 px-3 mr-2 rounded w-full"
             name="message"
             rows={1}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             style={{ resize: 'none' }}
-          ></textarea>
+          ></input>
           <input
             type="submit"
             value="Send"
             className="w-24 p-2 border-2 font-body text-meringue border-dark-gray bg-teal rounded"
             onClick={handleSubmit}
+            autoFocus={true}
           />
         </div>
       </form>
