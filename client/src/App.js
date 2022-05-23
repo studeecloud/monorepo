@@ -75,9 +75,11 @@ function App({ userName, token, chatRoom }) {
     participant.tracks.forEach((publication) => {
       // Display the media tracks of participants that are already in the room
       if (publication.track) {
-        document
-          .getElementById('remote-media-div')
-          .appendChild(publication.track.attach());
+        const remoteMediaContainer = document.getElementById('remote-media-div');
+        remoteMediaContainer.replaceChild(
+          publication.track.attach(),
+          remoteMediaContainer.firstChild
+        );
       }
       // Attach the listeners to every subscribed media track
       if (publication.isSubscribed) {
