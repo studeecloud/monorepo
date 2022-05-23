@@ -34,7 +34,7 @@ export default function MessageForm({ getMessages, userName }) {
         <div className="flex w-full">
           <label className="hidden">Chat with your squad</label>
           <textarea
-            className="border-2 border-dark-gray py-2 px-3 mr-2 rounded w-full"
+            className="border focus:border-2 border-dark-gray py-2 px-3 mr-2 rounded w-full"
             name="message"
             rows={1}
             value={message}
