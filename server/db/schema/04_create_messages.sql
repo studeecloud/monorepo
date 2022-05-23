@@ -4,5 +4,5 @@ CREATE TABLE messages (
   id SERIAL PRIMARY KEY,
   message TEXT,
   sender VARCHAR(255),
-  room_name VARCHAR(255)
+  meeting_id INT REFERENCES meetings(id)
 );
