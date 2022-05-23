@@ -8,15 +8,6 @@ import {
   brands,
 } from '@fortawesome/fontawesome-svg-core/import.macro';
 
-const sound = new Howl({
-  //TODO: Remove direct reference to localhost in file src
-  src: ['http://localhost:8080/public/Rain.mp3'],
-  html5: true,
-  preload: true,
-  loop: true,
-  volume: 0.8,
-});
-
 export default function RainSound() {
   const [playing, setPlaying] = useState(false); //Used by pause & play buttons on timer
   const src = 'http://localhost:8080/public/Rain.mp3';

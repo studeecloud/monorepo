@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Howl, Howler } from 'howler';
+import ReactHowler from 'react-howler';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   solid,
@@ -7,62 +7,34 @@ import {
   brands,
 } from '@fortawesome/fontawesome-svg-core/import.macro';
 
-//REVIEW: Slider component only necessary as stretch to incoporate volume control
-//import ReactSlider from 'react-slider';
-
-//REVIEW: Test to code here before adjusting Rain & Ghibli components
-//TODO: Refactor into single component
 export default function StringSound() {
-  const [volume, setVolume] = useState(1);
-  const decimalVolume = volume / 100.0; //volume property of Howl objects has rnage from 0-1
+  const [playing, setPlaying] = useState(false); //Used by pause & play buttons on timer
+  const src = 'http://localhost:8080/public/Strings.mp3';
 
-  // Helper call-back function that's called with the onvolume property (itself a method)
-  // onvolume is called everytime a howler object has it's volume changed
-  const volumeCheck = () => console.log('testing to see if volume changed');
+  const playSound = () => {
+    setPlaying(true);
+  };
 
-  // Directly changed via the play and pause buttons
-  // through state change, volume property is changed via slider
-  //REVIEW: Changed volume property from decimalVolume to hardcode max
-  const sound = new Howl({
-    //TODO: Remove direct reference to localhost in file src
-    src: ['http://localhost:8080/public/Strings.mp3'],
-    html5: true,
-    preload: true,
-    loop: true,
-    volume: 1,
-    onvolume: volumeCheck,
-  });
-
-  //Invoking global function to change volume based state: volume
-  //REVIEW: Removed global implementation of volume change (only used with volume slider)
-  // Howler.volume(decimalVolume);
+  const pauseSound = () => {
+    setPlaying(false);
+  };
 
   return (
     <section className="flex flex-row justify-around">
       <div>
-        <h1 className="font-body text-2xl text-center">Violin </h1>
+        <h1 className="font-body text-2xl text-center">Violin</h1>
       </div>
       <div>
-        <button
-          type="button"
-          name="playSound"
-          className="px-3"
-          onClick={() => {
-            sound.play();
-          }}
-        >
-          <FontAwesomeIcon icon={solid('circle-play')} />
-        </button>
-
-        <button
-          type="button"
-          name="playSound"
-          onClick={() => {
-            sound.pause();
-          }}
-        >
-          <FontAwesomeIcon icon={solid('circle-pause')} />
-        </button>
+        <ReactHowler playing={playing} src={[src]} />
+        {playing ? (
+          <button onClick={pauseSound}>
+            <FontAwesomeIcon icon={solid('circle-pause')} />
+          </button>
+        ) : (
+          <button onClick={playSound}>
+            <FontAwesomeIcon icon={solid('circle-play')} />
+          </button>
+        )}
       </div>
     </section>
   );
