@@ -46,7 +46,7 @@ export default function ChatPanel({ onSelect, userName }) {
   };
 
   return (
-    <section className="dashboard__panel relative border bg-meringue pb-4">
+    <section className="dashboard__panel relative border bg-meringue pb-6">
       <button
         type="button"
         className="absolute"
