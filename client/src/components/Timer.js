@@ -19,49 +19,17 @@ import { useState, useEffect } from 'react';
 export default function Timer(props) {
   // setShowSettings is booelan
   // workMinutes and breakMinutes are both numbers
-  const { setShowSettings, workMinutes, breakMinutes } = props;
-
-  const [isPaused, setIsPaused] = useState(true); //Used by pause & play buttons on timer
-  const [mode, setMode] = useState('work'); // "Work" and "Play" alternate once timer reaches 0
-  const [secondsLeft, setSecondsLeft] = useState(0); //Each mode has independent secondsLeft state
-
-  // Initializes timer with "work" mode first
-  useEffect(() => {
-    function initTimer() {
-      setSecondsLeft(workMinutes * 60);
-    }
-    initTimer();
-  }, [workMinutes]);
-
-  useEffect(() => {
-    function switchMode() {
-      const nextMode = mode === 'work' ? 'break' : 'work';
-      setMode(nextMode);
-      setSecondsLeft(
-        nextMode === 'work' ? workMinutes * 60 : breakMinutes * 60
-      );
-    }
-
-    // Decrement timer helper function
-    function tick() {
-      setSecondsLeft((prev) => prev - 1);
-    }
-
-    //Main function controlling timer countdown for both mode
-    //TODO: Rename as potential timerCountDown?
-    const interval = setInterval(() => {
-      if (isPaused) {
-        return;
-      }
-      if (secondsLeft === 0) {
-        return switchMode();
-      }
-
-      tick();
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [isPaused, secondsLeft, workMinutes, mode, breakMinutes]);
+  const {
+    setShowSettings,
+    workMinutes,
+    breakMinutes,
+    secondsLeft,
+    setSecondsLeft,
+    isPaused,
+    setIsPaused,
+    mode,
+    setMode,
+  } = props;
 
   // Helper function that plays if paused and pauses if playing. Simplifies logic by sending the same function to both play and pause buttons
   const togglePlay = () => {

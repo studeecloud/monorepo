@@ -16,6 +16,8 @@ export default function Settings(props) {
     setWorkMinutes,
     breakMinutes,
     setBreakMinutes,
+    secondsLeft,
+    setSecondsLeft,
   } = props;
 
   return (
