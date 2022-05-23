@@ -82,7 +82,6 @@ export default function Timer(props) {
 
   // Helper function to calcuate perfentage of time left
   // REVIEW: Helper function is used in CircularProgressBar Componenet.
-  // Not MVP nor does it necessarily follow our theme. Also, DaisyUI has progress bar components
   const percentage = Math.round((secondsLeft / totalSeconds) * 100);
 
   return (
@@ -92,7 +91,7 @@ export default function Timer(props) {
           value={percentage}
           styles={buildStyles({
             textColor: 'black',
-            pathColor: 'black',
+            pathColor: mode === 'work' ? 'black' : '#ffcb92',
             tailColor: 'rgba(255,255,255,.2)',
           })}
         >
