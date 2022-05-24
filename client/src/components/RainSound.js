@@ -1,6 +1,5 @@
-import { useState } from 'react';
-import { Howl } from 'howler';
-import ReactHowler from 'react-howler';
+import { useSound } from '../context/SoundContext';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   solid,
@@ -9,15 +8,16 @@ import {
 } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 export default function RainSound() {
-  const [playing, setPlaying] = useState(false); //Used by pause & play buttons on timer
-  const src = 'http://localhost:8080/public/Rain.mp3';
+  const { rain, setRain, setSrc } = useSound();
 
+  //Setsplaying state to true through HELPER FUNCTION in SoundContext.js
   const playSound = () => {
-    setPlaying(true);
+    setRain(true);
+    setSrc('http://localhost:8080/public/Rain.mp3');
   };
 
   const pauseSound = () => {
-    setPlaying(false);
+    setRain(false);
   };
 
   return (
@@ -26,8 +26,7 @@ export default function RainSound() {
         <h1 className="font-body text-2xl text-center">Rainy</h1>
       </div>
       <div>
-        <ReactHowler playing={playing} src={[src]} />
-        {playing ? (
+        {rain ? (
           <button onClick={pauseSound}>
             <FontAwesomeIcon icon={solid('circle-pause')} />
           </button>

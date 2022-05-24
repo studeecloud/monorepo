@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import ReactHowler from 'react-howler';
+import { useSound } from '../context/SoundContext';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   solid,
@@ -8,15 +8,16 @@ import {
 } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 export default function PianoSound() {
-  const [playing, setPlaying] = useState(false); //Used by pause & play buttons on timer
-  const src = 'http://localhost:8080/public/Piano.mp3';
+  const { piano, setPiano, setSrc } = useSound();
 
+  //Setsplaying state to true through HELPER FUNCTION in SoundContext.js
   const playSound = () => {
-    setPlaying(true);
+    setSrc('http://localhost:8080/public/Piano.mp3');
+    setPiano(true);
   };
 
   const pauseSound = () => {
-    setPlaying(false);
+    setPiano(false);
   };
 
   return (
@@ -25,8 +26,7 @@ export default function PianoSound() {
         <h1 className="font-body text-2xl text-center">Piano</h1>
       </div>
       <div>
-        <ReactHowler playing={playing} src={[src]} />
-        {playing ? (
+        {piano ? (
           <button onClick={pauseSound}>
             <FontAwesomeIcon icon={solid('circle-pause')} />
           </button>

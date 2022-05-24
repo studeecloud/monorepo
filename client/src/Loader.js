@@ -10,6 +10,7 @@ import {
 
 import App from './App';
 import { TimerProvider } from './context/TimerContext';
+import { SoundProvider } from './context/SoundContext';
 
 function Loader() {
   const [token, setToken] = useState('');
@@ -51,7 +52,9 @@ function Loader() {
     <main className="bg-teal h-screen flex flex-col justify-center">
       {token !== '' && twilioRoomObj !== null && (
         <TimerProvider>
-          <App userName={userName} twilioRoomObj={twilioRoomObj} />
+          <SoundProvider>
+            <App userName={userName} twilioRoomObj={twilioRoomObj} />
+          </SoundProvider>
         </TimerProvider>
       )}
 
