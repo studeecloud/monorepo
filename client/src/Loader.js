@@ -3,9 +3,7 @@ import axios from 'axios';
 import { connect, createLocalTracks } from 'twilio-video';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  solid,
-  regular,
-  brands,
+  solid
 } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 import App from './App';
@@ -30,7 +28,7 @@ function Loader() {
           setToken(res.data);
         });
     }
-  }, []);
+  }, [userName, roomName]);
 
   useEffect(() => {
     createLocalTracks({
