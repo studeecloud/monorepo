@@ -36,7 +36,7 @@ export default function ChatPanel({ onSelect, userName, roomName }) {
 
   const getMessages = () => {
     axios
-      .get(`http://localhost:8080/messages/${roomName}`)
+      .get(`https://studeecloud-server.herokuapp.com/messages/${roomName}`)
       .then((res) => {
         setMessages(res.data);
       })
