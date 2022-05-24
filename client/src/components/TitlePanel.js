@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component, useState } from 'react';
 import PomodoroTimer from './PomodoroTimer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -7,12 +7,14 @@ import {
   brands,
 } from '@fortawesome/fontawesome-svg-core/import.macro';
 
-export default function TitlePanel({ onSelect, roomName }) {
-  // EXPECTED PROPS:
-  // onSelect:Function
+export default function TitlePanel(props) {
+  const {
+    onSelect, //used in onSelect Function
+    roomName, //used in displaying roomName
+  } = props;
 
   return (
-    <section className="dashboard__panel relative border bg-gold">
+    <section className="dashboard__panel relative border bg-meringue">
       <button
         type="button"
         className="absolute"

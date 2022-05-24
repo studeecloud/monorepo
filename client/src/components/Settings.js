@@ -1,7 +1,16 @@
-import ReactSlider from 'react-slider';
-import './slider.css';
+import { useTimer } from '../context/TimerContext';
 
-export default function Settings(props) {
+import ReactSlider from 'react-slider';
+
+import './slider.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  solid,
+  regular,
+  brands,
+} from '@fortawesome/fontawesome-svg-core/import.macro';
+
+export default function Settings() {
   // setShowSettings is booelan
   // workMinutes & setWorkMinutes and breakMinutes & setBreakMinutes are numbers
   const {
@@ -10,10 +19,12 @@ export default function Settings(props) {
     setWorkMinutes,
     breakMinutes,
     setBreakMinutes,
-  } = props;
+    secondsLeft,
+    setSecondsLeft,
+  } = useTimer();
 
   return (
-    <div style={{ textAlign: 'left' }}>
+    <div className="w-40" style={{ textAlign: 'left' }}>
       <label>work: {workMinutes} </label>
       <ReactSlider
         className={'slider'}
@@ -39,7 +50,7 @@ export default function Settings(props) {
           className="btn btn-primary"
           onClick={() => setShowSettings(false)}
         >
-          Back
+          <FontAwesomeIcon icon={solid('clock')} className="h-7" />{' '}
         </button>
       </div>
     </div>

@@ -1,32 +1,12 @@
-import { useState } from 'react';
+import { useTimer } from '../context/TimerContext';
 
 import Settings from './Settings';
 import Timer from './Timer';
 
 export default function PomodoroTimer() {
-  const [showSettings, setShowSettings] = useState(false);
-  const [workMinutes, setWorkMinutes] = useState(45);
-  const [breakMinutes, setBreakMinutes] = useState(15);
+  const { showSettings } = useTimer();
 
   return (
-    <main className="w-full">
-      {showSettings ? (
-        <Settings
-          setShowSettings={setShowSettings}
-          workMinutes={workMinutes}
-          setWorkMinutes={setWorkMinutes}
-          breakMinutes={breakMinutes}
-          setBreakMinutes={setBreakMinutes}
-        />
-      ) : (
-        <Timer
-          setShowSettings={setShowSettings}
-          workMinutes={workMinutes}
-          setWorkMinutes={setWorkMinutes}
-          breakMinutes={breakMinutes}
-          setBreakMinutes={setBreakMinutes}
-        />
-      )}
-    </main>
+    <main className="w-full">{showSettings ? <Settings /> : <Timer />}</main>
   );
 }

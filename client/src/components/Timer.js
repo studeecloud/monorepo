@@ -1,3 +1,5 @@
+import { useTimer } from '../context/TimerContext';
+
 import {
   CircularProgressbarWithChildren,
   buildStyles,
@@ -9,68 +11,21 @@ import {
   brands,
 } from '@fortawesome/fontawesome-svg-core/import.macro';
 
-//FIXME: Componenents have only a single onClick callback that changes isPaused state.
-// Can be removed added direclty to this document
-import PlayButton from './PlayButton';
-import PauseButton from './PauseButton';
-
 import { useState, useEffect } from 'react';
 
-export default function Timer(props) {
-  // setShowSettings is booelan
-  // workMinutes and breakMinutes are both numbers
-  const { setShowSettings, workMinutes, breakMinutes } = props;
-
-  const [isPaused, setIsPaused] = useState(true); //Used by pause & play buttons on timer
-  const [mode, setMode] = useState('work'); // "Work" and "Play" alternate once timer reaches 0
-  const [secondsLeft, setSecondsLeft] = useState(0); //Each mode has independent secondsLeft state
-
-  // Initializes timer with "work" mode first
-  useEffect(() => {
-    function initTimer() {
-      setSecondsLeft(workMinutes * 60);
-    }
-    initTimer();
-  }, [workMinutes]);
-
-  useEffect(() => {
-    function switchMode() {
-      const nextMode = mode === 'work' ? 'break' : 'work';
-      setMode(nextMode);
-      setSecondsLeft(
-        nextMode === 'work' ? workMinutes * 60 : breakMinutes * 60
-      );
-    }
-
-    // Decrement timer helper function
-    function tick() {
-      setSecondsLeft((prev) => prev - 1);
-    }
-
-    //Main function controlling timer countdown for both mode
-    //TODO: Rename as potential timerCountDown?
-    const interval = setInterval(() => {
-      if (isPaused) {
-        return;
-      }
-      if (secondsLeft === 0) {
-        return switchMode();
-      }
-
-      tick();
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [isPaused, secondsLeft, workMinutes, mode, breakMinutes]);
-
-  // Helper function that plays if paused and pauses if playing. Simplifies logic by sending the same function to both play and pause buttons
-  const togglePlay = () => {
-    if (isPaused) {
-      setIsPaused(false);
-      return;
-    }
-    setIsPaused(true);
-  };
+export default function Timer() {
+  const {
+    setShowSettings,
+    workMinutes,
+    breakMinutes,
+    secondsLeft,
+    setSecondsLeft,
+    isPaused,
+    setIsPaused,
+    mode,
+    setMode,
+    togglePlay,
+  } = useTimer();
 
   // Helper functions to calcuate time left in Min:Sec format
   const totalSeconds = mode === 'work' ? workMinutes * 60 : breakMinutes * 60;
@@ -82,7 +37,6 @@ export default function Timer(props) {
 
   // Helper function to calcuate perfentage of time left
   // REVIEW: Helper function is used in CircularProgressBar Componenet.
-  // Not MVP nor does it necessarily follow our theme. Also, DaisyUI has progress bar components
   const percentage = Math.round((secondsLeft / totalSeconds) * 100);
 
   return (
@@ -92,7 +46,7 @@ export default function Timer(props) {
           value={percentage}
           styles={buildStyles({
             textColor: 'black',
-            pathColor: 'black',
+            pathColor: mode === 'work' ? 'black' : '#ffcb92',
             tailColor: 'rgba(255,255,255,.2)',
           })}
         >

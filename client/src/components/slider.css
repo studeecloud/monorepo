@@ -5,7 +5,7 @@
 }
 
 .thumb {
-  background-color: red;
+  background-color: black;
   cursor: pointer;
   width: 2em;
   height: 2em;
@@ -14,8 +14,8 @@
 }
 
 .slider.break {
-  border: 2px solid green;
+  border: 2px solid #ffcb92;
 }
 .slider.break .thumb {
-  background-color: green;
+  background-color: #ffcb92;
 }

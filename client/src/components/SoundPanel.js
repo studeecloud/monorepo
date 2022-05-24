@@ -1,3 +1,6 @@
+import { useEffect } from 'react';
+import { useTimer } from '../context/TimerContext';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   solid,
@@ -9,7 +12,7 @@ import PianoSound from './PianoSound';
 import RainSound from './RainSound';
 import StringSound from './StringSound';
 
-export default function TitlePanel({ onSelect }) {
+export default function SoundPanel({ onSelect }) {
   return (
     <section className="dashboard__panel relative border bg-meringue">
       <button

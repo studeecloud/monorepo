@@ -68,7 +68,6 @@ export default function VideoPanel({ onSelect, twilioRoomObj, focused }) {
       participant.tracks.forEach((publication) => {
         // If the media track is published, display it
         if (publication.track) {
-          console.log('Remote attacher 1');
           const remoteMediaContainer =
             document.getElementById('remote-media-div');
           if (remoteMediaContainer) {

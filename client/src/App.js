@@ -30,6 +30,7 @@ function App({ userName, twilioRoomObj }) {
   // const [data, setData] = useState([]); // TODO -- old code, remove
   const [panelState, setPanelState] = useState({ focused: null });
 
+  //Changes panelState by panel id
   const selectPanel = (id) => {
     setPanelState((prev) => ({
       focused: prev.focused ? null : id,
