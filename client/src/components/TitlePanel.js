@@ -10,6 +10,7 @@ import {
 export default function TitlePanel(props) {
   const {
     roomName, //used in displaying roomName
+    joinRoomLink,
   } = props;
 
   return (
@@ -26,11 +27,32 @@ export default function TitlePanel(props) {
             Study Environment
           </h2>
         </div>
+        <h2 className="font-header text-3xl text-center">
+          Collaborative
+          <br />
+          Study Environment
+        </h2>
+
+        <div className="flex items-center justify-center">
+          <h3 className="font-body text-2xl">
+            <strong>Room: </strong>
+            {roomName}
+          </h3>
+
+          <button
+            type="button"
+            className="text-body text-xl border p-2 m-3 rounded"
+            onClick={() => navigator.clipboard.writeText(joinRoomLink)}
+          >
+            Copy room link
+          </button>
+        </div>
 
         <h3 className="font-body text-2xl text-center">
-          <strong>Room: </strong>
-          {roomName}
+          Share your room link with your team!
         </h3>
+
+        <PomodoroTimer />
       </div>
     </section>
   );
