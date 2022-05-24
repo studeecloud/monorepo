@@ -76,6 +76,7 @@ function App({ userName, twilioRoomObj }) {
           />
         );
       else if (panel.id === 4) return <SoundPanel key={4} />;
+      return null;
     });
 
   return <main className={dashboardClasses}>{panels}</main>;
