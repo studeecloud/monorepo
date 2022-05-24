@@ -32,14 +32,13 @@ export default function ChatPanel({ onSelect, userName, roomName }) {
 
   useInterval(() => {
     getMessages();
-  }, 250);
+  }, 1000);
 
   const getMessages = () => {
     axios
       .get(`http://localhost:8080/messages/${roomName}`)
       .then((res) => {
         setMessages(res.data);
-        console.log('message data: ', messages);
       })
       .catch((err) => {
         console.log(err);
@@ -63,7 +62,11 @@ export default function ChatPanel({ onSelect, userName, roomName }) {
         <div>
           <MessageList messages={messages} />
         </div>
-        <MessageForm getMessages={getMessages} userName={userName} roomName={roomName} />
+        <MessageForm
+          getMessages={getMessages}
+          userName={userName}
+          roomName={roomName}
+        />
       </article>
     </section>
   );

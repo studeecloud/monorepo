@@ -86,15 +86,7 @@ function App({ userName, twilioRoomObj }) {
       (panel) => panelState.focused === null || panelState.focused === panel.id
     )
     .map((panel) => {
-      if (panel.id === 1)
-        return (
-          <TitlePanel
-            key={1}
-            roomName={roomName}
-            onSelect={() => selectPanel(1)}
-            joinRoomLink={joinRoomLink}
-          />
-        );
+      if (panel.id === 1) return <TitlePanel key={1} roomName={roomName} />;
       else if (panel.id === 2)
         return (
           <VideoPanel
@@ -113,8 +105,7 @@ function App({ userName, twilioRoomObj }) {
             roomName={roomName}
           />
         );
-      else if (panel.id === 4)
-        return <SoundPanel key={4} onSelect={() => selectPanel(4)} />;
+      else if (panel.id === 4) return <SoundPanel key={4} />;
     });
 
   return <main className={dashboardClasses}>{panels}</main>;
