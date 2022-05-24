@@ -325,7 +325,7 @@ export default function VideoPanel({ onSelect, twilioRoomObj, focused }) {
           </h1>
 
           <div className="grid grid-rows-2 grid-cols-2 gap-3">
-            <div className="w-48 mx-auto flex flex-col items-center border-2 border-dark-gray">
+            <div className="w-7/12 mx-auto flex flex-col items-center border-2 border-dark-gray rounded">
               <div id="local-media-div">
                 <div className="flex flex-col items-center">
                   <BigHead className="w-1/2 mb-3" />
@@ -334,7 +334,7 @@ export default function VideoPanel({ onSelect, twilioRoomObj, focused }) {
               </div>
               <div
                 id="callControlPanel"
-                className="w-48 mt-2 mb-1 flex justify-around"
+                className="w-7/12 mt-2 mb-1 flex justify-around"
               >
                 <button
                   type="button"
@@ -372,7 +372,7 @@ export default function VideoPanel({ onSelect, twilioRoomObj, focused }) {
 
             <div
               id="remote-media-div"
-              className="w-48 border-2 border-dark-gray mx-auto"
+              className="w-7/12 border-2 border-dark-gray mx-auto rounded"
             >
               <div className="flex flex-col items-center">
                 <BigHead className="w-1/2 mb-3" />
@@ -380,14 +380,14 @@ export default function VideoPanel({ onSelect, twilioRoomObj, focused }) {
               </div>
             </div>
 
-            <div className="w-48 border-2 border-dark-gray mx-auto">
+            <div className="w-7/12 border-2 border-dark-gray mx-auto rounded">
               <div className="flex flex-col items-center">
                 <BigHead className="w-1/2 mb-3" />
                 KEHAN
               </div>
             </div>
 
-            <div className="w-48 border-2 border-dark-gray mx-auto">
+            <div className="w-7/12 border-2 border-dark-gray mx-auto rounded">
               <div className="flex flex-col items-center">
                 <BigHead className="w-1/2 mb-3" />
                 GONZO
