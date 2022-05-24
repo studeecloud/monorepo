@@ -32,7 +32,7 @@ export default function ChatPanel({ onSelect, userName, roomName }) {
 
   useInterval(() => {
     getMessages();
-  }, 250);
+  }, 1000);
 
   const getMessages = () => {
     axios
@@ -63,7 +63,11 @@ export default function ChatPanel({ onSelect, userName, roomName }) {
         <div>
           <MessageList messages={messages} />
         </div>
-        <MessageForm getMessages={getMessages} userName={userName} roomName={roomName} />
+        <MessageForm
+          getMessages={getMessages}
+          userName={userName}
+          roomName={roomName}
+        />
       </article>
     </section>
   );
