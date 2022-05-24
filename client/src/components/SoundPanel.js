@@ -9,16 +9,16 @@ export default function SoundPanel() {
       <div className="flex flex-col h-full">
         <div className="flex">
           <div className="w-1/2">
-            <h1 className="mt-3 mb-2 font-display text-4xl text-center">
+            <h1 className="mt-3 mb-2 font-display text-deep-purple text-4xl text-center">
               Soundboard
             </h1>
-            <h2 className="mb-3 font-body text-lg text-center">SFX</h2>
+            <h2 className="mb-3 font-header text-lg text-center"><strong>SFX</strong></h2>
           </div>
           <div className="w-1/2">
-            <h1 className="mt-3 mb-2 font-display text-4xl text-center">
+            <h1 className="mt-3 mb-2 font-display text-deep-purple text-4xl text-center">
               Timer
             </h1>
-            <h2 className="mb-3 font-body text-lg text-center">Stay on task</h2>
+            <h2 className="mb-3 font-header text-lg text-center"><strong>Stay on task</strong></h2>
           </div>
         </div>
 
