@@ -1,6 +1,0 @@
-DROP TABLE IF EXISTS meetings CASCADE;
-
-CREATE TABLE meetings (
-  id SERIAL PRIMARY KEY,
-  meeting_name VARCHAR(255) NOT NULL
-);

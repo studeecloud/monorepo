@@ -6,7 +6,7 @@ import { BigHead } from '@bigheads/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
-export default function ChatPanel({ onSelect, userName }) {
+export default function ChatPanel({ onSelect, userName, roomName }) {
   const [messages, setMessages] = useState([]);
 
   // Custom hook useInterval will take an action on a set time interval
@@ -36,9 +36,10 @@ export default function ChatPanel({ onSelect, userName }) {
 
   const getMessages = () => {
     axios
-      .get('http://localhost:8080/messages')
+      .get(`http://localhost:8080/messages/${roomName}`)
       .then((res) => {
         setMessages(res.data);
+        console.log('message data: ', messages);
       })
       .catch((err) => {
         console.log(err);
@@ -62,7 +63,7 @@ export default function ChatPanel({ onSelect, userName }) {
         <div>
           <MessageList messages={messages} />
         </div>
-        <MessageForm getMessages={getMessages} userName={userName} />
+        <MessageForm getMessages={getMessages} userName={userName} roomName={roomName} />
       </article>
     </section>
   );
