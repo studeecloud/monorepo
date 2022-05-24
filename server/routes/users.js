@@ -5,7 +5,7 @@ module.exports = (db) => {
     const command = "SELECT * FROM users";
     db.query(command)
       .then(data => {
-        return res.json(data.rows);
+        res.json(data.rows);
       })
   });
   return router;

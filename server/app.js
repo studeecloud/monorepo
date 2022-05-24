@@ -31,7 +31,7 @@ app.use('/video', videoRoutes());
 app.use('/messages', messagesRoutes(db));
 
 app.get('/', (req, res) => {
-  return res.json({ greetings: 'hello world' });
+  res.json({ greetings: 'hello world' });
 });
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
