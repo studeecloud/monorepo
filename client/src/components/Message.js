@@ -7,7 +7,7 @@ export default function Message(props) {
         </h2>
       </header>
 
-      <p className="my-auto ml-3 font-body">{props.body}</p>
+      <p className="my-auto ml-3 font-body break-all">{props.body}</p>
     </article>
   );
 }
