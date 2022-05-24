@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 module.exports = (db) => {
   router.get('/', (req, res) => {
-    const getMessages = 'SELECT * FROM messages';
+    const getMessages = 'SELECT * FROM messages JOIN meetings ON meeting_id = meetings.id WHERE meeting_id = 1';
     db.query(getMessages).then((data) => {
       // console.log('message data', data.rows);
       res.json(data.rows);
