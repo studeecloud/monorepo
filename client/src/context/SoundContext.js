@@ -25,7 +25,7 @@ function SoundProvider({ children }) {
   return (
     <SoundContext.Provider value={states}>
       {children}
-      <ReactHowler playing={playing} src={[src]} />
+      <ReactHowler playing={playing} loop={true} volume={0.6} src={[src]} />
     </SoundContext.Provider>
   );
 }
