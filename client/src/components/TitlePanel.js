@@ -1,7 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  light
-} from '@fortawesome/fontawesome-svg-core/import.macro';
+import { light } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 export default function TitlePanel(props) {
   const {
