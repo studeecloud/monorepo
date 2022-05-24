@@ -36,7 +36,7 @@ export default function TitlePanel(props) {
             className="text-body text-xl border p-2 m-3 rounded"
             onClick={() => navigator.clipboard.writeText(joinRoomLink)}
           >
-            Copy room link
+            <FontAwesomeIcon icon={light('clone')} />
           </button>
         </div>
 
