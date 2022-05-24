@@ -1,5 +1,3 @@
-import { Component, useState } from 'react';
-import PomodoroTimer from './PomodoroTimer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   light
