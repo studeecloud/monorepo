@@ -9,6 +9,8 @@ import SoundPanel from './components/SoundPanel';
 function App({ userName, twilioRoomObj }) {
   const roomName = twilioRoomObj.name;
 
+  const joinRoomLink = window.location.origin + '/join_room.html?room=' + roomName;
+
   const [panelState, setPanelState] = useState({ focused: null });
 
   //Changes panelState by panel id
