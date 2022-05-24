@@ -24,8 +24,8 @@ import VideoPanel from './components/VideoPanel';
 import ChatPanel from './components/ChatPanel';
 import SoundPanel from './components/SoundPanel';
 
-function App({ userName, token, chatRoom }) {
-  const roomName = chatRoom.name;
+function App({ userName, twilioRoomObj }) {
+  const roomName = twilioRoomObj.name;
 
   // const [data, setData] = useState([]); // TODO -- old code, remove
   const [panelState, setPanelState] = useState({ focused: null });
@@ -94,7 +94,7 @@ function App({ userName, token, chatRoom }) {
         return (
           <VideoPanel
             key={2}
-            chatRoom={chatRoom}
+            twilioRoomObj={twilioRoomObj}
             onSelect={() => selectPanel(2)}
             focused={panelState.focused === 2}
           />

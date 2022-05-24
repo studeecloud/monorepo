@@ -13,7 +13,7 @@ import { TimerProvider } from './context/TimerContext';
 
 function Loader() {
   const [token, setToken] = useState('');
-  const [chatRoom, setChatRoom] = useState(null);
+  const [twilioRoomObj, setTwilioRoomObj] = useState(null);
 
   const queryParams = new URLSearchParams(window.location.search);
   const userName = queryParams.get('username');
@@ -43,20 +43,20 @@ function Loader() {
       .then((room) => {
         console.log(`Room joined: ${room.name}`);
         console.log(room);
-        setChatRoom(room);
+        setTwilioRoomObj(room);
       });
   }, [token]);
 
   return (
     <main className="bg-teal h-screen flex flex-col justify-center">
-      {token !== '' && chatRoom !== null && (
+      {token !== '' && twilioRoomObj !== null && (
         <TimerProvider>
-          <App userName={userName} chatRoom={chatRoom} />
+          <App userName={userName} twilioRoomObj={twilioRoomObj} />
         </TimerProvider>
       )}
 
       {token === '' ||
-        (chatRoom === null && (
+        (twilioRoomObj === null && (
           <>
             <h1 className="mb-12 font-display text-7xl text-meringue text-center">
               StudeeCloud
