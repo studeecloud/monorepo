@@ -8,7 +8,7 @@ import {
   brands,
 } from '@fortawesome/fontawesome-svg-core/import.macro';
 
-import Timer from './Timer';
+import PomodoroTimer from './PomodoroTimer';
 import PianoSound from './PianoSound';
 import RainSound from './RainSound';
 import StringSound from './StringSound';
@@ -40,7 +40,7 @@ export default function SoundPanel() {
           </div>
 
           <div className="w-1/2 border-l-2 border-dashed">
-            <Timer />
+            <PomodoroTimer />
           </div>
         </div>
       </div>
