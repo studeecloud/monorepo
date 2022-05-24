@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import MessageForm from './MessageForm';
 import MessageList from './MessageList';
-import { BigHead } from '@bigheads/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
