@@ -20,17 +20,6 @@ export default function VideoPanel({ onSelect, twilioRoomObj, focused }) {
     setShowVideos(true);
   };
 
-  // Display a local camera preview
-  createLocalVideoTrack().then((track) => {
-    if (document.getElementById('local-media-div')) {
-      const localMediaContainer = document.getElementById('local-media-div');
-      localMediaContainer.replaceChild(
-        track.attach(),
-        localMediaContainer.firstChild
-      );
-    }
-  });
-
   // If we receive an event indicating a track was disabled, execute the code inside
   function handleTrackDisabled(track) {
     track.off('disabled', () => {
@@ -61,6 +50,18 @@ export default function VideoPanel({ onSelect, twilioRoomObj, focused }) {
   }
 
   useEffect(() => {
+    // Display a local camera preview
+    createLocalVideoTrack().then((track) => {
+      if (document.getElementById('local-media-div')) {
+        const localMediaContainer = document.getElementById('local-media-div');
+        console.log('LOCAL MEDIA ATTACHER');
+        localMediaContainer.replaceChild(
+          track.attach(),
+          localMediaContainer.firstChild
+        );
+      }
+    });
+
     // Iterate over remote participants in the room
     twilioRoomObj.participants.forEach((participant) => {
       // Iterate over media tracks for the participant
