@@ -63,7 +63,7 @@ export default function ChatPanel({ onSelect, userName, roomName }) {
         <div>
           <MessageList messages={messages} />
         </div>
-        <MessageForm getMessages={getMessages} userName={userName} />
+        <MessageForm getMessages={getMessages} userName={userName} roomName={roomName} />
       </article>
     </section>
   );

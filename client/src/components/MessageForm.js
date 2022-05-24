@@ -8,7 +8,7 @@ import axios from 'axios';
  * @param {String} userName 
  * @returns MessageForm component
  */
-export default function MessageForm({ getMessages, userName }) {
+export default function MessageForm({ getMessages, userName, roomName }) {
   const [message, setMessage] = useState('');
 
   // Prevents default behaviour of the form navigating to '/messages'
@@ -23,8 +23,11 @@ export default function MessageForm({ getMessages, userName }) {
       .post('http://localhost:8080/messages', {
         message: message,
         userName: userName || 'NullUser',
+        roomName: roomName,
       })
       .then((res) => {
+        console.log('LOGGING res data');
+        console.log(res);
         getMessages();
       })
       .catch((err) => {
