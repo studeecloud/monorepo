@@ -2,9 +2,7 @@ import { Component, useState } from 'react';
 import PomodoroTimer from './PomodoroTimer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  solid,
-  regular,
-  brands,
+  light
 } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 export default function TitlePanel(props) {
@@ -27,12 +25,6 @@ export default function TitlePanel(props) {
             Study Environment
           </h2>
         </div>
-        <h2 className="font-header text-3xl text-center">
-          Collaborative
-          <br />
-          Study Environment
-        </h2>
-
         <div className="flex items-center justify-center">
           <h3 className="font-body text-2xl">
             <strong>Room: </strong>
