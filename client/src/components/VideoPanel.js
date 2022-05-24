@@ -3,8 +3,6 @@ import { BigHead } from '@bigheads/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import {
-  connect,
-  createLocalTracks,
   createLocalVideoTrack,
 } from 'twilio-video';
 
