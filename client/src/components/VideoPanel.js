@@ -8,7 +8,7 @@ import {
   createLocalVideoTrack,
 } from 'twilio-video';
 
-export default function VideoPanel({ onSelect, chatRoom, focused }) {
+export default function VideoPanel({ onSelect, twilioRoomObj, focused }) {
   // TODO -- Update this so the Big Heads aren't regenerated on each click to this panel
   const [showVideos, setShowVideos] = useState(true);
 
@@ -24,6 +24,7 @@ export default function VideoPanel({ onSelect, chatRoom, focused }) {
   createLocalVideoTrack().then((track) => {
     if (document.getElementById('local-media-div')) {
       const localMediaContainer = document.getElementById('local-media-div');
+      console.log('LOCAL MEDIA ATTACHER');
       localMediaContainer.replaceChild(
         track.attach(),
         localMediaContainer.firstChild
@@ -33,6 +34,12 @@ export default function VideoPanel({ onSelect, chatRoom, focused }) {
 
   // If we receive an event indicating a track was disabled, execute the code inside
   function handleTrackDisabled(track) {
+    track.off('disabled', () => {
+      // TODO - render Big Head avatar
+      console.log('Track disabled:');
+      console.log(track);
+    });
+
     track.on('disabled', () => {
       // TODO - render Big Head avatar
       console.log('Track disabled:');
@@ -41,6 +48,12 @@ export default function VideoPanel({ onSelect, chatRoom, focused }) {
   }
   // If we receive an event indicating a track was enabled, execute the code inside
   function handleTrackEnabled(track) {
+    track.off('enabled', () => {
+      // TODO - render Big Head avatar
+      console.log('Track enabled:');
+      console.log(track);
+    });
+
     track.on('enabled', () => {
       // TODO - render Big Head avatar
       console.log('Track enabled:');
@@ -50,11 +63,12 @@ export default function VideoPanel({ onSelect, chatRoom, focused }) {
 
   useEffect(() => {
     // Iterate over remote participants in the room
-    chatRoom.participants.forEach((participant) => {
+    twilioRoomObj.participants.forEach((participant) => {
       // Iterate over media tracks for the participant
       participant.tracks.forEach((publication) => {
         // If the media track is published, display it
         if (publication.track) {
+          console.log('Remote attacher 1');
           const remoteMediaContainer =
             document.getElementById('remote-media-div');
           if (remoteMediaContainer) {
@@ -69,6 +83,21 @@ export default function VideoPanel({ onSelect, chatRoom, focused }) {
           handleTrackEnabled(publication.track);
           handleTrackDisabled(publication.track);
         }
+
+        // First remove existing event listeners to avoid errors related to too many event listeners
+        publication.off('subscribed', handleTrackDisabled);
+        publication.off('subscribed', handleTrackEnabled);
+
+        publication.off('unsubscribed', () => {
+          // TODO - render Big Heads avatar
+          console.log('Publication unsubscribed:');
+          console.log(publication);
+        });
+
+        publication.off('subscribed', () => {
+          console.log('Publication subscribed:');
+          console.log(publication);
+        });
 
         // When a new media track is subscribed, attach the listeners to it
         publication.on('subscribed', handleTrackDisabled);
@@ -87,7 +116,21 @@ export default function VideoPanel({ onSelect, chatRoom, focused }) {
       });
 
       // Display any new media tracks that are subscribed by participants in the room
+      participant.off('trackSubscribed', (track) => {
+        const remoteMediaContainer =
+          document.getElementById('remote-media-div');
+        if (remoteMediaContainer) {
+          remoteMediaContainer.replaceChild(
+            track.attach(),
+            remoteMediaContainer.firstChild
+          );
+        }
+
+        participant.tracks.forEach((publication) => {});
+      });
+
       participant.on('trackSubscribed', (track) => {
+        console.log('Remote attacher 2');
         const remoteMediaContainer =
           document.getElementById('remote-media-div');
         if (remoteMediaContainer) {
@@ -100,45 +143,118 @@ export default function VideoPanel({ onSelect, chatRoom, focused }) {
         participant.tracks.forEach((publication) => {});
       });
     });
-  }, [chatRoom, focused, showVideos]);
 
-  // When a new participant connects, display their published media tracks
-  chatRoom.on('participantConnected', (participant) => {
-    // When a participant joins, we iterate over the possible media tracks that they might be broadcasting at the time that they join the Room
-    participant.tracks.forEach((publication) => {
-      // If a given media track is being broadcast, we grab it and use it to replace the existing child of 'remote-media-div'
-      if (publication.isSubscribed) {
-        const track = publication.track;
+    // When a new participant connects, display their published media tracks
+    twilioRoomObj.off('participantConnected', (participant) => {
+      // When a participant joins, we iterate over the possible media tracks that they might be broadcasting at the time that they join the Room
+      participant.tracks.forEach((publication) => {
+        // If a given media track is being broadcast, we grab it and use it to replace the existing child of 'remote-media-div'
+        if (publication.isSubscribed) {
+          const track = publication.track;
+          const remoteMediaContainer =
+            document.getElementById('remote-media-div');
+          remoteMediaContainer.replaceChild(
+            track.attach(),
+            remoteMediaContainer.firstChild
+          );
+        }
+      });
+
+      // If a participant begins broadcasting a media track that they were not broadcasting when they joined the call, this event is triggered
+      participant.off('trackSubscribed', (track) => {
+        // When that happens, we use it to replace the existing child of 'remote-media-div'
         const remoteMediaContainer =
           document.getElementById('remote-media-div');
-        remoteMediaContainer.replaceChild(
-          track.attach(),
-          remoteMediaContainer.firstChild
-        );
-      }
+        if (remoteMediaContainer) {
+          remoteMediaContainer.replaceChild(
+            track.attach(),
+            remoteMediaContainer.firstChild
+          );
+        }
+      });
+
+      participant.on('trackSubscribed', (track) => {
+        console.log('Remote attacher 3');
+        // When that happens, we use it to replace the existing child of 'remote-media-div'
+        const remoteMediaContainer =
+          document.getElementById('remote-media-div');
+        if (remoteMediaContainer) {
+          remoteMediaContainer.replaceChild(
+            track.attach(),
+            remoteMediaContainer.firstChild
+          );
+        }
+      });
     });
 
-    // If a participant begins broadcasting a media track that they were not broadcasting when they joined the call, this event is triggered
-    participant.on('trackSubscribed', (track) => {
-      // When that happens, we use it to replace the existing child of 'remote-media-div'
-      const remoteMediaContainer = document.getElementById('remote-media-div');
-      if (remoteMediaContainer) {
-        remoteMediaContainer.replaceChild(
-          track.attach(),
-          remoteMediaContainer.firstChild
-        );
-      }
+    twilioRoomObj.on('participantConnected', (participant) => {
+      // When a participant joins, we iterate over the possible media tracks that they might be broadcasting at the time that they join the Room
+      participant.tracks.forEach((publication) => {
+        // If a given media track is being broadcast, we grab it and use it to replace the existing child of 'remote-media-div'
+        if (publication.isSubscribed) {
+          console.log('Remote attacher 4');
+          const track = publication.track;
+          const remoteMediaContainer =
+            document.getElementById('remote-media-div');
+          remoteMediaContainer.replaceChild(
+            track.attach(),
+            remoteMediaContainer.firstChild
+          );
+        }
+      });
+
+      // If a participant begins broadcasting a media track that they were not broadcasting when they joined the call, this event is triggered
+      participant.off('trackSubscribed', (track) => {
+        // When that happens, we use it to replace the existing child of 'remote-media-div'
+        const remoteMediaContainer =
+          document.getElementById('remote-media-div');
+        if (remoteMediaContainer) {
+          remoteMediaContainer.replaceChild(
+            track.attach(),
+            remoteMediaContainer.firstChild
+          );
+        }
+      });
+
+      participant.on('trackSubscribed', (track) => {
+        console.log('Remote attacher 5');
+        // When that happens, we use it to replace the existing child of 'remote-media-div'
+        const remoteMediaContainer =
+          document.getElementById('remote-media-div');
+        if (remoteMediaContainer) {
+          remoteMediaContainer.replaceChild(
+            track.attach(),
+            remoteMediaContainer.firstChild
+          );
+        }
+      });
     });
-  });
-  // When a participant disconnects, detach their media tracks
-  chatRoom.on('participantDisconnected', (participant) => {
-    participant.tracks.forEach((publication) => {
-      console.log('Participant "%s" disconnected', participant.identity);
-      // TODO: Find the correct code for clearing the media track div, or just replace with avatar
+
+    // When a participant disconnects, detach their media tracks
+    twilioRoomObj.off('participantDisconnected', (participant) => {
+      participant.tracks.forEach((publication) => {
+        console.log('Participant "%s" disconnected', participant.identity);
+        // TODO: Find the correct code for clearing the media track div, or just replace with avatar
+      });
+    });
+
+    twilioRoomObj.on('participantDisconnected', (participant) => {
+      participant.tracks.forEach((publication) => {
+        console.log('Participant "%s" disconnected', participant.identity);
+        // TODO: Find the correct code for clearing the media track div, or just replace with avatar
+      });
+    });
+  }, [twilioRoomObj, focused, showVideos]);
+
+  twilioRoomObj.off('disconnected', (room) => {
+    // Detach local media elements
+    room.localParticipant.tracks.forEach((publication) => {
+      const attachedElements = publication.track.detach();
+      attachedElements.forEach((element) => element.remove());
     });
   });
 
-  chatRoom.on('disconnected', (room) => {
+  twilioRoomObj.on('disconnected', (room) => {
     // Detach local media elements
     room.localParticipant.tracks.forEach((publication) => {
       const attachedElements = publication.track.detach();
@@ -224,7 +340,7 @@ export default function VideoPanel({ onSelect, chatRoom, focused }) {
                 <button
                   type="button"
                   name="videoOff"
-                  onClick={() => muteVideo(chatRoom)}
+                  onClick={() => muteVideo(twilioRoomObj)}
                 >
                   <FontAwesomeIcon icon={solid('video-slash')} />
                 </button>
@@ -232,7 +348,7 @@ export default function VideoPanel({ onSelect, chatRoom, focused }) {
                 <button
                   type="button"
                   name="videoOn"
-                  onClick={() => enableVideo(chatRoom)}
+                  onClick={() => enableVideo(twilioRoomObj)}
                 >
                   <FontAwesomeIcon icon={solid('video')} />
                 </button>
@@ -240,7 +356,7 @@ export default function VideoPanel({ onSelect, chatRoom, focused }) {
                 <button
                   type="button"
                   name="micOff"
-                  onClick={() => muteAudio(chatRoom)}
+                  onClick={() => muteAudio(twilioRoomObj)}
                 >
                   <FontAwesomeIcon icon={solid('microphone-slash')} />
                 </button>
@@ -248,18 +364,10 @@ export default function VideoPanel({ onSelect, chatRoom, focused }) {
                 <button
                   type="button"
                   name="micOn"
-                  onClick={() => enableAudio(chatRoom)}
+                  onClick={() => enableAudio(twilioRoomObj)}
                 >
                   <FontAwesomeIcon icon={solid('microphone')} />
                 </button>
-
-                {/* <button
-              type="button"
-              name="disconnect"
-              onClick={() => chatRoom.disconnect()}
-            >
-              <FontAwesomeIcon icon={solid('phone-slash')} />
-            </button> */}
               </div>
             </div>
 
