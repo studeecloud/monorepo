@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import ReactHowler from 'react-howler';
+import { useSound } from '../context/SoundContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   solid,
@@ -8,15 +7,16 @@ import {
 } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 export default function StringSound() {
-  const [playing, setPlaying] = useState(false); //Used by pause & play buttons on timer
-  const src = 'http://localhost:8080/public/Strings.mp3';
+  const { string, setString, setSrc } = useSound();
 
+  //Setsplaying state to true through HELPER FUNCTION in SoundContext.js
   const playSound = () => {
-    setPlaying(true);
+    setString(true);
+    setSrc('http://localhost:8080/public/Strings.mp3');
   };
 
   const pauseSound = () => {
-    setPlaying(false);
+    setString(false);
   };
 
   return (
@@ -25,8 +25,7 @@ export default function StringSound() {
         <h1 className="font-body text-2xl text-center">Violin</h1>
       </div>
       <div>
-        <ReactHowler playing={playing} src={[src]} />
-        {playing ? (
+        {string ? (
           <button onClick={pauseSound}>
             <FontAwesomeIcon icon={solid('circle-pause')} />
           </button>
