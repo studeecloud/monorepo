@@ -43,8 +43,6 @@ export default function TitlePanel(props) {
         <h3 className="font-body text-2xl text-center">
           Share your room link with your team!
         </h3>
-
-        <PomodoroTimer />
       </div>
     </section>
   );
