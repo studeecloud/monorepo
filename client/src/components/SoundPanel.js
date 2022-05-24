@@ -13,7 +13,7 @@ import PianoSound from './PianoSound';
 import RainSound from './RainSound';
 import StringSound from './StringSound';
 
-export default function SoundPanel({ onSelect }) {
+export default function SoundPanel() {
   return (
     <section className="dashboard__panel relative border bg-meringue">
       <div className="flex flex-col h-full">

@@ -9,7 +9,6 @@ import {
 
 export default function TitlePanel(props) {
   const {
-    onSelect, //used in onSelect Function
     roomName, //used in displaying roomName
   } = props;
 
