@@ -4,7 +4,7 @@ module.exports = (db) => {
   router.get('/:meetingName', (req, res) => {
     const getMessages = `SELECT id, message, sender, meeting_name FROM messages WHERE meeting_name = '${req.params.meetingName}';`;
     db.query(getMessages).then((data) => {
-      res.json(data.rows);
+      return res.json(data.rows);
     });
   });
 
@@ -20,7 +20,7 @@ module.exports = (db) => {
         req.body.userName,
         req.body.roomName,
       ]).then((data) => {
-        res.json({ status: 'success' });
+        return res.json({ status: 'success' });
       });
     });
   });

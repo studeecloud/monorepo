@@ -22,7 +22,7 @@ module.exports = () => {
     token.addGrant(videoGrant);
 
     // Serialize the token to a JWT string
-    res.send(token.toJwt());
+    return res.send(token.toJwt());
   });
   return router;
 };
