@@ -27,6 +27,10 @@ import SoundPanel from './components/SoundPanel';
 function App({ userName, twilioRoomObj }) {
   const roomName = twilioRoomObj.name;
 
+  const [joinRoomLink, setJoinRoomLink] = useState(
+    window.location.origin + '/join_room.html?room=' + roomName
+  );
+
   // const [data, setData] = useState([]); // TODO -- old code, remove
   const [panelState, setPanelState] = useState({ focused: null });
 
@@ -88,6 +92,7 @@ function App({ userName, twilioRoomObj }) {
             key={1}
             roomName={roomName}
             onSelect={() => selectPanel(1)}
+            joinRoomLink={joinRoomLink}
           />
         );
       else if (panel.id === 2)
