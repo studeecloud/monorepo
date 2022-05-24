@@ -1,13 +1,3 @@
-import { useEffect } from 'react';
-import { useTimer } from '../context/TimerContext';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  solid,
-  regular,
-  brands,
-} from '@fortawesome/fontawesome-svg-core/import.macro';
-
 import PomodoroTimer from './PomodoroTimer';
 import PianoSound from './PianoSound';
 import RainSound from './RainSound';
