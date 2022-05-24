@@ -58,7 +58,7 @@ export default function MessageForm({ getMessages, userName, roomName }) {
         ></input>
         <button
           type="submit"
-          className="w-24 p-2 border-2 font-body text-meringue border-dark-gray bg-teal rounded"
+          className="w-24 p-2 border-2 font-body text-meringue border-dark-gray bg-teal rounded flex items-center justify-center"
           onClick={handleSubmit}
           autoFocus={true}
         >
