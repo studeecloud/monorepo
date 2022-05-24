@@ -105,6 +105,7 @@ function App({ userName, twilioRoomObj }) {
             key={3}
             onSelect={() => selectPanel(3)}
             userName={userName}
+            roomName={roomName}
           />
         );
       else if (panel.id === 4)
