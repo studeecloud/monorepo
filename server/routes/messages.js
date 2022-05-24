@@ -1,9 +1,9 @@
 const router = require('express').Router();
 
 module.exports = (db) => {
-  router.get('/', (req, res) => {
+  router.get('/:meetingName', (req, res) => {
     // TODO - get meeting name from req
-    const getMessages = `SELECT messages.id, message, sender FROM messages JOIN meetings ON meeting_id = meetings.id WHERE meeting_id = (SELECT id FROM meetings WHERE meeting_name = 'the good place');`;
+    const getMessages = `SELECT messages.id, message, sender FROM messages JOIN meetings ON meeting_id = meetings.id WHERE meeting_id = (SELECT id FROM meetings WHERE meeting_name = ${req.params.meetingName});`;
     db.query(getMessages).then((data) => {
       // console.log('message data', data.rows);
       res.json(data.rows);
